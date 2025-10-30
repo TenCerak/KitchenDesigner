@@ -1,0 +1,326 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    xmlns:horizonos="http://schemas.horizonos/sdk"
+4    package="cz.cerovsky.KitchenDesigner"
+5    android:installLocation="auto"
+6    android:versionCode="1"
+7    android:versionName="1.0.0" >
+8
+9    <uses-sdk
+10        android:minSdkVersion="24"
+11        android:targetSdkVersion="35" />
+12
+13    <supports-screens
+13-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:8:5-12:40
+14        android:largeScreens="true"
+14-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:11:9-36
+15        android:normalScreens="true"
+15-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:10:9-37
+16        android:smallScreens="true"
+16-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:9:9-36
+17        android:xlargeScreens="true" />
+17-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:12:9-37
+18
+19    <uses-feature
+19-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:14:5-16:35
+20        android:glEsVersion="0x00030000"
+20-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:15:9-41
+21        android:required="true" />
+21-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:16:9-32
+22
+23    <uses-permission android:name="android.permission.INTERNET" />
+23-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:11:5-67
+23-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:11:22-64
+24    <uses-permission android:name="com.oculus.permission.HAND_TRACKING" />
+24-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:12:5-75
+24-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:12:22-72
+25
+26    <uses-feature
+26-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:13:5-111
+27        android:name="oculus.software.handtracking"
+27-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:13:40-83
+28        android:required="false" />
+28-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:13:84-108
+29
+30    <horizonos:uses-horizonos-sdk
+30-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\edc3574632a0c00d5e8695094055d848\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:8:5-10:43
+31        horizonos:minSdkVersion="69"
+31-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\edc3574632a0c00d5e8695094055d848\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:9:9-37
+32        horizonos:targetSdkVersion="69" /> <!-- Khronos OpenXR loader manifest content (v1.0.34) -->
+32-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\edc3574632a0c00d5e8695094055d848\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:10:9-40
+33    <uses-permission android:name="org.khronos.openxr.permission.OPENXR" />
+33-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\edc3574632a0c00d5e8695094055d848\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:13:5-76
+33-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\edc3574632a0c00d5e8695094055d848\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:13:22-73
+34    <uses-permission android:name="org.khronos.openxr.permission.OPENXR_SYSTEM" />
+34-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\edc3574632a0c00d5e8695094055d848\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:14:5-83
+34-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\edc3574632a0c00d5e8695094055d848\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:14:22-80
+35
+36    <queries>
+36-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\edc3574632a0c00d5e8695094055d848\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:16:5-28:15
+37
+38        <!-- to talk to the broker -->
+39        <provider android:authorities="org.khronos.openxr.runtime_broker;org.khronos.openxr.system_runtime_broker" />
+39-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\edc3574632a0c00d5e8695094055d848\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:19:9-118
+39-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\edc3574632a0c00d5e8695094055d848\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:19:19-115
+40
+41        <!-- so client-side code of runtime/layers can talk to their service sides -->
+42        <intent>
+42-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\edc3574632a0c00d5e8695094055d848\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:22:9-24:18
+43            <action android:name="org.khronos.openxr.OpenXRRuntimeService" />
+43-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\edc3574632a0c00d5e8695094055d848\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:23:13-78
+43-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\edc3574632a0c00d5e8695094055d848\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:23:21-75
+44        </intent>
+45        <intent>
+45-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\edc3574632a0c00d5e8695094055d848\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:25:9-27:18
+46            <action android:name="org.khronos.openxr.OpenXRApiLayerService" />
+46-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\edc3574632a0c00d5e8695094055d848\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:26:13-79
+46-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\edc3574632a0c00d5e8695094055d848\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:26:21-76
+47        </intent>
+48    </queries> <!-- Khronos OpenXR loader manifest content (v1.0.34) -->
+49    <uses-feature
+49-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\edc3574632a0c00d5e8695094055d848\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:29:5-32:31
+50        android:name="android.hardware.vr.headtracking"
+50-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\edc3574632a0c00d5e8695094055d848\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:30:9-56
+51        android:required="false"
+51-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\edc3574632a0c00d5e8695094055d848\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:31:9-33
+52        android:version="1" />
+52-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\edc3574632a0c00d5e8695094055d848\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:32:9-28
+53
+54    <application
+54-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:18:5-52:19
+55        android:allowBackup="false"
+55-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:20:9-36
+56        android:appCategory="game"
+56-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:22:9-35
+57        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+57-->[androidx.core:core:1.8.0] C:\Users\cerov\.gradle\caches\8.11.1\transforms\1f78652368fcaf22ddb356e4bfe9a15a\transformed\core-1.8.0\AndroidManifest.xml:24:18-86
+58        android:debuggable="true"
+59        android:extractNativeLibs="false"
+60        android:hasFragileUserData="false"
+60-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:24:9-43
+61        android:icon="@mipmap/icon"
+61-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:21:9-36
+62        android:isGame="true"
+62-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:23:9-30
+63        android:label="@string/godot_project_name_string"
+63-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:19:9-58
+64        android:requestLegacyExternalStorage="false" >
+64-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:25:9-53
+65        <meta-data
+65-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:25:9-124
+66            android:name="org.godotengine.rendering.method"
+66-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:25:41-88
+67            android:value="gl_compatibility" />
+67-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:25:89-121
+68        <meta-data
+68-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:26:9-123
+69            android:name="org.godotengine.editor.version"
+69-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:26:41-86
+70            android:value="4.5.1.stable.mono" />
+70-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:26:87-120
+71        <meta-data
+71-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:27:9-118
+72            android:name="com.oculus.supportedDevices"
+72-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:27:41-83
+73            android:value="quest3|questpro" />
+73-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:27:84-115
+74        <meta-data
+74-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:28:9-113
+75            android:name="com.oculus.handtracking.frequency"
+75-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:28:41-89
+76            android:value="HIGH" />
+76-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:28:90-110
+77        <meta-data
+77-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:29:9-111
+78            android:name="com.oculus.handtracking.version"
+78-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:29:41-87
+79            android:value="V2.0" />
+79-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:29:88-108
+80
+81        <activity
+81-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:32:9-50:20
+82            android:name="com.godot.game.GodotApp"
+82-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:33:13-37
+83            android:configChanges="layoutDirection|locale|orientation|keyboardHidden|screenSize|smallestScreenSize|density|keyboard|navigation|screenLayout|uiMode"
+83-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:41:13-164
+84            android:excludeFromRecents="false"
+84-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:37:13-47
+85            android:exported="true"
+85-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:38:13-36
+86            android:label="@string/godot_project_name_string"
+86-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:34:13-62
+87            android:launchMode="singleInstancePerTask"
+87-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:36:13-55
+88            android:resizeableActivity="true"
+88-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:42:13-47
+89            android:screenOrientation="landscape"
+89-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:39:13-50
+90            android:theme="@style/GodotAppSplashTheme"
+90-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:35:13-55
+91            android:windowSoftInputMode="adjustResize" >
+91-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:40:13-55
+92            <intent-filter>
+92-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:45:13-49:29
+93                <action android:name="android.intent.action.MAIN" />
+93-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:46:17-69
+93-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:46:25-66
+94
+95                <category android:name="android.intent.category.DEFAULT" />
+95-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:47:17-76
+95-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:47:27-73
+96                <category android:name="android.intent.category.LAUNCHER" />
+96-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:48:17-77
+96-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:48:27-74
+97            </intent-filter>
+98            <intent-filter>
+98-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:38:5-53:21
+99                <action android:name="android.intent.action.MAIN" />
+99-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:46:17-69
+99-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:46:25-66
+100
+101                <category android:name="android.intent.category.DEFAULT" />
+101-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:47:17-76
+101-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:47:27-73
+102
+103                <!--
+104                    Enable access to OpenXR on Oculus mobile devices, no-op on other Android
+105					platforms.
+106                -->
+107                <category android:name="com.oculus.intent.category.VR" />
+107-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:45:6-63
+107-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:45:16-60
+108
+109                <!--
+110                    OpenXR category tag to indicate the activity starts in an immersive OpenXR mode.
+111					See https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#android-runtime-category.
+112                -->
+113                <category android:name="org.khronos.openxr.intent.category.IMMERSIVE_HMD" />
+113-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:49:6-82
+113-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:49:16-79
+114                <category android:name="android.intent.category.LAUNCHER" />
+114-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:48:17-77
+114-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:48:27-74
+115            </intent-filter>
+116        </activity>
+117
+118        <profileable
+118-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:27:9-30:36
+119            android:enabled="true"
+119-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:29:13-35
+120            android:shell="true" /> <!-- Records the version of the Godot library -->
+120-->S:\GodotProjects\KitchenDesigner\android\build\AndroidManifest.xml:28:13-33
+121        <meta-data
+121-->[godot-lib.template_debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\88c299628dc380d4c7b3164c300bea7a\transformed\jetified-godot-lib.template_debug\AndroidManifest.xml:12:9-14:44
+122            android:name="org.godotengine.library.version"
+122-->[godot-lib.template_debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\88c299628dc380d4c7b3164c300bea7a\transformed\jetified-godot-lib.template_debug\AndroidManifest.xml:13:13-59
+123            android:value="4.5.1.stable" />
+123-->[godot-lib.template_debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\88c299628dc380d4c7b3164c300bea7a\transformed\jetified-godot-lib.template_debug\AndroidManifest.xml:14:13-41
+124
+125        <service android:name="org.godotengine.godot.GodotDownloaderService" />
+125-->[godot-lib.template_debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\88c299628dc380d4c7b3164c300bea7a\transformed\jetified-godot-lib.template_debug\AndroidManifest.xml:16:9-80
+125-->[godot-lib.template_debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\88c299628dc380d4c7b3164c300bea7a\transformed\jetified-godot-lib.template_debug\AndroidManifest.xml:16:18-77
+126
+127        <activity
+127-->[godot-lib.template_debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\88c299628dc380d4c7b3164c300bea7a\transformed\jetified-godot-lib.template_debug\AndroidManifest.xml:18:9-22:75
+128            android:name="org.godotengine.godot.utils.ProcessPhoenix"
+128-->[godot-lib.template_debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\88c299628dc380d4c7b3164c300bea7a\transformed\jetified-godot-lib.template_debug\AndroidManifest.xml:19:13-70
+129            android:exported="false"
+129-->[godot-lib.template_debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\88c299628dc380d4c7b3164c300bea7a\transformed\jetified-godot-lib.template_debug\AndroidManifest.xml:20:13-37
+130            android:process=":phoenix"
+130-->[godot-lib.template_debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\88c299628dc380d4c7b3164c300bea7a\transformed\jetified-godot-lib.template_debug\AndroidManifest.xml:21:13-39
+131            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+131-->[godot-lib.template_debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\88c299628dc380d4c7b3164c300bea7a\transformed\jetified-godot-lib.template_debug\AndroidManifest.xml:22:13-72
+132
+133        <provider
+133-->[godot-lib.template_debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\88c299628dc380d4c7b3164c300bea7a\transformed\jetified-godot-lib.template_debug\AndroidManifest.xml:24:9-32:20
+134            android:name="androidx.core.content.FileProvider"
+134-->[godot-lib.template_debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\88c299628dc380d4c7b3164c300bea7a\transformed\jetified-godot-lib.template_debug\AndroidManifest.xml:25:13-62
+135            android:authorities="cz.cerovsky.KitchenDesigner.fileprovider"
+135-->[godot-lib.template_debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\88c299628dc380d4c7b3164c300bea7a\transformed\jetified-godot-lib.template_debug\AndroidManifest.xml:26:13-64
+136            android:exported="false"
+136-->[godot-lib.template_debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\88c299628dc380d4c7b3164c300bea7a\transformed\jetified-godot-lib.template_debug\AndroidManifest.xml:27:13-37
+137            android:grantUriPermissions="true" >
+137-->[godot-lib.template_debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\88c299628dc380d4c7b3164c300bea7a\transformed\jetified-godot-lib.template_debug\AndroidManifest.xml:28:13-47
+138            <meta-data
+138-->[godot-lib.template_debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\88c299628dc380d4c7b3164c300bea7a\transformed\jetified-godot-lib.template_debug\AndroidManifest.xml:29:13-31:64
+139                android:name="android.support.FILE_PROVIDER_PATHS"
+139-->[godot-lib.template_debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\88c299628dc380d4c7b3164c300bea7a\transformed\jetified-godot-lib.template_debug\AndroidManifest.xml:30:17-67
+140                android:resource="@xml/godot_provider_paths" />
+140-->[godot-lib.template_debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\88c299628dc380d4c7b3164c300bea7a\transformed\jetified-godot-lib.template_debug\AndroidManifest.xml:31:17-61
+141        </provider>
+142
+143        <meta-data
+143-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\edc3574632a0c00d5e8695094055d848\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:38:9-40:36
+144            android:name="com.oculus.vr.focusaware"
+144-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\edc3574632a0c00d5e8695094055d848\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:39:13-52
+145            android:value="true" />
+145-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\edc3574632a0c00d5e8695094055d848\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:40:13-33
+146        <meta-data
+146-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\edc3574632a0c00d5e8695094055d848\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:41:9-43:74
+147            android:name="org.godotengine.plugin.v2.GodotOpenXR"
+147-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\edc3574632a0c00d5e8695094055d848\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:42:13-65
+148            android:value="org.godotengine.openxr.vendors.GodotOpenXR" />
+148-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\edc3574632a0c00d5e8695094055d848\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:43:13-71
+149        <meta-data
+149-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\edc3574632a0c00d5e8695094055d848\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:44:9-46:91
+150            android:name="org.godotengine.plugin.v2.GodotOpenXRHybridAppInternal"
+150-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\edc3574632a0c00d5e8695094055d848\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:45:13-82
+151            android:value="org.godotengine.openxr.vendors.GodotOpenXRHybridAppInternal" />
+151-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\edc3574632a0c00d5e8695094055d848\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:46:13-88
+152
+153        <provider
+153-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\cerov\.gradle\caches\8.11.1\transforms\bda89bde9feba82707a3c7d4236c90c8\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:24:9-32:20
+154            android:name="androidx.startup.InitializationProvider"
+154-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\cerov\.gradle\caches\8.11.1\transforms\bda89bde9feba82707a3c7d4236c90c8\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:25:13-67
+155            android:authorities="cz.cerovsky.KitchenDesigner.androidx-startup"
+155-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\cerov\.gradle\caches\8.11.1\transforms\bda89bde9feba82707a3c7d4236c90c8\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:26:13-68
+156            android:exported="false" >
+156-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\cerov\.gradle\caches\8.11.1\transforms\bda89bde9feba82707a3c7d4236c90c8\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:27:13-37
+157            <meta-data
+157-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\cerov\.gradle\caches\8.11.1\transforms\bda89bde9feba82707a3c7d4236c90c8\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
+158                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+158-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\cerov\.gradle\caches\8.11.1\transforms\bda89bde9feba82707a3c7d4236c90c8\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
+159                android:value="androidx.startup" />
+159-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\cerov\.gradle\caches\8.11.1\transforms\bda89bde9feba82707a3c7d4236c90c8\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
+160        </provider>
+161
+162        <receiver
+162-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\cerov\.gradle\caches\8.11.1\transforms\bda89bde9feba82707a3c7d4236c90c8\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
+163            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+163-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\cerov\.gradle\caches\8.11.1\transforms\bda89bde9feba82707a3c7d4236c90c8\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
+164            android:directBootAware="false"
+164-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\cerov\.gradle\caches\8.11.1\transforms\bda89bde9feba82707a3c7d4236c90c8\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
+165            android:enabled="true"
+165-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\cerov\.gradle\caches\8.11.1\transforms\bda89bde9feba82707a3c7d4236c90c8\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
+166            android:exported="true"
+166-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\cerov\.gradle\caches\8.11.1\transforms\bda89bde9feba82707a3c7d4236c90c8\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
+167            android:permission="android.permission.DUMP" >
+167-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\cerov\.gradle\caches\8.11.1\transforms\bda89bde9feba82707a3c7d4236c90c8\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
+168            <intent-filter>
+168-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\cerov\.gradle\caches\8.11.1\transforms\bda89bde9feba82707a3c7d4236c90c8\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
+169                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+169-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\cerov\.gradle\caches\8.11.1\transforms\bda89bde9feba82707a3c7d4236c90c8\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
+169-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\cerov\.gradle\caches\8.11.1\transforms\bda89bde9feba82707a3c7d4236c90c8\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
+170            </intent-filter>
+171            <intent-filter>
+171-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\cerov\.gradle\caches\8.11.1\transforms\bda89bde9feba82707a3c7d4236c90c8\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
+172                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+172-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\cerov\.gradle\caches\8.11.1\transforms\bda89bde9feba82707a3c7d4236c90c8\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
+172-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\cerov\.gradle\caches\8.11.1\transforms\bda89bde9feba82707a3c7d4236c90c8\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
+173            </intent-filter>
+174            <intent-filter>
+174-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\cerov\.gradle\caches\8.11.1\transforms\bda89bde9feba82707a3c7d4236c90c8\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
+175                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+175-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\cerov\.gradle\caches\8.11.1\transforms\bda89bde9feba82707a3c7d4236c90c8\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
+175-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\cerov\.gradle\caches\8.11.1\transforms\bda89bde9feba82707a3c7d4236c90c8\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
+176            </intent-filter>
+177            <intent-filter>
+177-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\cerov\.gradle\caches\8.11.1\transforms\bda89bde9feba82707a3c7d4236c90c8\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
+178                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+178-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\cerov\.gradle\caches\8.11.1\transforms\bda89bde9feba82707a3c7d4236c90c8\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
+178-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\cerov\.gradle\caches\8.11.1\transforms\bda89bde9feba82707a3c7d4236c90c8\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
+179            </intent-filter>
+180        </receiver>
+181    </application>
+182
+183</manifest>

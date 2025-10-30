@@ -1,0 +1,10 @@
+#Thu Oct 30 22:09:38 CET 2025
+base.2=S\:\\GodotProjects\\KitchenDesigner\\android\\build\\build\\intermediates\\dex\\monoDebug\\mergeProjectDexMonoDebug\\6\\classes.dex
+path.2=6/classes.dex
+base.1=S\:\\GodotProjects\\KitchenDesigner\\android\\build\\build\\intermediates\\dex\\monoDebug\\mergeProjectDexMonoDebug\\0\\classes.dex
+path.1=0/classes.dex
+base.0=S\:\\GodotProjects\\KitchenDesigner\\android\\build\\build\\intermediates\\dex\\monoDebug\\mergeExtDexMonoDebug\\classes.dex
+renamed.2=classes3.dex
+renamed.1=classes2.dex
+renamed.0=classes.dex
+path.0=classes.dex
