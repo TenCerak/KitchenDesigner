@@ -25,7 +25,20 @@
 
     <uses-feature
         android:name="oculus.software.handtracking"
+        android:required="true" />
+    <uses-feature
+        android:name="com.oculus.feature.PASSTHROUGH"
+        android:required="true" />
+
+    <uses-permission android:name="com.oculus.permission.RENDER_MODEL" />
+
+    <uses-feature
+        android:name="com.oculus.feature.RENDER_MODEL"
         android:required="false" />
+
+    <uses-permission android:name="com.oculus.permission.USE_ANCHOR_API" />
+    <uses-permission android:name="com.oculus.permission.IMPORT_EXPORT_IOT_MAP_DATA" />
+    <uses-permission android:name="com.oculus.permission.USE_SCENE" />
 
     <horizonos:uses-horizonos-sdk
         horizonos:minSdkVersion="69"
@@ -70,13 +83,16 @@
             android:value="4.5.1.stable.mono" />
         <meta-data
             android:name="com.oculus.supportedDevices"
-            android:value="quest3|questpro" />
+            android:value="quest3|quest3s|questpro" />
         <meta-data
             android:name="com.oculus.handtracking.frequency"
             android:value="HIGH" />
         <meta-data
             android:name="com.oculus.handtracking.version"
             android:value="V2.0" />
+        <meta-data
+            android:name="com.oculus.ossplash.background"
+            android:value="passthrough-contextual" />
 
         <activity
             android:name="com.godot.game.GodotApp"

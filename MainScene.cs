@@ -3,6 +3,7 @@ using System.Linq;
 
 public partial class MainScene : Node3D
 {
+
     private XRInterface _xrInterface;
     private WorldEnvironment _worldEnvironment;
     private Viewport _viewport;
@@ -64,29 +65,45 @@ public partial class MainScene : Node3D
             bool additiveSupported = false;
             foreach (var mode in modes)
             {
-                switch ((XRInterface.EnvironmentBlendModeEnum)mode)
+                switch ((int)mode)
                 {
-                    case XRInterface.EnvironmentBlendModeEnum.AlphaBlend:
+                    case 2:
                         alphaBlendSupported = true;
                         break;
-                    case XRInterface.EnvironmentBlendModeEnum.Additive:
+                    case 1:
                         additiveSupported = true;
                         break;
                 }
                 ;
                 GD.Print("Supported Mode: " + mode.ToString());
+
+                /*
+                  EnvironmentBlendMode XR_ENV_BLEND_MODE_OPAQUE = 0
+
+                    Opaque blend mode. This is typically used for VR devices.
+
+                    EnvironmentBlendMode XR_ENV_BLEND_MODE_ADDITIVE = 1
+
+                    Additive blend mode. This is typically used for AR devices or VR devices with passthrough.
+
+                    EnvironmentBlendMode XR_ENV_BLEND_MODE_ALPHA_BLEND = 2
+
+                    Alpha blend mode. This is typically used for AR or VR devices with passthrough capabilities.
+                    The alpha channel controls how much of the passthrough is visible. Alpha of 0.0 means the passthrough is visible and this pixel works in ADDITIVE mode.
+                    Alpha of 1.0 means that the passthrough is not visible and this pixel works in OPAQUE mode.
+                 */
             }
 
-            //if (alphaBlendSupported)
-            //{
-            //    xrInterface.EnvironmentBlendMode = XRInterface.EnvironmentBlendModeEnum.AlphaBlend; 
-            //    _viewport.TransparentBg = true;
-            //}
-            //else if (additiveSupported)
-            //{
-            //    xrInterface.EnvironmentBlendMode = XRInterface.EnvironmentBlendModeEnum.Additive;
-            //    _viewport.TransparentBg = false;
-            //}
+            if (alphaBlendSupported)
+            {
+                xrInterface.EnvironmentBlendMode = XRInterface.EnvironmentBlendModeEnum.AlphaBlend;
+                _viewport.TransparentBg = true;
+            }
+            else if (additiveSupported)
+            {
+                xrInterface.EnvironmentBlendMode = XRInterface.EnvironmentBlendModeEnum.Additive;
+                _viewport.TransparentBg = false;
+            }
         }
         else
         {
