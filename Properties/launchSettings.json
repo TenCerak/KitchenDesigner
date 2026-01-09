@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "KitchenDesigner": {
+      "commandName": "Project",
+      "commandLineArgs": "-e --path \"S:\\GodotProjects\\KitchenDesigner\""
+    }
+  }
+}

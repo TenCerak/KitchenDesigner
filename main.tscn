@@ -1,7 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://cb3du852rpxnp"]
+[gd_scene load_steps=8 format=3 uid="uid://cb3du852rpxnp"]
 
 [ext_resource type="Script" uid="uid://c1ni8fyuowafb" path="res://MainScene.cs" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://daa7aaw5my21d" path="res://detector.tscn" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="2_lquwl"]
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="4_7mycd"]
+[ext_resource type="PackedScene" uid="uid://dsbacji6flss3" path="res://TestUI.tscn" id="5_272bh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ig7tw"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -14,17 +16,6 @@ sky_material = SubResource("ProceduralSkyMaterial_ig7tw")
 background_mode = 2
 sky = SubResource("Sky_0xm2m")
 tonemap_mode = 2
-
-[sub_resource type="BoxMesh" id="BoxMesh_0xm2m"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_h2yge"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_h2yge"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_1bvp3"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_lquwl"]
-size = Vector3(1, 0.1, 0.5)
 
 [node name="MainScene" type="Node3D"]
 script = ExtResource("1_ig7tw")
@@ -44,38 +35,35 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 current = true
 
 [node name="LeftHand" type="XRController3D" parent="XROrigin3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
 tracker = &"left_hand"
+pose = &"grip"
 
-[node name="Test" type="MeshInstance3D" parent="XROrigin3D/LeftHand"]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-mesh = SubResource("BoxMesh_0xm2m")
+[node name="OpenXRFbRenderModel" type="OpenXRFbRenderModel" parent="XROrigin3D/LeftHand"]
 
-[node name="AnimatableBody3D" type="AnimatableBody3D" parent="XROrigin3D/LeftHand"]
-sync_to_physics = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/LeftHand/AnimatableBody3D"]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-shape = SubResource("SphereShape3D_h2yge")
+[node name="FunctionPointer" parent="XROrigin3D/LeftHand" instance=ExtResource("2_lquwl")]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0.02, -0.03535534, -0.10606602)
+show_laser = 2
+laser_length = 1
+show_target = true
 
 [node name="RightHand" type="XRController3D" parent="XROrigin3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
 tracker = &"right_hand"
+pose = &"grip"
 
-[node name="Test" type="MeshInstance3D" parent="XROrigin3D/RightHand"]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-mesh = SubResource("BoxMesh_h2yge")
+[node name="OpenXRFbRenderModel" type="OpenXRFbRenderModel" parent="XROrigin3D/RightHand"]
+render_model_type = 1
 
-[node name="AnimatableBody3D" type="AnimatableBody3D" parent="XROrigin3D/RightHand"]
-sync_to_physics = false
+[node name="FunctionPointer" parent="XROrigin3D/RightHand" instance=ExtResource("2_lquwl")]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, -0.02, -0.03535534, -0.10606602)
+show_laser = 2
+laser_length = 1
+show_target = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/RightHand/AnimatableBody3D"]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-shape = SubResource("SphereShape3D_1bvp3")
-
-[node name="Table" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8914014, -0.42680037)
-mesh = SubResource("BoxMesh_lquwl")
-
-[node name="ARToggle" parent="." instance=ExtResource("2_0xm2m")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.99480057, -0.37654436)
+[node name="Viewport2Din3D" parent="." instance=ExtResource("4_7mycd")]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0.0729146, 2.4349132, -2.9273958)
+screen_size = Vector2(640, 360)
+scene = ExtResource("5_272bh")
+viewport_size = Vector2(1280, 768)
+transparent = 1
+unshaded = true
+scene_properties_keys = PackedStringArray("TestUi", "ButtonAR", "ButtonVR")
