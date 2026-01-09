@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://cb3du852rpxnp"]
+[gd_scene load_steps=10 format=3 uid="uid://cb3du852rpxnp"]
 
 [ext_resource type="Script" uid="uid://c1ni8fyuowafb" path="res://MainScene.cs" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://p6auy3jvshot" path="res://LeftHandController.cs" id="2_7mycd"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="2_lquwl"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="4_7mycd"]
 [ext_resource type="PackedScene" uid="uid://dsbacji6flss3" path="res://TestUI.tscn" id="5_272bh"]
+[ext_resource type="PackedScene" uid="uid://curr8x0a8efrl" path="res://tape.tscn" id="6_7mycd"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ig7tw"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -35,11 +36,13 @@ current = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 current = true
 
-[node name="LeftHand" type="XRController3D" parent="XROrigin3D" node_paths=PackedStringArray("handMenu")]
+[node name="LeftHand" type="XRController3D" parent="XROrigin3D" node_paths=PackedStringArray("handMenu", "ToolNodes")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
 tracker = &"left_hand"
 pose = &"grip"
 script = ExtResource("2_7mycd")
 handMenu = NodePath("LeftHandMenu")
+ToolNodes = [NodePath("Tape")]
 
 [node name="OpenXRFbRenderModel" type="OpenXRFbRenderModel" parent="XROrigin3D/LeftHand"]
 
@@ -59,7 +62,18 @@ transparent = 1
 unshaded = true
 scene_properties_keys = PackedStringArray("TestUi", "ButtonAR", "ButtonVR")
 
+[node name="Tape" parent="XROrigin3D/LeftHand" node_paths=PackedStringArray("LeftController", "RightController", "LeftTip", "RightTip") instance=ExtResource("6_7mycd")]
+visible = false
+LeftController = NodePath("..")
+RightController = NodePath("../../RightHand")
+LeftTip = NodePath("../LeftMeasureTip")
+RightTip = NodePath("../../RightHand/RightMeasureTip")
+
+[node name="LeftMeasureTip" type="Marker3D" parent="XROrigin3D/LeftHand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.020411134, -0.045, -0.1)
+
 [node name="RightHand" type="XRController3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
 tracker = &"right_hand"
 pose = &"grip"
 
@@ -72,3 +86,6 @@ show_laser = 2
 laser_length = 1
 show_target = true
 target_radius = 0.01
+
+[node name="RightMeasureTip" type="Marker3D" parent="XROrigin3D/RightHand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.019651234, -0.045382846, -0.1)

@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://curr8x0a8efrl"]
+
+[ext_resource type="Script" uid="uid://c1xrsf6gstcr1" path="res://Tape.cs" id="1_w8ul8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q0ig5"]
+albedo_color = Color(1, 0.13333334, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_odlfp"]
+material = SubResource("StandardMaterial3D_q0ig5")
+radius = 0.02
+height = 0.04
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_sbr3y"]
+
+[node name="Tape" type="Node3D"]
+script = ExtResource("1_w8ul8")
+
+[node name="StartPoint" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_odlfp")
+
+[node name="EndPoint" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
+mesh = SubResource("SphereMesh_odlfp")
+skeleton = NodePath("../StartPoint")
+
+[node name="TapeRender" type="MeshInstance3D" parent="."]
+mesh = SubResource("ImmediateMesh_sbr3y")
+
+[node name="DistanceLabel" type="Label3D" parent="."]
+billboard = 1
