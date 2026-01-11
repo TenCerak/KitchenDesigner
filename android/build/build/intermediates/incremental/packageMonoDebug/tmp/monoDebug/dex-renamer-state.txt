@@ -1,4 +1,4 @@
-#Fri Jan 09 20:18:06 CET 2026
+#Sun Jan 11 16:43:37 CET 2026
 base.2=S\:\\GodotProjects\\KitchenDesigner\\android\\build\\build\\intermediates\\dex\\monoDebug\\mergeProjectDexMonoDebug\\6\\classes.dex
 path.2=6/classes.dex
 base.1=S\:\\GodotProjects\\KitchenDesigner\\android\\build\\build\\intermediates\\dex\\monoDebug\\mergeProjectDexMonoDebug\\0\\classes.dex

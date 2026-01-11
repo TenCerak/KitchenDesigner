@@ -1,11 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://cb3du852rpxnp"]
+[gd_scene load_steps=12 format=3 uid="uid://cb3du852rpxnp"]
 
 [ext_resource type="Script" uid="uid://c1ni8fyuowafb" path="res://MainScene.cs" id="1_ig7tw"]
-[ext_resource type="Script" uid="uid://p6auy3jvshot" path="res://LeftHandController.cs" id="2_7mycd"]
+[ext_resource type="Script" uid="uid://p6auy3jvshot" path="res://LeftHandController.cs" id="2_5vw27"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="2_lquwl"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="4_7mycd"]
-[ext_resource type="PackedScene" uid="uid://dsbacji6flss3" path="res://TestUI.tscn" id="5_272bh"]
-[ext_resource type="PackedScene" uid="uid://curr8x0a8efrl" path="res://tape.tscn" id="6_7mycd"]
+[ext_resource type="PackedScene" uid="uid://d32y6tcrlyhhu" path="res://UI/dynamic_wrist_menu.tscn" id="5_7mycd"]
+[ext_resource type="PackedScene" uid="uid://dsbacji6flss3" path="res://UI/TestUI.tscn" id="5_272bh"]
+[ext_resource type="Script" uid="uid://7kp6mg5wr1hs" path="res://ToolManager.cs" id="6_7mycd"]
+[ext_resource type="PackedScene" uid="uid://bfapxh6hmt4ie" path="res://UI/tool_menu.tscn" id="6_272bh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ig7tw"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -36,13 +38,12 @@ current = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 current = true
 
-[node name="LeftHand" type="XRController3D" parent="XROrigin3D" node_paths=PackedStringArray("handMenu", "ToolNodes")]
+[node name="LeftHand" type="XRController3D" parent="XROrigin3D" node_paths=PackedStringArray("handMenu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
 tracker = &"left_hand"
 pose = &"grip"
-script = ExtResource("2_7mycd")
+script = ExtResource("2_5vw27")
 handMenu = NodePath("LeftHandMenu")
-ToolNodes = [NodePath("Tape")]
 
 [node name="OpenXRFbRenderModel" type="OpenXRFbRenderModel" parent="XROrigin3D/LeftHand"]
 
@@ -52,22 +53,17 @@ show_laser = 2
 laser_length = 1
 show_target = true
 target_radius = 0.01
+collision_mask = 5242882
 
 [node name="LeftHandMenu" parent="XROrigin3D/LeftHand" instance=ExtResource("4_7mycd")]
 transform = Transform3D(0.01, 0, 0, 0, 0.0010626405, 0.009943379, 0, -0.009943379, 0.0010626405, 0, -0.09, -0.32)
 screen_size = Vector2(64, 36)
-scene = ExtResource("5_272bh")
-viewport_size = Vector2(1280, 768)
+scene = ExtResource("5_7mycd")
+viewport_size = Vector2(1280, 770)
 transparent = 1
 unshaded = true
-scene_properties_keys = PackedStringArray("TestUi", "ButtonAR", "ButtonVR")
-
-[node name="Tape" parent="XROrigin3D/LeftHand" node_paths=PackedStringArray("LeftController", "RightController", "LeftTip", "RightTip") instance=ExtResource("6_7mycd")]
-visible = false
-LeftController = NodePath("..")
-RightController = NodePath("../../RightHand")
-LeftTip = NodePath("../LeftMeasureTip")
-RightTip = NodePath("../../RightHand/RightMeasureTip")
+scene_properties_keys = PackedStringArray("DynamicWristMenu", "PageScenes")
+PageScenes = Array[PackedScene]([ExtResource("5_272bh"), ExtResource("6_272bh")])
 
 [node name="LeftMeasureTip" type="Marker3D" parent="XROrigin3D/LeftHand"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.020411134, -0.045, -0.1)
@@ -86,6 +82,17 @@ show_laser = 2
 laser_length = 1
 show_target = true
 target_radius = 0.01
+collision_mask = 5242882
 
 [node name="RightMeasureTip" type="Marker3D" parent="XROrigin3D/RightHand"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.019651234, -0.045382846, -0.1)
+
+[node name="ToolManager" type="Node" parent="XROrigin3D" node_paths=PackedStringArray("LeftController", "RightController", "LeftTip", "RightTip", "LeftPointer", "RightPointer", "handMenu")]
+script = ExtResource("6_7mycd")
+LeftController = NodePath("../LeftHand")
+RightController = NodePath("../RightHand")
+LeftTip = NodePath("../LeftHand/LeftMeasureTip")
+RightTip = NodePath("../RightHand/RightMeasureTip")
+LeftPointer = NodePath("../LeftHand/FunctionPointer")
+RightPointer = NodePath("../RightHand/FunctionPointer")
+handMenu = NodePath("../LeftHand/LeftHandMenu")

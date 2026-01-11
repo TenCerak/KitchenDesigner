@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://curr8x0a8efrl"]
+
+[ext_resource type="Script" uid="uid://xqajt745f48p" path="res://Tools/Tape/Tape.cs" id="1_w8ul8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q0ig5"]
+resource_local_to_scene = true
+transparency = 1
+albedo_color = Color(1, 0.13333334, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_odlfp"]
+material = SubResource("StandardMaterial3D_q0ig5")
+radius = 0.005
+height = 0.01
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_sbr3y"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_d4514"]
+resource_local_to_scene = true
+
+[node name="Tape" type="Node3D"]
+script = ExtResource("1_w8ul8")
+
+[node name="StartPoint" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_odlfp")
+
+[node name="EndPoint" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
+mesh = SubResource("SphereMesh_odlfp")
+skeleton = NodePath("../StartPoint")
+
+[node name="TapeRender" type="MeshInstance3D" parent="."]
+mesh = SubResource("ImmediateMesh_sbr3y")
+
+[node name="DistanceLabel" type="Label3D" parent="."]
+billboard = 1
+
+[node name="SelectionArea" type="Area3D" parent="."]
+collision_layer = 5242882
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SelectionArea"]
+shape = SubResource("CylinderShape3D_d4514")

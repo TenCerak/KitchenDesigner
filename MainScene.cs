@@ -20,15 +20,12 @@ public partial class MainScene : Node3D
         {
             GD.Print("OpenXR initialized successfully");
 
-            // Turn off v-sync!
             DisplayServer.WindowSetVsyncMode(DisplayServer.VSyncMode.Disabled);
 
-            // Change our main viewport to output to the HMD
+            _xrInterface.XRPlayAreaMode = XRInterface.PlayAreaMode.Stage;
+
             GetViewport().UseXR = true;
 
-            Detector detector = GetNode<Detector>("ARToggle");
-            detector.IsOn = _xrInterface.EnvironmentBlendMode != XRInterface.EnvironmentBlendModeEnum.Opaque;
-            detector.Toggled += Detector_Toggled;
         }
         else
         {

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://88ylsm5vpotg"]
+
+[ext_resource type="Texture2D" uid="uid://c1u1j3d75ugry" path="res://Tools/Nothing/empty-set-slash.svg" id="1_5bkig"]
+[ext_resource type="PackedScene" uid="uid://4qpn7hv0plnd" path="res://Tools/Nothing/nothing.tscn" id="2_4hxvg"]
+[ext_resource type="Script" uid="uid://qttmbog3t42" path="res://Tools/ARToolResource.cs" id="3_ak81c"]
+
+[resource]
+script = ExtResource("3_ak81c")
+ToolName = "Nothing"
+ToolScene = ExtResource("2_4hxvg")
+Icon = ExtResource("1_5bkig")
