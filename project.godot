@@ -32,11 +32,15 @@ enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
 
 [layer_names]
 
+3d_render/layer_10="Environment"
+3d_render/layer_11="Tools"
 3d_physics/layer_1="Static World"
 3d_physics/layer_2="Dynamic World"
 3d_physics/layer_3="Pickable Objects"
 3d_physics/layer_4="Wall Walking"
 3d_physics/layer_5="Grappling Target"
+3d_physics/layer_10="Environment"
+3d_physics/layer_11="Tools"
 3d_physics/layer_17="Held Objects"
 3d_physics/layer_18="Player Hands"
 3d_physics/layer_19="Grab Handles"

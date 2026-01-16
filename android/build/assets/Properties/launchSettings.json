@@ -7,11 +7,12 @@
     "Start in godot": {
       "commandName": "Executable",
       "executablePath": "S:\\Godot\\Godot_v4.5.1-stable_mono_win64.exe",
-      "commandLineArgs": "--path . --verbose --export-run \"Quest\"",
+      "commandLineArgs": "--path . --verbose --vrs-mode 1",
       "workingDirectory": ".",
-      "nativeDebugging": false,
+      "nativeDebugging": true,
       "remoteDebugEnabled": false,
-      "remoteDebugMachine": "127:0.0.1:6007"
+      "remoteDebugMachine": "127:0.0.1:6007",
+      "authenticationMode": "None"
     }
   }
 }

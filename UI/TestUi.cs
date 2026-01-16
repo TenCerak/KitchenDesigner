@@ -17,12 +17,14 @@ public partial class TestUi : Control, IMenuPage
     public override void _Ready()
 	{
         var global = GetNode<Global>("/root/Global");
+		var DesignerEvents = GetNode<DesignerEvents>("/root/DesignerEvents");
 
         if (ButtonAR is not null)
 		{
 			ButtonAR.Pressed += () =>
 			{
 				ARHelper.SwitchToAR(global.currentScene.GetViewport());
+				DesignerEvents.Instance.EmitSignal(DesignerEvents.SignalName.SwitchToAR);
             };
         }
 
@@ -31,7 +33,8 @@ public partial class TestUi : Control, IMenuPage
 			ButtonVR.Pressed += () =>
 			{
 				ARHelper.SwitchToVR(global.currentScene.GetViewport());
-			};
+				DesignerEvents.Instance.EmitSignal(DesignerEvents.SignalName.SwitchToVR);
+            };
 		}            
     }
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cb3du852rpxnp"]
+[gd_scene load_steps=17 format=3 uid="uid://cb3du852rpxnp"]
 
 [ext_resource type="Script" uid="uid://c1ni8fyuowafb" path="res://MainScene.cs" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://p6auy3jvshot" path="res://LeftHandController.cs" id="2_5vw27"]
@@ -8,6 +8,11 @@
 [ext_resource type="PackedScene" uid="uid://dsbacji6flss3" path="res://UI/TestUI.tscn" id="5_272bh"]
 [ext_resource type="Script" uid="uid://7kp6mg5wr1hs" path="res://ToolManager.cs" id="6_7mycd"]
 [ext_resource type="PackedScene" uid="uid://bfapxh6hmt4ie" path="res://UI/tool_menu.tscn" id="6_272bh"]
+[ext_resource type="PackedScene" uid="uid://clt8h3r6sbvl6" path="res://UI/ar_ui.tscn" id="8_ycdy4"]
+[ext_resource type="PackedScene" uid="uid://b67xul4i70nk3" path="res://Anchors/scene_anchor.tscn" id="9_4c57u"]
+[ext_resource type="PackedScene" uid="uid://dyk41meef2630" path="res://Anchors/spatial_anchor.tscn" id="9_efxa6"]
+[ext_resource type="Script" uid="uid://bguuxwo2ah7pd" path="res://ArSceneManager.cs" id="9_kek77"]
+[ext_resource type="PackedScene" uid="uid://ckwup7opbgb3" path="res://scene_global_mesh.tscn" id="11_dg77c"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ig7tw"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -38,6 +43,8 @@ current = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 current = true
 
+[node name="OpenXRMetaEnvironmentDepth" type="OpenXRMetaEnvironmentDepth" parent="XROrigin3D/XRCamera3D"]
+
 [node name="LeftHand" type="XRController3D" parent="XROrigin3D" node_paths=PackedStringArray("handMenu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
 tracker = &"left_hand"
@@ -53,7 +60,7 @@ show_laser = 2
 laser_length = 1
 show_target = true
 target_radius = 0.01
-collision_mask = 5242882
+collision_mask = 5243906
 
 [node name="LeftHandMenu" parent="XROrigin3D/LeftHand" instance=ExtResource("4_7mycd")]
 transform = Transform3D(0.01, 0, 0, 0, 0.0010626405, 0.009943379, 0, -0.009943379, 0.0010626405, 0, -0.09, -0.32)
@@ -63,7 +70,7 @@ viewport_size = Vector2(1280, 770)
 transparent = 1
 unshaded = true
 scene_properties_keys = PackedStringArray("DynamicWristMenu", "PageScenes")
-PageScenes = Array[PackedScene]([ExtResource("5_272bh"), ExtResource("6_272bh")])
+PageScenes = Array[PackedScene]([ExtResource("5_272bh"), ExtResource("6_272bh"), ExtResource("8_ycdy4")])
 
 [node name="LeftMeasureTip" type="Marker3D" parent="XROrigin3D/LeftHand"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.020411134, -0.045, -0.1)
@@ -82,7 +89,7 @@ show_laser = 2
 laser_length = 1
 show_target = true
 target_radius = 0.01
-collision_mask = 5242882
+collision_mask = 5243906
 
 [node name="RightMeasureTip" type="Marker3D" parent="XROrigin3D/RightHand"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.019651234, -0.045382846, -0.1)
@@ -96,3 +103,17 @@ RightTip = NodePath("../RightHand/RightMeasureTip")
 LeftPointer = NodePath("../LeftHand/FunctionPointer")
 RightPointer = NodePath("../RightHand/FunctionPointer")
 handMenu = NodePath("../LeftHand/LeftHandMenu")
+
+[node name="OpenXRFbSpatialAnchorManager" type="OpenXRFbSpatialAnchorManager" parent="XROrigin3D"]
+scene = ExtResource("9_efxa6")
+scene_setup_method = &"SetupScene"
+
+[node name="OpenXRFbSceneManager" type="OpenXRFbSceneManager" parent="XROrigin3D"]
+default_scene = ExtResource("9_4c57u")
+scene_setup_method = &"SetupScene"
+scenes/global_mesh = ExtResource("11_dg77c")
+
+[node name="ARSceneManager" type="Node" parent="XROrigin3D" node_paths=PackedStringArray("SceneManagerNode", "SpatialAnchorManagerNode")]
+script = ExtResource("9_kek77")
+SceneManagerNode = NodePath("../OpenXRFbSceneManager")
+SpatialAnchorManagerNode = NodePath("../OpenXRFbSpatialAnchorManager")

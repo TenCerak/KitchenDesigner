@@ -26,6 +26,9 @@ public partial class Tape : Node3D, IARTool
     [Export] public Color NormalColor { get; set; } = Colors.White;
     [Export] public Color HighlightColor { get; set; } = Colors.Yellow;
 
+    [Export] public bool IsSnappingEnabled { get; set; } = true;
+    [Export(PropertyHint.Layers3DPhysics)] public uint EnvironmentLayer = 1 << 9; // Vrstva 10
+
     public string ToolName => "Metr";
 
     public void Initialize(XRController3D leftController, XRController3D rightController, Marker3D leftTip, Marker3D rightTip)
@@ -115,31 +118,66 @@ public partial class Tape : Node3D, IARTool
             return;
         }
 
+        if(_leftController.IsButtonPressed("ax_button"))
+        {
+            ToggleSnapping();
+        }
 
 
-        // 1. LEVÁ RUKA: Pokud drží trigger, hýbe počátečním bodem
         if (_leftController.IsButtonPressed("trigger_click"))
         {
-            _startPoint.GlobalPosition = _leftTip.GlobalPosition;
-            if (!_startPoint.Visible) _startPoint.Show();
+            _startPoint.GlobalPosition = GetPositionWithSnap(_leftTip);
+            _startPoint.Show();
         }
 
-        // 2. PRAVÁ RUKA: Pokud drží trigger, hýbe koncovým bodem
         if (_rightController.IsButtonPressed("trigger_click"))
         {
-            _endPoint.GlobalPosition = _rightTip.GlobalPosition;
-            if (!_endPoint.Visible) _endPoint.Show();
+            _endPoint.GlobalPosition = GetPositionWithSnap(_rightTip);
+            _endPoint.Show();
         }
 
-        // 3. VIZUALIZACE: Kreslíme čáru a label pouze pokud jsou oba body viditelné
         if (_startPoint.Visible && _endPoint.Visible)
         {
             _distanceLabel.Show();
             DrawVisuals(_startPoint.GlobalPosition, _endPoint.GlobalPosition);
         }
 
-        // 4. AKTUALIZACE KOLIZNÍHO TVARU: Pro interakci s čárou
         UpdateCollisionShape(_startPoint.GlobalPosition, _endPoint.GlobalPosition);
+    }
+
+    public void ToggleSnapping()
+    {
+        IsSnappingEnabled = !IsSnappingEnabled;
+        GD.Print($"Snapping: {IsSnappingEnabled}");
+
+        Input.VibrateHandheld(500);
+    }
+
+    private Vector3 GetPositionWithSnap(Marker3D tip)
+    {
+        Vector3 defaultPos = tip.GlobalPosition;
+
+        if (!IsSnappingEnabled) return defaultPos;
+
+        var spaceState = GetWorld3D().DirectSpaceState;
+
+        // Směr paprsku: Střílíme dopředu ze špičky ovladače (20 cm)
+        Vector3 forward = -tip.GlobalTransform.Basis.Z;
+        Vector3 target = defaultPos + forward * 0.2f;
+
+        var query = PhysicsRayQueryParameters3D.Create(defaultPos, target);
+        query.CollisionMask = EnvironmentLayer; // Hledáme jen stěny/nábytek
+        query.CollideWithAreas = false;
+        query.CollideWithBodies = true;
+
+        var result = spaceState.IntersectRay(query);
+
+        if (result.Count > 0)
+        {
+            return (Vector3)result["position"];
+        }
+
+        return defaultPos;
     }
 
     private void DrawVisuals(Vector3 start, Vector3 end)
@@ -150,7 +188,7 @@ public partial class Tape : Node3D, IARTool
         if (start.DistanceTo(end) < 0.001f) return;
 
         _immMesh.SurfaceBegin(Mesh.PrimitiveType.Lines);
-        // Protože jsme TopLevel, ToLocal() zajistí správné vykreslení čáry v souřadnicích metru
+
         _immMesh.SurfaceAddVertex(ToLocal(start));
         _immMesh.SurfaceAddVertex(ToLocal(end));
         _immMesh.SurfaceEnd();
@@ -180,18 +218,14 @@ public partial class Tape : Node3D, IARTool
 
     private void SetupHighlightMaterials()
     {
-        // 1. Získáme aktuální materiál z prvního bodu (předpokládáme, že v editoru mají oba stejný)
         Material originalMat = _startPoint.GetActiveMaterial(0);
 
         if (originalMat is StandardMaterial3D stdMat)
         {
-            // 2. DŮLEŽITÉ: Vytvoříme unikátní kopii materiálu pomocí Duplicate()
             _pointsMaterial = (StandardMaterial3D)stdMat.Duplicate();
 
-            // 3. Nastavíme výchozí barvu
             _pointsMaterial.AlbedoColor = NormalColor;
 
-            // 4. Přiřadíme tento unikátní materiál OBĚMA bodům přes MaterialOverride
             _startPoint.MaterialOverride = _pointsMaterial;
             _endPoint.MaterialOverride = _pointsMaterial;
         }

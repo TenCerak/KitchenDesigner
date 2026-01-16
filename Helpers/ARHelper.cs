@@ -72,6 +72,7 @@ namespace KitchenDesigner.Helpers
             return true;
         }
 
+
         public static bool SwitchToVR(Viewport viewport)
         {
             var xrInterface = XRServer.PrimaryInterface;
