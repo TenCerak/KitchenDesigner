@@ -1,13 +1,11 @@
 using Godot;
 using KitchenDesigner.Interfaces;
 using System;
+using System.Diagnostics;
 
 public partial class Tape : Node3D, IARTool
 {
-     public XRController3D _leftController;  // Ovladač pro levou ruku
-     public XRController3D _rightController; // Ovladač pro pravou ruku
-    public Marker3D _leftTip;               // Bod na špičce levého ovladače
-    public Marker3D _rightTip;              // Bod na špičce pravého ovladače
+    private XrHandManager _handManager;
 
     private ImmediateMesh _immMesh;
     private MeshInstance3D _tapeRender;
@@ -20,7 +18,7 @@ public partial class Tape : Node3D, IARTool
     private CylinderShape3D _cylinderShape;
 
 
-
+    public bool IsActive { get; set; } = false;
     private StandardMaterial3D _pointsMaterial;
 
     [Export] public Color NormalColor { get; set; } = Colors.White;
@@ -31,12 +29,9 @@ public partial class Tape : Node3D, IARTool
 
     public string ToolName => "Metr";
 
-    public void Initialize(XRController3D leftController, XRController3D rightController, Marker3D leftTip, Marker3D rightTip)
+    public void Initialize(XrHandManager manager)
     {
-        _leftController = leftController;
-        _rightController = rightController;
-        _leftTip = leftTip;
-        _rightTip = rightTip;
+        _handManager = manager;
     }
 
     public override void _Ready()
@@ -65,10 +60,8 @@ public partial class Tape : Node3D, IARTool
 
         _cylinderShape = (CylinderShape3D)_collisionShape.Shape;
 
-
         ResetTool();
     }
-
     private void UpdateCollisionShape(Vector3 start, Vector3 end)
     {
         float distance = start.DistanceTo(end);
@@ -105,34 +98,36 @@ public partial class Tape : Node3D, IARTool
         _immMesh.ClearSurfaces();
     }
 
-    public void Activate() => Show();
-    public void Deactivate() { ResetTool(); Hide(); }
+    public void Activate()
+    {
+        IsActive = true;
+        Show();
+        SetHighlight(true);
+    }
+    public void Deactivate()
+    {
+        SetHighlight(false);
+        IsActive = false;
+    }
 
-    public void HandleInput(bool isPressed, bool isJustPressed) { }
 
     public void UpdateTool(double delta, Vector3 currentPos)
     {
-        if (_leftController == null || _rightController == null || _leftTip == null || _rightTip == null)
+        if (_handManager is null)
         {
             SetHighlight(false);
             return;
         }
 
-        if(_leftController.IsButtonPressed("ax_button"))
+        if (_handManager.GetController(HandSide.Left).IsButtonPressed("trigger_click"))
         {
-            ToggleSnapping();
-        }
-
-
-        if (_leftController.IsButtonPressed("trigger_click"))
-        {
-            _startPoint.GlobalPosition = GetPositionWithSnap(_leftTip);
+            _startPoint.GlobalPosition = GetPositionWithSnap(_handManager.GetTip(HandSide.Left));
             _startPoint.Show();
         }
 
-        if (_rightController.IsButtonPressed("trigger_click"))
+        if (_handManager.GetController(HandSide.Right).IsButtonPressed("trigger_click"))
         {
-            _endPoint.GlobalPosition = GetPositionWithSnap(_rightTip);
+            _endPoint.GlobalPosition = GetPositionWithSnap(_handManager.GetTip(HandSide.Right));
             _endPoint.Show();
         }
 
@@ -147,10 +142,11 @@ public partial class Tape : Node3D, IARTool
 
     public void ToggleSnapping()
     {
-        IsSnappingEnabled = !IsSnappingEnabled;
-        GD.Print($"Snapping: {IsSnappingEnabled}");
 
-        Input.VibrateHandheld(500);
+        IsSnappingEnabled = !IsSnappingEnabled;
+        GD.Print($"Snapping: {IsSnappingEnabled}");// + (new System.Diagnostics.StackTrace()).ToString()); 
+
+        _handManager.VibrateDominantHand();
     }
 
     private Vector3 GetPositionWithSnap(Marker3D tip)
@@ -203,17 +199,9 @@ public partial class Tape : Node3D, IARTool
             _distanceLabel.Text = $"{distance:F2} m";
     }
 
-    public void Release()
+    public void Reattach(XrHandManager handManager)
     {
-        SetHighlight(false);
-    }
-
-    public void Reattach(XRController3D leftController, XRController3D rightController, Marker3D leftTip, Marker3D rightTip)
-    {
-        _leftController = leftController;
-        _rightController = rightController;
-        _leftTip = leftTip;
-        _rightTip = rightTip;
+        _handManager = handManager;
     }
 
     private void SetupHighlightMaterials()
@@ -245,7 +233,7 @@ public partial class Tape : Node3D, IARTool
 
             _pointsMaterial.EmissionEnabled = true;
             _pointsMaterial.Emission = HighlightColor;
-            _pointsMaterial.EmissionEnergyMultiplier = 2.0f; 
+            _pointsMaterial.EmissionEnergyMultiplier = 2.0f;
         }
         else
         {
@@ -253,5 +241,18 @@ public partial class Tape : Node3D, IARTool
 
             _pointsMaterial.EmissionEnabled = false;
         }
+    }
+
+    public void ButtonPressed(string actionName)
+    {
+        if (actionName == "ax_button")
+        {
+            ToggleSnapping();
+        }
+    }
+
+    public void ButtonReleased(string actionName)
+    {
+
     }
 }

@@ -36,11 +36,11 @@
 24-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:12:22-72
 25
 26    <uses-feature
-26-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:13:5-110
+26-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:13:5-111
 27        android:name="oculus.software.handtracking"
 27-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:13:40-83
-28        android:required="true" />
-28-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:13:84-107
+28        android:required="false" />
+28-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:13:84-108
 29    <uses-feature
 29-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:14:5-112
 30        android:name="com.oculus.feature.PASSTHROUGH"
@@ -53,11 +53,11 @@
 33-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:15:22-71
 34
 35    <uses-feature
-35-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:16:5-114
+35-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:16:5-113
 36        android:name="com.oculus.feature.RENDER_MODEL"
 36-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:16:40-86
-37        android:required="false" />
-37-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:16:87-111
+37        android:required="true" />
+37-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:16:87-110
 38
 39    <uses-permission android:name="com.oculus.permission.USE_ANCHOR_API" />
 39-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:17:5-76

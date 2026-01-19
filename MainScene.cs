@@ -25,47 +25,11 @@ public partial class MainScene : Node3D
             _xrInterface.XRPlayAreaMode = XRInterface.PlayAreaMode.Stage;
 
             GetViewport().UseXR = true;
-
+            ARHelper.SwitchToAR(GetViewport());
         }
         else
         {
             GD.Print("OpenXR not initialized, please check if your headset is connected");
-        }
-
-        var xrInterface = XRServer.FindInterface("OpenXR") as OpenXRInterface;
-
-        if (xrInterface != null && xrInterface.IsInitialized())
-        {
-            GD.Print("✅ OpenXR inicializováno úspěšně.");
-
-            // 2. Kontrola, zda je Meta Quest aktivním runtime
-            string runtimeName = xrInterface.GetName();
-            GD.Print($"ℹ️ Aktivní Runtime: {runtimeName}");
-
-            if (!runtimeName.ToLower().Contains("oculus") && !runtimeName.ToLower().Contains("meta"))
-            {
-                GD.PrintErr("⚠️ VAROVÁNÍ: Runtime není Meta/Oculus. Passthrough pravděpodobně nebude fungovat!");
-            }
-
-            // 3. Kontrola podpory Passthrough
-            bool isPassthroughSupported = xrInterface.IsPassthroughSupported();
-            GD.Print($"✨ Podpora Passthrough: {isPassthroughSupported}");
-
-            if (isPassthroughSupported)
-            {
-                // Pokus o zapnutí Passthrough (Alpha Blend mode)
-                bool success = xrInterface.SetEnvironmentBlendMode(XRInterface.EnvironmentBlendModeEnum.AlphaBlend);
-                GD.Print(success ? "🚀 Passthrough úspěšně aktivován (Alpha Blend)."
-                               : "❌ Selhalo nastavení Alpha Blend režimu.");
-            }
-            else
-            {
-                GD.PrintErr("❌ Passthrough NENÍ podporován. Zkontrolujte 'Meta Quest Link' nastavení (Beta tab).");
-            }
-        }
-        else
-        {
-            GD.PrintErr("❌ OpenXR rozhraní nebylo nalezeno nebo inicializováno. Máte zapnutý XR v Project Settings?");
         }
     }    
 }

@@ -1,38 +1,63 @@
 using Godot;
 using KitchenDesigner.Interfaces;
 using KitchenDesigner.Tools;
+using System;
 using System.Reflection;
 using System.Runtime.InteropServices.JavaScript;
 
 public partial class ToolManager : Node
 {
-    [Export] public XRController3D LeftController;   // Levý ovladač
-    [Export] public XRController3D RightController; // Pravý ovladač
-    [Export] public Marker3D LeftTip;               // Špička levého
-    [Export] public Marker3D RightTip;             // Špička pravého
-    [Export] public Node3D LeftPointer;
-    private RayCast3D _leftRayCast;
-    [Export] public Node3D RightPointer;
-    private RayCast3D _rightRayCast;
+    [Export] public XrHandManager HandManager; 
+    [Export] public Node3D handMenu;
 
-    [Export] Node3D handMenu;
 
     private IARTool _activeTool;
     private IARTool _hoveredTool = null;
 
+    private const int TOOLS_LAYER = 11;
     public override void _Ready()
     {
         base._Ready();
+        HandManager.DominantHandButtonPressed += DominantControllerButtonPressed;
+        HandManager.DominantHandButtonReleased += DominantControllerButtonReleased;
+        HandManager.DominantRaycastStartedColliding += OnDominantRaycastStartedColliding;
+        HandManager.DominantRaycastStoppedColliding += OnDominantRaycastStoppedColliding;
+    }
 
-        _leftRayCast = LeftPointer.GetNode<RayCast3D>("RayCast");
-        _rightRayCast = RightPointer.GetNode<RayCast3D>("RayCast");
-        GD.Print($"ToolManager připraven. leftRay: {_leftRayCast is not null} rightRay: {_rightRayCast is not null}");
+
+
+    void DominantControllerButtonPressed(XRController3D controller,string actionName)
+    {
+        if (actionName == "trigger_click" && _hoveredTool is not null && _activeTool is Nothing)
+        {
+            TryPickupTool(_hoveredTool);
+            HandManager.VibrateDominantHand();
+        }
+        if (actionName == "by_button" && _hoveredTool is not null)
+        {
+            DeleteHoveredTool();
+            HandManager.VibrateDominantHand();
+        }
+
+        if(_activeTool is not null)
+        {
+            _activeTool.ButtonPressed(actionName);
+        }
+    }
+
+    private void DominantControllerButtonReleased(XRController3D controller, string actionName)
+    {
+        if (_activeTool is not null)
+        {
+            _activeTool.ButtonReleased(actionName);
+        }
     }
 
     public void SpawnTool(ARToolResource definition)
     {
         if (_activeTool != null) { 
             _activeTool.SetHighlight(false);
+            DropActiveTool();
         }
 
         Node instance = definition.ToolScene.Instantiate();
@@ -41,7 +66,7 @@ public partial class ToolManager : Node
         if (instance is IARTool tool)
         {
             _activeTool = tool;
-            _activeTool.Initialize(LeftController, RightController, LeftTip, RightTip);
+            _activeTool.Initialize(HandManager);
             _activeTool.Activate();
         }
     }
@@ -52,37 +77,21 @@ public partial class ToolManager : Node
 
         if (_activeTool != null && (handMenu?.Visible ?? false) == false)
         {
-            _activeTool.UpdateTool(delta, LeftTip.GlobalPosition);
-            CheckPointerHover();
+            _activeTool.UpdateTool(delta, HandManager.GetActiveTip().GlobalPosition);
         }
     }
-    private void CheckPointerHover()
+    private void OnDominantRaycastStartedColliding(Node collider)
     {
-        if (_leftRayCast == null) return;
-
-        // 1. Zjistíme, na co Pointer míří
-        if (_leftRayCast.IsColliding())
+        IARTool targetTool = FindToolFromNode(collider);
+        if (targetTool != null)
         {
-            GD.Print("ToolManager - Pointer koliduje s objektem.");
-            var collider = _leftRayCast.GetCollider();
-
-            // Hledáme IARTool v kolizním objektu nebo jeho rodiči
-            IARTool targetTool = FindToolFromNode(collider as Node);
-
-            if (targetTool != null)
-            {
-                GD.Print($"ToolManager - Pointer míří na nástroj: {targetTool.ToolName}");
-                if (_hoveredTool != targetTool)
-                {
-                    _hoveredTool?.SetHighlight(false);
-                    _hoveredTool = targetTool;
-                    _hoveredTool.SetHighlight(true);
-                }
-                return;
-            }
+            _hoveredTool = targetTool;
+            _hoveredTool.SetHighlight(true);
         }
+    }
 
-        // Pokud na nic nemíříme, zrušíme highlight
+    private void OnDominantRaycastStoppedColliding()
+    {
         if (_hoveredTool != null)
         {
             _hoveredTool.SetHighlight(false);
@@ -95,35 +104,57 @@ public partial class ToolManager : Node
         if (node is IARTool tool) return tool;
         return FindToolFromNode(node.GetParent());
     }
-    public void TryPickupTool(Node3D hitObject)
+    public void TryPickupTool(IARTool toolToPickup)
     {
-        // 1. Zjistíme, zda objekt, na který míříme, je (nebo obsahuje) IARTool
-        IARTool toolToPickup = null;
-
-        if (hitObject is IARTool t) toolToPickup = t;
-        else if (hitObject.GetParent() is IARTool tp) toolToPickup = tp;
-
-        if (toolToPickup != null)
+        if (toolToPickup is not null)
         {
-            // 2. Pokud už nějaký nástroj držíme, "pustíme" ho
-            if (_activeTool != null) _activeTool.Deactivate();
+            if (_activeTool is not null && _activeTool != toolToPickup)
+            {
+                _activeTool.Deactivate();
+            }
 
-            // 3. Přepojíme nalezený nástroj pod náš ovladač (pokud není TopLevel, musíme ho přeparkovat)
             Node toolNode = (Node)toolToPickup;
 
-            // Pokud chceme, aby se fyzicky vrátil do hierarchie ruky:
             if (toolNode.GetParent() != this)
             {
-                toolNode.GetParent().RemoveChild(toolNode);
+                toolNode.GetParent()?.RemoveChild(toolNode);
                 AddChild(toolNode);
             }
 
-            // 4. Inicializujeme ho našimi ovladači
+            HandManager.SetPointerLayerEnabled(TOOLS_LAYER, false);
+
             _activeTool = toolToPickup;
-            _activeTool.Reattach(LeftController, RightController, LeftTip, RightTip);
+            _activeTool.Reattach(HandManager);
             _activeTool.Activate();
 
-            GD.Print($"Znovu aktivován nástroj: {toolToPickup.ToolName}");
+            OnDominantRaycastStoppedColliding();
+
+            GD.Print($"Nástroj {toolToPickup.ToolName} sebrán.");
         }
     }
+
+    public void DeleteHoveredTool()
+    {
+        if (_hoveredTool is not null && _hoveredTool is not Nothing)
+        {
+            Node toolNode = (Node)_hoveredTool;
+            if(_hoveredTool == _activeTool)
+            {
+                DropActiveTool();
+            }
+            toolNode.QueueFree();
+            _hoveredTool = null;
+        }
+    }
+    public void DropActiveTool()
+    {
+        if (_activeTool != null)
+        {
+            _activeTool.Deactivate();
+            _activeTool = null;
+
+            HandManager.SetPointerLayerEnabled(TOOLS_LAYER, true);
+        }
+    }
+
 }

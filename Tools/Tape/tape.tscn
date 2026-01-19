@@ -35,7 +35,7 @@ mesh = SubResource("ImmediateMesh_sbr3y")
 billboard = 1
 
 [node name="SelectionArea" type="Area3D" parent="."]
-collision_layer = 5243904
+collision_layer = 1024
 collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SelectionArea"]
