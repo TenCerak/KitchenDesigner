@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://d32y6tcrlyhhu"]
+[gd_scene load_steps=6 format=3 uid="uid://d32y6tcrlyhhu"]
 
 [ext_resource type="Script" uid="uid://0h4ox7gyx4m1" path="res://UI/DynamicWristMenu.cs" id="1_wc2ph"]
 [ext_resource type="PackedScene" uid="uid://dsbacji6flss3" path="res://UI/TestUI.tscn" id="2_ka3tm"]
 [ext_resource type="PackedScene" uid="uid://bfapxh6hmt4ie" path="res://UI/tool_menu.tscn" id="3_06d12"]
 [ext_resource type="PackedScene" uid="uid://clt8h3r6sbvl6" path="res://UI/ar_ui.tscn" id="4_ocpyg"]
+[ext_resource type="PackedScene" uid="uid://bixeafuhmfo4q" path="res://UI/dominant_hand_menu.tscn" id="5_mi8yd"]
 
 [node name="DynamicWristMenu" type="Control"]
 layout_mode = 3
@@ -14,7 +15,7 @@ offset_bottom = 0.17596436
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wc2ph")
-PageScenes = Array[PackedScene]([ExtResource("2_ka3tm"), ExtResource("3_06d12"), ExtResource("4_ocpyg")])
+PageScenes = Array[PackedScene]([ExtResource("2_ka3tm"), ExtResource("3_06d12"), ExtResource("4_ocpyg"), ExtResource("5_mi8yd")])
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1

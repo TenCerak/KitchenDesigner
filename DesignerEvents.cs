@@ -18,6 +18,8 @@ namespace KitchenDesigner
         [Signal] public delegate void ShowSceneAnchorsEventHandler(bool show);
         [Signal] public delegate void ShowSpatialAnchorsEventHandler(bool show);
 
+        [Signal] public delegate void RequestDominantHandChangeEventHandler(bool rightHand);
+
         public static DesignerEvents Instance { get; private set; }
         public override void _Ready()
         {

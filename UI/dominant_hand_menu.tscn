@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=3 uid="uid://bixeafuhmfo4q"]
+
+[ext_resource type="Script" uid="uid://dopclm5j57h8l" path="res://UI/DominantHandMenu.cs" id="1_g21b8"]
+
+[node name="DominantHandMenu" type="Control" node_paths=PackedStringArray("LeftHandButton", "RightHandButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 128.0
+offset_bottom = 72.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g21b8")
+LeftHandButton = NodePath("Container/LeftHand")
+RightHandButton = NodePath("Container/RightHand")
+
+[node name="Container" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -102.0
+offset_top = -50.0
+offset_right = 102.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LeftHand" type="Button" parent="Container"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = "Left 
+Hand"
+
+[node name="MarginContainer" type="MarginContainer" parent="Container"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="RightHand" type="Button" parent="Container"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = "Right
+Hand"
