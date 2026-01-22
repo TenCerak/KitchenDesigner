@@ -1,5 +1,6 @@
 using Godot;
 using KitchenDesigner.Common.Interfaces;
+using KitchenDesigner.Common.Utils;
 using KitchenDesigner.Features.Tools;
 using System;
 using System.Reflection;
@@ -14,7 +15,6 @@ public partial class ToolManager : Node
     private IARTool _activeTool;
     private IARTool _hoveredTool = null;
 
-    private const int TOOLS_LAYER = 11;
     public override void _Ready()
     {
         base._Ready();
@@ -121,7 +121,7 @@ public partial class ToolManager : Node
                 AddChild(toolNode);
             }
 
-            HandManager.SetPointerLayerEnabled(TOOLS_LAYER, false);
+            HandManager.SetPointerLayerEnabled(CollisionLayerHelper.TOOLS, false);
 
             _activeTool = toolToPickup;
             _activeTool.Reattach(HandManager);
@@ -153,7 +153,7 @@ public partial class ToolManager : Node
             _activeTool.Deactivate();
             _activeTool = null;
 
-            HandManager.SetPointerLayerEnabled(TOOLS_LAYER, true);
+            HandManager.SetPointerLayerEnabled(CollisionLayerHelper.TOOLS, true);
         }
     }
 

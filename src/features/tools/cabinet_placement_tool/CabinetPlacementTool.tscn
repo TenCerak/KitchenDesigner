@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqb7hskdo2drl"]
+
+[ext_resource type="Script" uid="uid://c1fykt3mx8m2d" path="res://src/features/tools/cabinet_placement_tool/CabinetPlacementTool.cs" id="1_4va5t"]
+[ext_resource type="PackedScene" uid="uid://b2f7ky76g4d8e" path="res://src/features/kitchen/components/Cabinet.tscn" id="2_cr4kn"]
+
+[node name="CabinetPlacementTool" type="Node3D"]
+script = ExtResource("1_4va5t")
+CabinetScene = ExtResource("2_cr4kn")

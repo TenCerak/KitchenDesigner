@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bfapxh6hmt4ie"]
+[gd_scene load_steps=6 format=3 uid="uid://bfapxh6hmt4ie"]
 
 [ext_resource type="Script" uid="uid://cok7wg1tlhba0" path="res://src/ui/ToolMenu.cs" id="1_875y8"]
 [ext_resource type="Resource" uid="uid://88ylsm5vpotg" path="res://src/features/tools/nothing/Nothing.tres" id="2_cyxkh"]
 [ext_resource type="Resource" uid="uid://5viqn8hx47r5" path="res://src/features/tools/tape_measure/Tape.tres" id="3_40b3o"]
+[ext_resource type="Resource" uid="uid://b3pd6fak8xlhd" path="res://src/features/tools/cabinet_placement_tool/cabinet_placement_tool.tres" id="4_5rj1o"]
+[ext_resource type="Resource" uid="uid://2gbpfg7clwev" path="res://src/features/tools/delete_tool/delete_tool.tres" id="5_ceou1"]
 
 [node name="ToolMenu" type="Control"]
 layout_mode = 3
@@ -13,7 +15,7 @@ offset_bottom = 0.07196045
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_875y8")
-AvailableTools = Array[Resource]([ExtResource("2_cyxkh"), ExtResource("3_40b3o")])
+AvailableTools = Array[Resource]([ExtResource("2_cyxkh"), ExtResource("3_40b3o"), ExtResource("4_5rj1o"), ExtResource("5_ceou1")])
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1

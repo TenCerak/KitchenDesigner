@@ -16,7 +16,7 @@ namespace KitchenDesigner.Common.Interfaces
         void Reattach(XrHandManager handManager);
         void Activate();   // Zavolá se při přepnutí na tento nástroj
         void Deactivate(); // Zavolá se při schování nástroje
-        void UpdateTool(double delta, Vector3 currentPos);    // Logika v každém snímku
+        void UpdateTool(double delta, Vector3 currentPos);  
         void ButtonPressed(string actionName); 
         void ButtonReleased(string actionName);
         void SetHighlight(bool enabled);

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cb3du852rpxnp"]
+[gd_scene load_steps=18 format=3 uid="uid://cb3du852rpxnp"]
 
 [ext_resource type="Script" uid="uid://c1ni8fyuowafb" path="res://MainScene.cs" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="2_lquwl"]
@@ -10,6 +10,10 @@
 [ext_resource type="Script" uid="uid://bguuxwo2ah7pd" path="res://src/core/managers/ArSceneManager.cs" id="9_kek77"]
 [ext_resource type="Script" uid="uid://wvb4ls71ikgd" path="res://src/core/managers/XrHandManager.cs" id="9_w48qg"]
 [ext_resource type="PackedScene" uid="uid://ckwup7opbgb3" path="res://scene_global_mesh.tscn" id="11_dg77c"]
+[ext_resource type="PackedScene" uid="uid://dsbacji6flss3" path="res://src/ui/TestUI.tscn" id="11_vivmo"]
+[ext_resource type="PackedScene" uid="uid://bfapxh6hmt4ie" path="res://src/ui/tool_menu.tscn" id="12_2cqfq"]
+[ext_resource type="PackedScene" uid="uid://clt8h3r6sbvl6" path="res://src/ui/ar_ui.tscn" id="13_yaehf"]
+[ext_resource type="PackedScene" uid="uid://bixeafuhmfo4q" path="res://src/ui/dominant_hand_menu.tscn" id="14_074og"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ig7tw"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -59,15 +63,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.020411134, -0.045, -0.1)
 
 [node name="OpenXRFbRenderModel" type="OpenXRFbRenderModel" parent="XROrigin3D/LeftHand"]
 
-[node name="HandMenu" parent="XROrigin3D/LeftHand" instance=ExtResource("4_7mycd")]
-transform = Transform3D(0.01, 0, 0, 0, 0.0010452842, 0.009945219, 0, -0.009945219, 0.0010452842, 0, -0.09, -0.32)
-screen_size = Vector2(64, 36)
-scene = ExtResource("5_7mycd")
-viewport_size = Vector2(1280, 770)
-transparent = 1
-unshaded = true
-scene_properties_keys = PackedStringArray()
-
 [node name="RightHand" type="XRController3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
 tracker = &"right_hand"
@@ -91,7 +86,7 @@ render_model_type = 1
 [node name="ToolManager" type="Node" parent="XROrigin3D" node_paths=PackedStringArray("HandManager", "handMenu")]
 script = ExtResource("6_7mycd")
 HandManager = NodePath("../XRHandManager")
-handMenu = NodePath("../LeftHand/HandMenu")
+handMenu = NodePath("../HandMenu")
 
 [node name="OpenXRFbSpatialAnchorManager" type="OpenXRFbSpatialAnchorManager" parent="XROrigin3D"]
 scene = ExtResource("9_efxa6")
@@ -117,4 +112,14 @@ LeftTip = NodePath("../LeftHand/LeftMeasureTip")
 RightTip = NodePath("../RightHand/RightMeasureTip")
 LeftPointer = NodePath("../LeftHand/LeftFunctionPointer")
 RightPointer = NodePath("../RightHand/RightFunctionPointer")
-HandMenu = NodePath("../LeftHand/HandMenu")
+HandMenu = NodePath("../HandMenu")
+
+[node name="HandMenu" parent="XROrigin3D" instance=ExtResource("4_7mycd")]
+transform = Transform3D(0.01, 0, 0, 0, 0.0010452842, 0.009945219, 0, -0.009945219, 0.0010452842, -0.5, -0.09, -0.32)
+screen_size = Vector2(64, 36)
+scene = ExtResource("5_7mycd")
+viewport_size = Vector2(1280, 770)
+transparent = 1
+unshaded = true
+scene_properties_keys = PackedStringArray("DynamicWristMenu", "PageScenes")
+PageScenes = Array[PackedScene]([ExtResource("11_vivmo"), ExtResource("12_2cqfq"), ExtResource("13_yaehf"), ExtResource("14_074og")])

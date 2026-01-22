@@ -122,7 +122,6 @@ public partial class XrHandManager : Node
 
     private void OnButtonPressed(XRController3D controller, HandSide side, string actionName)
     {
-        GD.Print($"Tlačítko '{actionName}' stisknuto na ruce '{side}'");
         if (side == DominantHand)
         {
             EmitSignal(SignalName.DominantHandButtonPressed, controller, actionName);
@@ -140,7 +139,6 @@ public partial class XrHandManager : Node
 
     private void OnButtonReleased(XRController3D controller, HandSide side, string actionName)
     {
-        GD.Print($"Tlačítko '{actionName}' uvolněno na ruce '{side}'");
         if (side == DominantHand)
         {
             EmitSignal(SignalName.DominantHandButtonReleased, controller, actionName);

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://2gbpfg7clwev"]
+
+[ext_resource type="PackedScene" uid="uid://bdhfvflhuoywp" path="res://src/features/tools/delete_tool/delete_tool.tscn" id="1_7j6jj"]
+[ext_resource type="Script" uid="uid://qttmbog3t42" path="res://src/features/tools/ARToolResource.cs" id="2_m7len"]
+
+[resource]
+script = ExtResource("2_m7len")
+ToolName = "Delete tool"
+ToolScene = ExtResource("1_7j6jj")
