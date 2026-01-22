@@ -1,7 +1,6 @@
 using Godot;
 using KitchenDesigner;
-using KitchenDesigner.Helpers;
-using KitchenDesigner.Interfaces;
+using KitchenDesigner.Common.Interfaces;
 using System;
 
 public partial class TestUi : Control, IMenuPage
@@ -23,7 +22,7 @@ public partial class TestUi : Control, IMenuPage
 		{
 			ButtonAR.Pressed += () =>
 			{
-				ARHelper.SwitchToAR(global.currentScene.GetViewport());
+				KitchenDesigner.src.common.utils.ARHelper.SwitchToAR(global.currentScene.GetViewport());
 				DesignerEvents.Instance.EmitSignal(DesignerEvents.SignalName.SwitchToAR);
             };
         }
@@ -32,7 +31,7 @@ public partial class TestUi : Control, IMenuPage
 		{
 			ButtonVR.Pressed += () =>
 			{
-				ARHelper.SwitchToVR(global.currentScene.GetViewport());
+				KitchenDesigner.src.common.utils.ARHelper.SwitchToVR(global.currentScene.GetViewport());
 				DesignerEvents.Instance.EmitSignal(DesignerEvents.SignalName.SwitchToVR);
             };
 		}            

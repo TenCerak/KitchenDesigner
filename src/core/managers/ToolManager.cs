@@ -1,6 +1,6 @@
 using Godot;
-using KitchenDesigner.Interfaces;
-using KitchenDesigner.Tools;
+using KitchenDesigner.Common.Interfaces;
+using KitchenDesigner.Features.Tools;
 using System;
 using System.Reflection;
 using System.Runtime.InteropServices.JavaScript;

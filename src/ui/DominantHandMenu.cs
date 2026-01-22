@@ -1,6 +1,6 @@
 using Godot;
 using KitchenDesigner;
-using KitchenDesigner.Interfaces;
+using KitchenDesigner.Common.Interfaces;
 using System;
 
 public partial class DominantHandMenu : Control, IMenuPage

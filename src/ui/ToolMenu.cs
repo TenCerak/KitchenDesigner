@@ -1,7 +1,7 @@
 using Godot;
 using KitchenDesigner;
-using KitchenDesigner.Interfaces;
-using KitchenDesigner.Tools;
+using KitchenDesigner.Common.Interfaces;
+using KitchenDesigner.Features.Tools;
 using System.Collections.Generic;
 
 public partial class ToolMenu : Control, IMenuPage

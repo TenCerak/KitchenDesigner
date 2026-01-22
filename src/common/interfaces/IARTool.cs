@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Godot;
+using KitchenDesigner;
 
-
-namespace KitchenDesigner.Interfaces
+namespace KitchenDesigner.Common.Interfaces
 {
     public interface IARTool
     {

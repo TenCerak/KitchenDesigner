@@ -1,5 +1,5 @@
 using Godot;
-using KitchenDesigner.Interfaces;
+using KitchenDesigner.Common.Interfaces;
 using System;
 
 public partial class Nothing : Node3D, IARTool

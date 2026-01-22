@@ -1,5 +1,4 @@
 using Godot;
-using KitchenDesigner.Helpers;
 using System.Linq;
 
 public partial class MainScene : Node3D
@@ -25,7 +24,7 @@ public partial class MainScene : Node3D
             _xrInterface.XRPlayAreaMode = XRInterface.PlayAreaMode.Stage;
 
             GetViewport().UseXR = true;
-            ARHelper.SwitchToAR(GetViewport());
+            KitchenDesigner.src.common.utils.ARHelper.SwitchToAR(GetViewport());
         }
         else
         {

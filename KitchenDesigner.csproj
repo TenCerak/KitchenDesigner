@@ -17,4 +17,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src\features\kitchen\ui\" />
+  </ItemGroup>
 </Project>

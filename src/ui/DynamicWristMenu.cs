@@ -1,6 +1,6 @@
 using Godot;
+using KitchenDesigner.Common.Interfaces;
 using System.Collections.Generic;
-using KitchenDesigner.Interfaces;
 
 public partial class DynamicWristMenu : Control
 {
