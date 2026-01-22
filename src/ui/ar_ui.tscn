@@ -1,0 +1,43 @@
+[gd_scene load_steps=2 format=3 uid="uid://clt8h3r6sbvl6"]
+
+[ext_resource type="Script" uid="uid://ci7o7dqyivfpw" path="res://src/ui/ArUi.cs" id="1_of56m"]
+
+[node name="ArUi" type="Control" node_paths=PackedStringArray("SceneCaptureRequestButton", "DisplaySceneAnchorsButton", "DisplaySpatialAnchorsButton")]
+layout_mode = 3
+anchor_right = 1.1110001
+anchor_bottom = 1.1110001
+offset_right = 0.12792969
+offset_bottom = 0.07196045
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_of56m")
+SceneCaptureRequestButton = NodePath("HBoxContainer/Button")
+DisplaySceneAnchorsButton = NodePath("HBoxContainer/SceneAnchors")
+DisplaySpatialAnchorsButton = NodePath("HBoxContainer/SpatialAnchors")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = "Request Scene Capture"
+
+[node name="SceneAnchors" type="CheckButton" parent="HBoxContainer"]
+layout_mode = 2
+text = "Show Scene Anchors"
+
+[node name="SpatialAnchors" type="CheckButton" parent="HBoxContainer"]
+layout_mode = 2
+text = "Show Spatial Anchors"
