@@ -1,0 +1,12 @@
+<Solution>
+  <Configurations>
+    <BuildType Name="Debug" />
+    <BuildType Name="ExportDebug" />
+    <BuildType Name="ExportRelease" />
+    <BuildType Name="Release" />
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="KitchenDesigner.csproj" />
+</Solution>

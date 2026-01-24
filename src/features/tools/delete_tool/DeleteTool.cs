@@ -137,6 +137,5 @@ namespace KitchenDesigner.Features.Tools
             }
             _highlightedComponent = null;
         }
-
     }
 }

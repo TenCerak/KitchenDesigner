@@ -32,11 +32,12 @@ public partial class XrHandManager : Node
 
     [ExportGroup("UI")]
     [Export] public Node3D HandMenu;
+    public DynamicWristMenu WristMenu { get; private set; }
 
     private Node _lastCollider = null;
 
     private DesignerEvents _designerEvents;
-    public override void _Ready()
+    public override async void _Ready()
     {
         LeftController.ButtonPressed += (name) => OnButtonPressed(LeftController, HandSide.Left, name);
         LeftController.ButtonReleased += (name) => OnButtonReleased(LeftController, HandSide.Left, name);
@@ -48,9 +49,12 @@ public partial class XrHandManager : Node
         {
             SetDominantHand(isRight ? HandSide.Right : HandSide.Left);
         };
-
+        //čekání na inicializaci všech scén
+        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        InitializeWristMenu();
         UpdateHandSetup();
     }
+
 
     public override void _Process(double delta)
     {
@@ -221,4 +225,37 @@ public partial class XrHandManager : Node
     public Node3D GetDominantPointer() => GetPointer(DominantHand);
     public Node3D GetOtherPointer() => GetPointer(DominantHand == HandSide.Right ? HandSide.Left : HandSide.Right);
     public Node3D GetPointer(HandSide side) => side == HandSide.Right ? RightPointer : LeftPointer;
+
+    private void InitializeWristMenu()
+    {
+        if (HandMenu == null) return;
+
+        SubViewport viewport = null;
+        foreach (Node child in HandMenu.GetChildren())
+        {
+            if (child is SubViewport vp)
+            {
+                viewport = vp;
+                break;
+            }
+        }
+
+        if (viewport == null)
+        {
+            GD.PrintErr("XRHandManager: Nenašel jsem SubViewport uvnitř HandMenu!");
+            return;
+        }
+
+        foreach (Node child in viewport.GetChildren())
+        {
+            if (child is DynamicWristMenu menu)
+            {
+                WristMenu = menu;
+                return;
+            }
+        }
+
+        
+
+    }
 }

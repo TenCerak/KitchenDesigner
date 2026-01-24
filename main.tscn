@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cb3du852rpxnp"]
+[gd_scene load_steps=19 format=3 uid="uid://cb3du852rpxnp"]
 
 [ext_resource type="Script" uid="uid://c1ni8fyuowafb" path="res://MainScene.cs" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="2_lquwl"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://ckwup7opbgb3" path="res://scene_global_mesh.tscn" id="11_dg77c"]
 [ext_resource type="PackedScene" uid="uid://dsbacji6flss3" path="res://src/ui/TestUI.tscn" id="11_vivmo"]
 [ext_resource type="PackedScene" uid="uid://bfapxh6hmt4ie" path="res://src/ui/tool_menu.tscn" id="12_2cqfq"]
+[ext_resource type="PackedScene" uid="uid://ps2lcn02ydon" path="res://src/ui/tool_settings_page.tscn" id="12_vivmo"]
 [ext_resource type="PackedScene" uid="uid://clt8h3r6sbvl6" path="res://src/ui/ar_ui.tscn" id="13_yaehf"]
 [ext_resource type="PackedScene" uid="uid://bixeafuhmfo4q" path="res://src/ui/dominant_hand_menu.tscn" id="14_074og"]
 
@@ -122,4 +123,4 @@ viewport_size = Vector2(1280, 770)
 transparent = 1
 unshaded = true
 scene_properties_keys = PackedStringArray("DynamicWristMenu", "PageScenes")
-PageScenes = Array[PackedScene]([ExtResource("11_vivmo"), ExtResource("12_2cqfq"), ExtResource("13_yaehf"), ExtResource("14_074og")])
+PageScenes = Array[PackedScene]([ExtResource("12_2cqfq"), ExtResource("12_vivmo"), ExtResource("11_vivmo"), ExtResource("13_yaehf"), ExtResource("14_074og")])

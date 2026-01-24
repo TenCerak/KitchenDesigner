@@ -20,5 +20,9 @@ namespace KitchenDesigner.Common.Interfaces
         void ButtonPressed(string actionName); 
         void ButtonReleased(string actionName);
         void SetHighlight(bool enabled);
+        Control GetConfigurationControl()
+        {
+            return null;
+        }
     }
 }

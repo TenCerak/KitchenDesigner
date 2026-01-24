@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://dequbvjdolyxb"]
+
+[ext_resource type="Material" uid="uid://djlru0p6iv3nm" path="res://assets/materials/kitchen/H1181_ST37_Dub_Halifax_tabakovy.tres" id="1_i33fc"]
+[ext_resource type="Script" uid="uid://ctpc0a1sth30q" path="res://src/features/kitchen/components/ShelfController.cs" id="1_rwlcw"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_rwlcw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i33fc"]
+
+[node name="ShelfRoot" type="Node3D" node_paths=PackedStringArray("VisualMesh", "Collider")]
+script = ExtResource("1_rwlcw")
+VisualMesh = NodePath("Visuals")
+Collider = NodePath("StaticBody3D/CollisionShape3D")
+
+[node name="Visuals" type="MeshInstance3D" parent="."]
+material_override = ExtResource("1_i33fc")
+mesh = SubResource("BoxMesh_rwlcw")
+surface_material_override/0 = ExtResource("1_i33fc")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 2049
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_i33fc")

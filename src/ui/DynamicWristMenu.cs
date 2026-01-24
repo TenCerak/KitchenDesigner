@@ -6,9 +6,10 @@ public partial class DynamicWristMenu : Control
 {
     [Export] public PackedScene[] PageScenes; 
 
-    private HBoxContainer _navBar;
+    public HBoxContainer _navBar;
     private Control _contentArea;
     private Node _currentPage;
+    private Control _currentToolSettingsUI;
 
     public override void _Ready()
     {
@@ -17,8 +18,7 @@ public partial class DynamicWristMenu : Control
 
         BuildMenu();
     }
-
-    private void BuildMenu()
+    public void BuildMenu()
     {
         foreach (Node child in _navBar.GetChildren()) child.QueueFree();
 
@@ -35,24 +35,65 @@ public partial class DynamicWristMenu : Control
                 navButton.Pressed += () => OpenPage(index);
                 _navBar.AddChild(navButton);
             }
-            instance.QueueFree(); 
+            instance.QueueFree();
         }
 
         if (PageScenes.Length > 0) OpenPage(0);
     }
 
+    public void SetToolSettingsUI(Control toolUI)
+    {
+        if (_currentToolSettingsUI != null)
+        {
+            _currentToolSettingsUI.GetParent()?.RemoveChild(_currentToolSettingsUI);
+            _currentToolSettingsUI.QueueFree();
+        }
+
+        _currentToolSettingsUI = toolUI;
+
+        TryEmbedUiIntoCurrentPage();
+    }
+    public void ClearToolSettingsUI()
+    {
+        if (_currentToolSettingsUI != null)
+        {
+            _currentToolSettingsUI.GetParent()?.RemoveChild(_currentToolSettingsUI);
+            _currentToolSettingsUI.QueueFree();
+            _currentToolSettingsUI = null;
+        }
+    }
+
+
+
+
     public void OpenPage(int index)
     {
-        // Smažeme aktuální stránku v obsahu
+        if (_currentToolSettingsUI != null && _currentToolSettingsUI.GetParent() != null)
+        {
+            _currentToolSettingsUI.GetParent().RemoveChild(_currentToolSettingsUI);
+        }
+
         if (_currentPage != null) _currentPage.QueueFree();
 
-        // Instancujeme novou stránku
         _currentPage = PageScenes[index].Instantiate();
         _contentArea.AddChild(_currentPage);
+
+        TryEmbedUiIntoCurrentPage();
 
         if (_currentPage is IMenuPage page)
         {
             page.OnPageOpened();
+        }
+    }
+
+    private void TryEmbedUiIntoCurrentPage()
+    {
+        if (_currentToolSettingsUI != null && _currentPage is ToolSettingsPage settingsPage)
+        {
+            if (settingsPage.SettingsContainer != null)
+            {
+                settingsPage.SettingsContainer.AddChild(_currentToolSettingsUI);
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ using KitchenDesigner.Common.Interfaces;
 using KitchenDesigner.Common.Utils;
 using KitchenDesigner.Features.Tools;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.InteropServices.JavaScript;
 
@@ -68,6 +69,8 @@ public partial class ToolManager : Node
             _activeTool = tool;
             _activeTool.Initialize(HandManager);
             _activeTool.Activate();
+
+            UpdateHandMenuUI();
         }
     }
 
@@ -152,9 +155,32 @@ public partial class ToolManager : Node
         {
             _activeTool.Deactivate();
             _activeTool = null;
-
+            UpdateHandMenuUI();
             HandManager.SetPointerLayerEnabled(CollisionLayerHelper.TOOLS, true);
         }
     }
 
+    private void UpdateHandMenuUI()
+    {
+        var wristMenu = HandManager?.WristMenu;
+        if (wristMenu == null) return;
+
+        if (_activeTool != null)
+        {
+            Control toolSettings = _activeTool.GetConfigurationControl();
+
+            if (toolSettings != null)
+            {
+                wristMenu.SetToolSettingsUI(toolSettings);
+            }
+            else
+            {
+                wristMenu.ClearToolSettingsUI();
+            }
+        }
+        else
+        {
+            wristMenu.ClearToolSettingsUI();
+        }
+    }
 }

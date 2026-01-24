@@ -1,8 +1,9 @@
 using Godot;
-using System;
 using KitchenDesigner.Common.Interfaces;
-using KitchenDesigner.Features.Kitchen.Components;
 using KitchenDesigner.Common.Utils;
+using KitchenDesigner.Features.Kitchen.Components;
+using KitchenDesigner.Features.Kitchen.UI;
+using System;
 
 namespace KitchenDesigner.Features.Kitchen.Tools
 {
@@ -12,6 +13,9 @@ namespace KitchenDesigner.Features.Kitchen.Tools
         public bool IsActive { get; set; } = false;
 
         [Export] public PackedScene CabinetScene;
+
+        [ExportGroup("UI")]
+        [Export] public PackedScene SettingsUiPrefab;
 
         private XrHandManager _handManager;
         private Node3D _ghostInstance;
@@ -110,6 +114,7 @@ namespace KitchenDesigner.Features.Kitchen.Tools
             if (CabinetScene == null) return;
 
             Node3D newCabinet = CabinetScene.Instantiate<Node3D>();
+            (newCabinet as CabinetController).Data = _ghostController.Data.Duplicate();
 
             GetTree().Root.AddChild(newCabinet);
 
@@ -128,6 +133,7 @@ namespace KitchenDesigner.Features.Kitchen.Tools
             }
 
             Node instance = CabinetScene.Instantiate();
+            _ghostController = instance as CabinetController;
             _ghostInstance = instance as Node3D;
             AddChild(_ghostInstance);
 
@@ -178,6 +184,25 @@ namespace KitchenDesigner.Features.Kitchen.Tools
             {
                 DisableCollisions(child);
             }
+        }
+
+        public Control GetConfigurationControl()
+        {
+            if (SettingsUiPrefab == null) return null;
+
+            var uiInstance = SettingsUiPrefab.Instantiate<CabinetSettingsUi>();
+
+            if (_ghostController != null)
+            {
+                uiInstance.BindData(ref _ghostController.Data);
+            }
+            else
+            {
+                CreateGhost();
+                uiInstance.BindData(ref _ghostController.Data);
+            }
+
+            return uiInstance;
         }
     }
 }

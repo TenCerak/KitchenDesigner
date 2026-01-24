@@ -1,12 +1,76 @@
-[gd_scene load_steps=4 format=3 uid="uid://b2f7ky76g4d8e"]
+[gd_scene load_steps=8 format=3 uid="uid://b2f7ky76g4d8e"]
 
 [ext_resource type="Script" uid="uid://cgrkrxn5pwief" path="res://src/features/kitchen/components/CabinetController.cs" id="1_4cffh"]
 [ext_resource type="Script" uid="uid://dxlklc7mnthdo" path="res://src/features/kitchen/data/CabinetData.cs" id="2_mbcon"]
+[ext_resource type="PackedScene" uid="uid://dequbvjdolyxb" path="res://src/features/kitchen/components/shelf.tscn" id="3_mbcon"]
+[ext_resource type="Material" uid="uid://djlru0p6iv3nm" path="res://assets/materials/kitchen/H1181_ST37_Dub_Halifax_tabakovy.tres" id="4_vawod"]
 
 [sub_resource type="Resource" id="Resource_vawod"]
+resource_local_to_scene = true
 script = ExtResource("2_mbcon")
 metadata/_custom_type_script = "uid://dxlklc7mnthdo"
 
-[node name="Cabinet" type="Node3D"]
+[sub_resource type="BoxMesh" id="BoxMesh_4cffh"]
+size = Vector3(0.6, 0.82, 0.55)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vawod"]
+
+[node name="Cabinet" type="Node3D" node_paths=PackedStringArray("VisualsRoot", "LeftPanel", "RightPanel", "BottomPanel", "TopPanel", "BackPanel", "ShelvesContainer", "StaticBody", "ColLeft", "ColRight", "ColBottom", "ColTop", "ColBack")]
 script = ExtResource("1_4cffh")
 Data = SubResource("Resource_vawod")
+ShelfScene = ExtResource("3_mbcon")
+Material = ExtResource("4_vawod")
+VisualsRoot = NodePath("Visuals")
+LeftPanel = NodePath("Visuals/LeftPanel")
+RightPanel = NodePath("Visuals/RightPanel")
+BottomPanel = NodePath("Visuals/BottomPanel")
+TopPanel = NodePath("Visuals/TopPanel")
+BackPanel = NodePath("Visuals/BackPanel")
+ShelvesContainer = NodePath("Visuals/ShelvesContainer")
+StaticBody = NodePath("StaticBody3D")
+ColLeft = NodePath("StaticBody3D/Col_Left")
+ColRight = NodePath("StaticBody3D/Col_Right")
+ColBottom = NodePath("StaticBody3D/Col_Bottom")
+ColTop = NodePath("StaticBody3D/Col_Top")
+ColBack = NodePath("StaticBody3D/Col_Back")
+
+[node name="Visuals" type="Node3D" parent="."]
+
+[node name="TopPanel" type="MeshInstance3D" parent="Visuals"]
+mesh = SubResource("BoxMesh_4cffh")
+skeleton = NodePath("../LeftPanel")
+
+[node name="LeftPanel" type="MeshInstance3D" parent="Visuals"]
+mesh = SubResource("BoxMesh_4cffh")
+
+[node name="RightPanel" type="MeshInstance3D" parent="Visuals"]
+mesh = SubResource("BoxMesh_4cffh")
+skeleton = NodePath("../LeftPanel")
+
+[node name="BottomPanel" type="MeshInstance3D" parent="Visuals"]
+mesh = SubResource("BoxMesh_4cffh")
+skeleton = NodePath("../LeftPanel")
+
+[node name="BackPanel" type="MeshInstance3D" parent="Visuals"]
+mesh = SubResource("BoxMesh_4cffh")
+skeleton = NodePath("../LeftPanel")
+
+[node name="ShelvesContainer" type="Node3D" parent="Visuals"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 2049
+
+[node name="Col_Top" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_vawod")
+
+[node name="Col_Left" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_vawod")
+
+[node name="Col_Right" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_vawod")
+
+[node name="Col_Bottom" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_vawod")
+
+[node name="Col_Back" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_vawod")

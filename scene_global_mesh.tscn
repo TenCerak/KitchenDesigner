@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ckwup7opbgb3"]
 
 [ext_resource type="Script" uid="uid://gf84huqonos1" path="res://SceneGlobalMesh.cs" id="1_gpsu1"]
-[ext_resource type="Material" uid="uid://cr8a4udqf6r10" path="res://assets/wireframe-material.tres" id="2_a4edw"]
+[ext_resource type="Material" uid="uid://cr8a4udqf6r10" path="res://assets/materials/global_mesh/wireframe-material.tres" id="2_a4edw"]
 
 [node name="SceneGlobalMesh" type="Node3D"]
 script = ExtResource("1_gpsu1")

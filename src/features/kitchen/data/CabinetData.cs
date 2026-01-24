@@ -11,6 +11,7 @@ namespace KitchenDesigner.Features.Kitchen.Data
         private float _width = 0.6f;
         private float _height = 0.86f;
         private float _depth = 0.6f;
+        private int _shelfCount = 1;
 
         [Export]
         public float Width
@@ -53,5 +54,30 @@ namespace KitchenDesigner.Features.Kitchen.Data
                 }
             }
         }
+
+        [Export]
+        public int ShelfCount
+        {
+            get => _shelfCount;
+            set
+            {
+                if (_shelfCount != value)
+                {
+                    _shelfCount = value;
+                    EmitSignal(SignalName.DimensionsChanged);
+                }
+            }
+        }
+
+        public CabinetData Duplicate()
+        {
+            CabinetData copy = new CabinetData();
+            copy.Width = this.Width;
+            copy.Height = this.Height;
+            copy.Depth = this.Depth;
+            copy.ShelfCount = this.ShelfCount;
+            return copy;
+        }
+
     }
 }
