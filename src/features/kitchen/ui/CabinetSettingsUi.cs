@@ -42,7 +42,7 @@ namespace KitchenDesigner.Features.Kitchen.UI
 
             if (ShelfCount != null)
             {
-                ShelfCount.Value = _data.ShelfCount;
+                ShelfCount.Value = _data.ShelfCount;               
                 ShelfCount.ValueChanged -= OnShelfChanged;
                 ShelfCount.ValueChanged += OnShelfChanged;
             }

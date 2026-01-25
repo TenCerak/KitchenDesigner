@@ -1,7 +1,8 @@
 using Godot;
-using System.Collections.Generic;
+using KitchenDesigner.Features.Kitchen.Components;
 using KitchenDesigner.Features.Kitchen.Data;
 using KitchenDesigner.Features.Kitchen.Interfaces;
+using System.Collections.Generic;
 
 namespace KitchenDesigner.Features.Kitchen.Components
 {
@@ -32,9 +33,13 @@ namespace KitchenDesigner.Features.Kitchen.Components
         [Export] public CollisionShape3D ColTop;
         [Export] public CollisionShape3D ColBack;
 
+        [ExportGroup("Snapping System")]
+        [Export] public PackedScene SnapPointScene;
+        [Export] public Node3D SnapPointsContainer;
+
 
         private List<ShelfController> _activeShelves = new List<ShelfController>();
-
+        public List<SnapPoint> ActiveSnapPoints { get; private set; } = new List<SnapPoint>();
 
         public override void _Ready()
         {
@@ -78,6 +83,7 @@ namespace KitchenDesigner.Features.Kitchen.Components
             UpdatePart(BackPanel, ColBack, Material, new Vector3(w, h, t), new Vector3(0, 0, -d / 2 + t / 2));
 
             RebuildShelves(innerWidth, h, d, t);
+            UpdateSnapPoints(w, h, d);
         }
 
         private void UpdatePart(MeshInstance3D mesh, CollisionShape3D col, Material material, Vector3 size, Vector3 pos)
@@ -176,5 +182,59 @@ namespace KitchenDesigner.Features.Kitchen.Components
             else
                 mesh.SetSurfaceOverrideMaterial(0, Material);
         }
+
+        private void UpdateSnapPoints(float w, float h, float d)
+        {
+            foreach (Node child in SnapPointsContainer.GetChildren()) child.QueueFree();
+            ActiveSnapPoints.Clear();
+
+            if (SnapPointScene == null) return;
+
+            float centerY = h / 2.0f;
+            float centerZ = d / 2.0f;
+
+            CreateSnapPoint(SnapType.Left, new Vector3(-w / 2.0f, centerY, centerZ));
+
+            CreateSnapPoint(SnapType.Right, new Vector3(w / 2.0f, centerY, centerZ));
+
+        }
+
+
+        private void CreateSnapPoint(SnapType type, Vector3 localPos)
+        {
+            var instance = SnapPointScene.Instantiate<SnapPoint>();
+            SnapPointsContainer.AddChild(instance);
+
+            instance.Position = localPos;
+            instance.Type = type;
+            instance.ParentCabinet = this;
+            instance.AreaEntered += Instance_AreaEntered;
+            
+            ActiveSnapPoints.Add(instance);
+        }
+
+        private void Instance_AreaEntered(Area3D area)
+        {
+        }
+
+        public void SetGhostMode(bool isGhost)
+        {
+            foreach (var sp in ActiveSnapPoints)
+            {
+                sp.IsGhost = isGhost;
+
+                if (isGhost)
+                {
+                    sp.Monitoring = true;
+                    sp.Monitorable = false;
+                }
+                else
+                {
+                    sp.Monitoring = false;
+                    sp.Monitorable = true;
+                }
+            }
+        }
     }
 }
+

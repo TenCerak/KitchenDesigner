@@ -47,6 +47,7 @@ enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
 3d_physics/layer_10="Environment"
 3d_physics/layer_11="Tools"
 3d_physics/layer_12="Kitchen Components"
+3d_physics/layer_13="Snap Points"
 3d_physics/layer_17="Held Objects"
 3d_physics/layer_18="Player Hands"
 3d_physics/layer_19="Grab Handles"

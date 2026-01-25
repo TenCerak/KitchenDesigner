@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://7fwdioqk25um"]
+
+[ext_resource type="Script" uid="uid://df37xexiuiy8i" path="res://src/features/kitchen/components/SnapPoint.cs" id="1_8gu35"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_lro7i"]
+radius = 0.1
+
+[node name="SnapPoint" type="Area3D"]
+collision_layer = 4096
+collision_mask = 4096
+script = ExtResource("1_8gu35")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_lro7i")

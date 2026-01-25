@@ -17,6 +17,13 @@ namespace KitchenDesigner.Features.Kitchen.Tools
         [ExportGroup("UI")]
         [Export] public PackedScene SettingsUiPrefab;
 
+        [Export] public float SnapConnectDistance = 0.20f; 
+        [Export] public float SnapBreakDistance = 0.60f;
+
+        private bool _isSnapped = false;
+        private Vector3 _snappedPosition; 
+        private Quaternion _snappedRotation;
+
         private XrHandManager _handManager;
         private Node3D _ghostInstance;
         private CabinetController _ghostController;
@@ -81,31 +88,119 @@ namespace KitchenDesigner.Features.Kitchen.Tools
         private void UpdateGhostPosition()
         {
             var ray = _handManager.GetActiveRayCast();
-            if (ray == null) return;
-
-            if (ray.IsColliding())
-            {
-                Vector3 hitPoint = ray.GetCollisionPoint();
-                Vector3 hitNormal = ray.GetCollisionNormal();
-
-                _ghostInstance.Visible = true;
-
-                _ghostInstance.GlobalPosition = hitPoint;
-
-                var camera = GetViewport().GetCamera3D();
-                if (camera != null)
-                {
-                    Vector3 targetPos = camera.GlobalPosition;
-                    targetPos.Y = _ghostInstance.GlobalPosition.Y;
-
-                    _ghostInstance.LookAt(targetPos, Vector3.Up);
-
-                    _ghostInstance.RotateObjectLocal(Vector3.Up, Mathf.Pi);
-                }
-            }
-            else
+            if (ray == null || !ray.IsColliding())
             {
                 _ghostInstance.Visible = false;
+                _isSnapped = false;
+                return;
+            }
+
+            Vector3 hitPoint = ray.GetCollisionPoint();
+            _ghostInstance.Visible = true;
+
+            if (_isSnapped)
+            {
+                float distFromSnap = hitPoint.DistanceTo(_snappedPosition);
+
+                if (distFromSnap > SnapBreakDistance)
+                {
+                    _isSnapped = false;
+
+                    _handManager.VibrateDominantHand(0.1f, 0.1f);
+                }
+                else
+                {
+                    _ghostInstance.GlobalPosition = _snappedPosition;
+                    _ghostInstance.GlobalRotation = _snappedRotation.GetEuler();
+                    return;
+                }
+            }
+
+
+            _ghostInstance.GlobalPosition = hitPoint;
+            RotateGhostToPlayer();
+
+
+            if (_ghostInstance is Node3D node3d) node3d.ForceUpdateTransform();
+
+            SnapPoint bestGhostPoint = null;
+            SnapPoint bestTargetPoint = null;
+            float closestDistSq = float.MaxValue;
+
+            foreach (var ghostPoint in _ghostController.ActiveSnapPoints)
+            {
+                var overlaps = ghostPoint.GetOverlappingAreas();
+                foreach (var area in overlaps)
+                {
+                    if (area is SnapPoint targetPoint && !targetPoint.IsGhost)
+                    {
+                        if (IsSnapCompatible(ghostPoint.Type, targetPoint.Type))
+                        {
+                            float d = ghostPoint.GlobalPosition.DistanceSquaredTo(targetPoint.GlobalPosition);
+                            if (d < closestDistSq)
+                            {
+                                closestDistSq = d;
+                                bestGhostPoint = ghostPoint;
+                                bestTargetPoint = targetPoint;
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            float connectThresholdSq = SnapConnectDistance * SnapConnectDistance;
+
+            if (bestGhostPoint != null && closestDistSq < connectThresholdSq)
+            {
+                ApplySnap(bestGhostPoint, bestTargetPoint);
+            }
+        }
+
+        private void ApplySnap(SnapPoint ghostPoint, SnapPoint targetPoint)
+        {
+            Quaternion targetRotation = Quaternion.Identity;
+            if (targetPoint.ParentCabinet != null)
+            {
+                targetRotation = targetPoint.ParentCabinet.GlobalTransform.Basis.GetRotationQuaternion();
+            }
+
+            Vector3 localOffset = _ghostInstance.ToLocal(ghostPoint.GlobalPosition);
+
+            Vector3 rotatedOffset = targetRotation * localOffset;
+
+            Vector3 newPos = targetPoint.GlobalPosition - rotatedOffset;
+
+            _ghostInstance.GlobalPosition = newPos;
+            _ghostInstance.GlobalRotation = targetRotation.GetEuler();
+
+            _snappedPosition = newPos;
+            _snappedRotation = targetRotation;
+            _isSnapped = true;
+
+            _handManager.VibrateDominantHand(0.5f, 0.05f);
+        }
+
+        private bool IsSnapCompatible(SnapType ghostType, SnapType targetType)
+        {
+            if (ghostType == SnapType.Left && targetType == SnapType.Right) return true;
+            if (ghostType == SnapType.Right && targetType == SnapType.Left) return true;
+
+            return false;
+        }
+
+        private void RotateGhostToPlayer()
+        {
+
+            var camera = GetViewport().GetCamera3D();
+            if (camera != null)
+            {
+                Vector3 targetPos = camera.GlobalPosition;
+                targetPos.Y = _ghostInstance.GlobalPosition.Y;
+
+                _ghostInstance.LookAt(targetPos, Vector3.Up);
+
+                _ghostInstance.RotateObjectLocal(Vector3.Up, Mathf.Pi);
             }
         }
 
@@ -132,14 +227,18 @@ namespace KitchenDesigner.Features.Kitchen.Tools
                 return;
             }
 
+
             Node instance = CabinetScene.Instantiate();
             _ghostController = instance as CabinetController;
             _ghostInstance = instance as Node3D;
+
             AddChild(_ghostInstance);
 
             MakeNodeTransparent(_ghostInstance);
 
             DisableCollisions(_ghostInstance);
+
+            _ghostController.SetGhostMode(true);
         }
 
         private void DestroyGhost()
@@ -172,6 +271,11 @@ namespace KitchenDesigner.Features.Kitchen.Tools
 
         private void DisableCollisions(Node node)
         {
+            if (node is SnapPoint snapPoint)
+            {
+                return;
+            }
+
             if (node is CollisionObject3D colObj)
             {
                 colObj.CollisionLayer = 0;
