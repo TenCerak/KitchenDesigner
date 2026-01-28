@@ -6,7 +6,7 @@
     },
     "Start in godot": {
       "commandName": "Executable",
-      "executablePath": "S:\\Godot\\Godot_v4.5.1-stable_mono_win64.exe",
+      "executablePath": "S:\\Godot\\Godot_v4.6-stable_mono_win64\\Godot_v4.6-stable_mono_win64.exe",
       "commandLineArgs": "--path . --verbose --vrs-mode 1",
       "workingDirectory": ".",
       "nativeDebugging": true,
