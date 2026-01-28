@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cb3du852rpxnp"]
+[gd_scene format=3 uid="uid://cb3du852rpxnp"]
 
 [ext_resource type="Script" uid="uid://c1ni8fyuowafb" path="res://MainScene.cs" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="2_lquwl"]
@@ -28,29 +28,29 @@ background_mode = 2
 sky = SubResource("Sky_0xm2m")
 tonemap_mode = 2
 
-[node name="MainScene" type="Node3D"]
+[node name="MainScene" type="Node3D" unique_id=991890648]
 script = ExtResource("1_ig7tw")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=241501303]
 environment = SubResource("Environment_h2yge")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1689571374]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 5.641963, 0)
 shadow_enabled = true
 
-[node name="XROrigin3D" type="XROrigin3D" parent="."]
+[node name="XROrigin3D" type="XROrigin3D" parent="." unique_id=1836609195]
 current = true
 
-[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D" unique_id=899968104]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 current = true
 
-[node name="LeftHand" type="XRController3D" parent="XROrigin3D"]
+[node name="LeftHand" type="XRController3D" parent="XROrigin3D" unique_id=2117574583]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
 tracker = &"left_hand"
 pose = &"grip"
 
-[node name="LeftFunctionPointer" parent="XROrigin3D/LeftHand" instance=ExtResource("2_lquwl")]
+[node name="LeftFunctionPointer" parent="XROrigin3D/LeftHand" unique_id=1787788941 instance=ExtResource("2_lquwl")]
 transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0.02, -0.03535534, -0.10606602)
 show_laser = 2
 laser_length = 1
@@ -59,17 +59,17 @@ target_radius = 0.01
 collision_mask = 5243906
 collide_with_areas = true
 
-[node name="LeftMeasureTip" type="Marker3D" parent="XROrigin3D/LeftHand"]
+[node name="LeftMeasureTip" type="Marker3D" parent="XROrigin3D/LeftHand" unique_id=54112790]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.020411134, -0.045, -0.1)
 
-[node name="OpenXRFbRenderModel" type="OpenXRFbRenderModel" parent="XROrigin3D/LeftHand"]
+[node name="OpenXRFbRenderModel" type="OpenXRFbRenderModel" parent="XROrigin3D/LeftHand" unique_id=1086174407]
 
-[node name="RightHand" type="XRController3D" parent="XROrigin3D"]
+[node name="RightHand" type="XRController3D" parent="XROrigin3D" unique_id=1902737293]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
 tracker = &"right_hand"
 pose = &"grip"
 
-[node name="RightFunctionPointer" parent="XROrigin3D/RightHand" instance=ExtResource("2_lquwl")]
+[node name="RightFunctionPointer" parent="XROrigin3D/RightHand" unique_id=319909655 instance=ExtResource("2_lquwl")]
 transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, -0.02, -0.03535534, -0.10606602)
 show_laser = 2
 laser_length = 1
@@ -78,34 +78,34 @@ target_radius = 0.01
 collision_mask = 5243906
 collide_with_areas = true
 
-[node name="RightMeasureTip" type="Marker3D" parent="XROrigin3D/RightHand"]
+[node name="RightMeasureTip" type="Marker3D" parent="XROrigin3D/RightHand" unique_id=1064907198]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.019651234, -0.045382846, -0.1)
 
-[node name="OpenXRFbRenderModel" type="OpenXRFbRenderModel" parent="XROrigin3D/RightHand"]
+[node name="OpenXRFbRenderModel" type="OpenXRFbRenderModel" parent="XROrigin3D/RightHand" unique_id=909140870]
 render_model_type = 1
 
-[node name="ToolManager" type="Node" parent="XROrigin3D" node_paths=PackedStringArray("HandManager", "handMenu")]
+[node name="ToolManager" type="Node" parent="XROrigin3D" unique_id=1253081182 node_paths=PackedStringArray("HandManager", "handMenu")]
 script = ExtResource("6_7mycd")
 HandManager = NodePath("../XRHandManager")
 handMenu = NodePath("../HandMenu")
 
-[node name="OpenXRFbSpatialAnchorManager" type="OpenXRFbSpatialAnchorManager" parent="XROrigin3D"]
+[node name="OpenXRFbSpatialAnchorManager" type="OpenXRFbSpatialAnchorManager" parent="XROrigin3D" unique_id=444933451]
 scene = ExtResource("9_efxa6")
 scene_setup_method = &"SetupScene"
 
-[node name="OpenXRFbSceneManager" type="OpenXRFbSceneManager" parent="XROrigin3D"]
+[node name="OpenXRFbSceneManager" type="OpenXRFbSceneManager" parent="XROrigin3D" unique_id=2133855598]
 default_scene = ExtResource("9_4c57u")
 scene_setup_method = &"SetupScene"
 scenes/global_mesh = ExtResource("11_dg77c")
 
-[node name="ARSceneManager" type="Node" parent="XROrigin3D" node_paths=PackedStringArray("SceneManagerNode", "SpatialAnchorManagerNode")]
+[node name="ARSceneManager" type="Node" parent="XROrigin3D" unique_id=1036435180 node_paths=PackedStringArray("SceneManagerNode", "SpatialAnchorManagerNode")]
 script = ExtResource("9_kek77")
 SceneManagerNode = NodePath("../OpenXRFbSceneManager")
 SpatialAnchorManagerNode = NodePath("../OpenXRFbSpatialAnchorManager")
 
-[node name="OpenXRRenderModelManager" type="OpenXRRenderModelManager" parent="XROrigin3D"]
+[node name="OpenXRRenderModelManager" type="OpenXRRenderModelManager" parent="XROrigin3D" unique_id=1209623666]
 
-[node name="XRHandManager" type="Node" parent="XROrigin3D" node_paths=PackedStringArray("LeftController", "RightController", "LeftTip", "RightTip", "LeftPointer", "RightPointer", "HandMenu")]
+[node name="XRHandManager" type="Node" parent="XROrigin3D" unique_id=874462225 node_paths=PackedStringArray("LeftController", "RightController", "LeftTip", "RightTip", "LeftPointer", "RightPointer", "HandMenu")]
 script = ExtResource("9_w48qg")
 LeftController = NodePath("../LeftHand")
 RightController = NodePath("../RightHand")
@@ -115,7 +115,7 @@ LeftPointer = NodePath("../LeftHand/LeftFunctionPointer")
 RightPointer = NodePath("../RightHand/RightFunctionPointer")
 HandMenu = NodePath("../HandMenu")
 
-[node name="HandMenu" parent="XROrigin3D" instance=ExtResource("4_7mycd")]
+[node name="HandMenu" parent="XROrigin3D" unique_id=716970329 instance=ExtResource("4_7mycd")]
 transform = Transform3D(0.01, 0, 0, 0, 0.0010452842, 0.009945219, 0, -0.009945219, 0.0010452842, -0.5, -0.09, -0.32)
 screen_size = Vector2(64, 36)
 scene = ExtResource("5_7mycd")
