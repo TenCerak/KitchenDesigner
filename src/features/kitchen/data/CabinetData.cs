@@ -7,67 +7,76 @@ namespace KitchenDesigner.Features.Kitchen.Data
     public partial class CabinetData : Resource
     {
         [Signal] public delegate void DimensionsChangedEventHandler();
+        [Signal] public delegate void WorktopToggledEventHandler();
 
-        private float _width = 0.6f;
-        private float _height = 0.86f;
-        private float _depth = 0.6f;
-        private int _shelfCount = 1;
+        [Export]
+        public bool HasWorktop
+        {
+            get; set
+            {
+                field = value;
+                EmitSignal(SignalName.WorktopToggled);
+            }
+        } = true;
+
+        public float WorktopThickness = 0.038f; // Standard 38mm
+        public float WorktopOverhang = 0.02f;   // Přesah 2cm přes dvířka
 
         [Export]
         public float Width
         {
-            get => _width;
+            get;
             set
             {
-                if (!Mathf.IsEqualApprox(_width, value))
+                if (!Mathf.IsEqualApprox(field, value))
                 {
-                    _width = value;
+                    field = value;
                     EmitSignal(SignalName.DimensionsChanged);
                 }
             }
-        }
+        } = 0.6f;
 
         [Export]
         public float Height
         {
-            get => _height;
+            get;
             set
             {
-                if (!Mathf.IsEqualApprox(_height, value))
+                if (!Mathf.IsEqualApprox(field, value))
                 {
-                    _height = value;
+                    field = value;
                     EmitSignal(SignalName.DimensionsChanged);
                 }
             }
-        }
+        } = 0.86f;
 
         [Export]
         public float Depth
         {
-            get => _depth;
+            get;
             set
             {
-                if (!Mathf.IsEqualApprox(_depth, value))
+                if (!Mathf.IsEqualApprox(field, value))
                 {
-                    _depth = value;
+                    field = value;
                     EmitSignal(SignalName.DimensionsChanged);
                 }
             }
-        }
+        } = 0.6f;
 
         [Export]
         public int ShelfCount
         {
-            get => _shelfCount;
+            get;
             set
             {
-                if (_shelfCount != value)
+                if (field != value)
                 {
-                    _shelfCount = value;
+                    field = value;
                     EmitSignal(SignalName.DimensionsChanged);
                 }
             }
-        }
+        } = 1;
 
         public CabinetData Duplicate()
         {
