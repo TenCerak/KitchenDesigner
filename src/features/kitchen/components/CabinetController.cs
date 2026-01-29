@@ -33,6 +33,9 @@ namespace KitchenDesigner.Features.Kitchen.Components
         [Export] public CollisionShape3D ColTop;
         [Export] public CollisionShape3D ColBack;
 
+        [ExportGroup("Visual Aids")]
+        [Export] public Node3D OrientationArrow;
+
         [ExportGroup("Snapping System")]
         [Export] public PackedScene SnapPointScene;
         [Export] public Node3D SnapPointsContainer;
@@ -40,6 +43,7 @@ namespace KitchenDesigner.Features.Kitchen.Components
 
         private List<ShelfController> _activeShelves = new List<ShelfController>();
         public List<SnapPoint> ActiveSnapPoints { get; private set; } = new List<SnapPoint>();
+        private bool _isGhost = false;
 
         public override void _Ready()
         {
@@ -84,6 +88,13 @@ namespace KitchenDesigner.Features.Kitchen.Components
 
             RebuildShelves(innerWidth, h, d, t);
             UpdateSnapPoints(w, h, d);
+
+            if (OrientationArrow != null)
+            {
+                float arrowZ = Data.Depth + 0.15f;
+                OrientationArrow.Position = new Vector3(0, 0.01f, arrowZ);
+            }
+            SetGhostMode(_isGhost);
         }
 
         private void UpdatePart(MeshInstance3D mesh, CollisionShape3D col, Material material, Vector3 size, Vector3 pos)
@@ -221,9 +232,15 @@ namespace KitchenDesigner.Features.Kitchen.Components
 
         public void SetGhostMode(bool isGhost)
         {
+            _isGhost = isGhost;
             foreach (var sp in ActiveSnapPoints)
             {
                 sp.IsGhost = isGhost;
+
+                if (OrientationArrow != null)
+                {
+                    OrientationArrow.Visible = isGhost;
+                }
 
                 if (isGhost)
                 {
