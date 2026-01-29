@@ -210,6 +210,10 @@ namespace KitchenDesigner.Features.Kitchen.Components
 
             CreateSnapPoint(SnapType.Right, new Vector3(w / 2.0f, centerY, centerZ));
 
+            CreateSnapPoint(SnapType.Top, new Vector3(0, h, centerZ));
+
+            CreateSnapPoint(SnapType.Bottom, new Vector3(0, 0, centerZ));
+
         }
 
 

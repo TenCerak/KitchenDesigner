@@ -185,6 +185,8 @@ namespace KitchenDesigner.Features.Kitchen.Tools
         {
             if (ghostType == SnapType.Left && targetType == SnapType.Right) return true;
             if (ghostType == SnapType.Right && targetType == SnapType.Left) return true;
+            if (ghostType == SnapType.Bottom && targetType == SnapType.Top) return true;
+            if (ghostType == SnapType.Top && targetType == SnapType.Bottom) return true;
 
             return false;
         }

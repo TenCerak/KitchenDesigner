@@ -7,7 +7,9 @@ namespace KitchenDesigner.Features.Kitchen.Components
         Left,
         Right,
         Back,
-        Front
+        Front,
+        Top,
+        Bottom
     }
 
     public partial class SnapPoint : Area3D
