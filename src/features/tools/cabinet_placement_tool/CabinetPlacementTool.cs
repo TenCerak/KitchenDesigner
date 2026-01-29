@@ -17,11 +17,20 @@ namespace KitchenDesigner.Features.Kitchen.Tools
         [ExportGroup("UI")]
         [Export] public PackedScene SettingsUiPrefab;
 
-        [Export] public float SnapConnectDistance = 0.20f; 
+        [Export] public float SnapConnectDistance = 0.20f;
         [Export] public float SnapBreakDistance = 0.60f;
 
+        [ExportGroup("Manual Control")]
+        [Export] public float RotationSpeed = 2.0f;
+        [Export] public float MoveSpeed = 1.0f;
+        [Export] public float MinDistance = 0.5f;
+        [Export] public float MaxDistance = 3.0f;
+
+        private float _currentRotationY = 0f;
+        private float _currentDistance = 1.5f;
+
         private bool _isSnapped = false;
-        private Vector3 _snappedPosition; 
+        private Vector3 _snappedPosition;
         private Quaternion _snappedRotation;
 
         private XrHandManager _handManager;
@@ -45,6 +54,16 @@ namespace KitchenDesigner.Features.Kitchen.Tools
         {
             IsActive = true;
             CreateGhost();
+
+            _currentDistance = 1.5f;
+
+            var cam = GetViewport().GetCamera3D();
+            if (cam != null)
+            {
+                Vector3 direction = cam.GlobalPosition - GlobalPosition;
+                _currentRotationY = Mathf.Atan2(direction.X, direction.Z);
+            }
+
             GD.Print($"{ToolName} aktivován.");
             _handManager.SetPointerLayerEnabled(CollisionLayerHelper.ENVIRONMENT, true);
 
@@ -68,12 +87,29 @@ namespace KitchenDesigner.Features.Kitchen.Tools
         {
             if (!IsActive || _ghostInstance == null || _handManager == null) return;
 
+            HandleInput((float)delta);
+
             UpdateGhostPosition();
+        }
+
+        private void HandleInput(float delta)
+        {
+            Vector2 input = _handManager.GetDominantHandJoystick();
+
+            if (input.LengthSquared() < 0.01f) return;
+
+            // OSA X (Doleva/Doprava) -> ROTACE
+            _currentRotationY += input.X * RotationSpeed * delta;
+
+            // OSA Y (Nahoru/Dolů) -> VZDÁLENOST
+            _currentDistance += input.Y * MoveSpeed * delta;
+
+            // Omezíme vzdálenost, aby nám skříňka neproletěla hlavou nebo nezmizela v dálce
+            _currentDistance = Mathf.Clamp(_currentDistance, MinDistance, MaxDistance);
         }
 
         public void ButtonPressed(string actionName)
         {
-            // Potvrzení umístění (Trigger)
             if (IsActive && _ghostInstance != null && _ghostInstance.Visible && _handManager.HandMenu.Visible == false)
             {
                 if (actionName == "trigger_click")
@@ -100,31 +136,52 @@ namespace KitchenDesigner.Features.Kitchen.Tools
 
             if (_isSnapped)
             {
-                float distFromSnap = hitPoint.DistanceTo(_snappedPosition);
-
-                if (distFromSnap > SnapBreakDistance)
+                if (CheckBreakSnap(hitPoint) == false)
                 {
-                    _isSnapped = false;
-
-                    _handManager.VibrateDominantHand(0.1f, 0.1f);
-                }
-                else
-                {
-                    _ghostInstance.GlobalPosition = _snappedPosition;
-                    _ghostInstance.GlobalRotation = _snappedRotation.GetEuler();
                     return;
                 }
             }
 
 
-            _ghostInstance.GlobalPosition = hitPoint;
-            RotateGhostToPlayer();
+            Vector3 rayOrigin = ray.GlobalPosition;
+            Vector3 rayDirection = -ray.GlobalTransform.Basis.Z; // V Godotu je Forward -Z
+
+            Vector3 targetPoint = rayOrigin + (rayDirection * _currentDistance);
+
+            if (ray.IsColliding())
+            {
+                float hitDistance = rayOrigin.DistanceTo(hitPoint);
+
+                if (hitDistance < _currentDistance)
+                {
+                    targetPoint = hitPoint;
+                }
+            }
+
+            _ghostInstance.GlobalPosition = targetPoint;
+
+            _ghostInstance.GlobalTransform = new Transform3D(
+                new Basis(Vector3.Up, _currentRotationY),
+                _ghostInstance.GlobalPosition
+            );
 
 
             if (_ghostInstance is Node3D node3d) node3d.ForceUpdateTransform();
 
             SnapPoint bestGhostPoint = null;
             SnapPoint bestTargetPoint = null;
+            float closestDistSq = CheckSnappingPoints(ref bestGhostPoint, ref bestTargetPoint);
+
+            float connectThresholdSq = SnapConnectDistance * SnapConnectDistance;
+
+            if (bestGhostPoint != null && closestDistSq < connectThresholdSq)
+            {
+                ApplySnap(bestGhostPoint, bestTargetPoint);
+            }
+        }
+
+        private float CheckSnappingPoints(ref SnapPoint bestGhostPoint, ref SnapPoint bestTargetPoint)
+        {
             float closestDistSq = float.MaxValue;
 
             foreach (var ghostPoint in _ghostController.ActiveSnapPoints)
@@ -132,28 +189,42 @@ namespace KitchenDesigner.Features.Kitchen.Tools
                 var overlaps = ghostPoint.GetOverlappingAreas();
                 foreach (var area in overlaps)
                 {
-                    if (area is SnapPoint targetPoint && !targetPoint.IsGhost)
+                    if (area is not SnapPoint targetPoint) continue;
+                    if (targetPoint.IsGhost) continue;
+                    if (targetPoint.ParentCabinet == ghostPoint.ParentCabinet) continue;
+                    if (IsSnapCompatible(ghostPoint.Type, targetPoint.Type) == false) continue;
+
+                    float d = ghostPoint.GlobalPosition.DistanceSquaredTo(targetPoint.GlobalPosition);
+                    if (d < closestDistSq)
                     {
-                        if (IsSnapCompatible(ghostPoint.Type, targetPoint.Type))
-                        {
-                            float d = ghostPoint.GlobalPosition.DistanceSquaredTo(targetPoint.GlobalPosition);
-                            if (d < closestDistSq)
-                            {
-                                closestDistSq = d;
-                                bestGhostPoint = ghostPoint;
-                                bestTargetPoint = targetPoint;
-                            }
-                        }
+                        closestDistSq = d;
+                        bestGhostPoint = ghostPoint;
+                        bestTargetPoint = targetPoint;
                     }
+
+
                 }
             }
 
+            return closestDistSq;
+        }
 
-            float connectThresholdSq = SnapConnectDistance * SnapConnectDistance;
+        private bool CheckBreakSnap(Vector3 hitPoint)
+        {
+            float distFromSnap = hitPoint.DistanceTo(_snappedPosition);
 
-            if (bestGhostPoint != null && closestDistSq < connectThresholdSq)
+            if (distFromSnap > SnapBreakDistance)
             {
-                ApplySnap(bestGhostPoint, bestTargetPoint);
+                _isSnapped = false;
+
+                _handManager.VibrateDominantHand(0.1f, 0.1f);
+                return true;
+            }
+            else
+            {
+                _ghostInstance.GlobalPosition = _snappedPosition;
+                _ghostInstance.GlobalRotation = _snappedRotation.GetEuler();
+                return false;
             }
         }
 
