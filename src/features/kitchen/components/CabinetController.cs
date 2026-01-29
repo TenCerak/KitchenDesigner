@@ -190,8 +190,10 @@ namespace KitchenDesigner.Features.Kitchen.Components
 
             if (SnapPointScene == null) return;
 
-            float centerY = h / 2.0f;
-            float centerZ = d / 2.0f;
+            float centerY = 0;
+
+            float centerZ = 0;
+
 
             CreateSnapPoint(SnapType.Left, new Vector3(-w / 2.0f, centerY, centerZ));
 
@@ -209,7 +211,7 @@ namespace KitchenDesigner.Features.Kitchen.Components
             instance.Type = type;
             instance.ParentCabinet = this;
             instance.AreaEntered += Instance_AreaEntered;
-            
+
             ActiveSnapPoints.Add(instance);
         }
 
