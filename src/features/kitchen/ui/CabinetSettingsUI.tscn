@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://q1dvsd7nc6lk"]
+[gd_scene format=3 uid="uid://q1dvsd7nc6lk"]
 
 [ext_resource type="Script" uid="uid://drk48vecjmnqw" path="res://src/features/kitchen/ui/CabinetSettingsUi.cs" id="1_nhbbr"]
 
-[node name="Control" type="Control" node_paths=PackedStringArray("WidthSlider", "HeightSlider", "DepthSlider", "ShelfCount")]
+[node name="Control" type="Control" unique_id=1622220008 node_paths=PackedStringArray("WidthSlider", "WidthValueLabel", "HeightSlider", "HeightValueLabel", "DepthSlider", "DepthValueLabel", "ShelfCount")]
 custom_minimum_size = Vector2(1280, 720)
 layout_mode = 3
 anchor_right = 1.1110001
@@ -11,11 +11,14 @@ offset_right = 0.12792969
 offset_bottom = 0.07196045
 script = ExtResource("1_nhbbr")
 WidthSlider = NodePath("GridContainer/HBoxContainer/Width")
+WidthValueLabel = NodePath("GridContainer/HBoxContainer/WValueLabel")
 HeightSlider = NodePath("GridContainer/HBoxContainer3/VBoxContainer/Height")
+HeightValueLabel = NodePath("GridContainer/HBoxContainer3/VBoxContainer/HValueLabel")
 DepthSlider = NodePath("GridContainer/HBoxContainer3/VBoxContainer2/Depth")
+DepthValueLabel = NodePath("GridContainer/HBoxContainer3/VBoxContainer2/DValueLabel")
 ShelfCount = NodePath("GridContainer/HBoxContainer2/SpinBox")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1925566193]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -29,7 +32,7 @@ offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="GridContainer" type="GridContainer" parent="."]
+[node name="GridContainer" type="GridContainer" parent="." unique_id=1049274178]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -43,18 +46,23 @@ offset_bottom = 127.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="GridContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="GridContainer" unique_id=613065315]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GridContainer/HBoxContainer3"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GridContainer/HBoxContainer3" unique_id=1037158648]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="GridContainer/HBoxContainer3/VBoxContainer"]
+[node name="Label" type="Label" parent="GridContainer/HBoxContainer3/VBoxContainer" unique_id=353061463]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Height"
 
-[node name="Height" type="VSlider" parent="GridContainer/HBoxContainer3/VBoxContainer"]
+[node name="HValueLabel" type="Label" parent="GridContainer/HBoxContainer3/VBoxContainer" unique_id=213689959]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "0cm"
+
+[node name="Height" type="VSlider" parent="GridContainer/HBoxContainer3/VBoxContainer" unique_id=1009803907]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 min_value = 0.6
@@ -62,15 +70,20 @@ max_value = 0.9
 step = 0.02
 value = 0.82
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="GridContainer/HBoxContainer3"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="GridContainer/HBoxContainer3" unique_id=2090884808]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="GridContainer/HBoxContainer3/VBoxContainer2"]
+[node name="Label" type="Label" parent="GridContainer/HBoxContainer3/VBoxContainer2" unique_id=1639388892]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Depth"
 
-[node name="Depth" type="VSlider" parent="GridContainer/HBoxContainer3/VBoxContainer2"]
+[node name="DValueLabel" type="Label" parent="GridContainer/HBoxContainer3/VBoxContainer2" unique_id=1376078111]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "0cm"
+
+[node name="Depth" type="VSlider" parent="GridContainer/HBoxContainer3/VBoxContainer2" unique_id=2029405961]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 min_value = 0.2
@@ -78,16 +91,16 @@ max_value = 1.0
 step = 0.02
 value = 0.8200000000000001
 
-[node name="HBoxContainer" type="HBoxContainer" parent="GridContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="GridContainer" unique_id=2045442288]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="Label" type="Label" parent="GridContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="GridContainer/HBoxContainer" unique_id=1865888747]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Width"
 
-[node name="Width" type="HSlider" parent="GridContainer/HBoxContainer"]
+[node name="Width" type="HSlider" parent="GridContainer/HBoxContainer" unique_id=178363234]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -97,14 +110,19 @@ max_value = 0.8
 step = 0.02
 value = 0.6000000000000001
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="GridContainer"]
+[node name="WValueLabel" type="Label" parent="GridContainer/HBoxContainer" unique_id=409825988]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "0cm"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="GridContainer" unique_id=847923438]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="GridContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="GridContainer/HBoxContainer2" unique_id=1089115100]
 layout_mode = 2
 text = "Shelves count:"
 
-[node name="SpinBox" type="SpinBox" parent="GridContainer/HBoxContainer2"]
+[node name="SpinBox" type="SpinBox" parent="GridContainer/HBoxContainer2" unique_id=230921906]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 max_value = 10.0
