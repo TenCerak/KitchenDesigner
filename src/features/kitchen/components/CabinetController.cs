@@ -25,6 +25,9 @@ namespace KitchenDesigner.Features.Kitchen.Components
         [Export] public MeshInstance3D BackPanel;
         [Export] public Node3D ShelvesContainer;
 
+        [ExportGroup("Worktop")]
+        [Export] public MeshInstance3D WorktopMesh;
+
         [ExportGroup("Panel Colliders")]
         [Export] public StaticBody3D StaticBody;
         [Export] public CollisionShape3D ColLeft;
@@ -50,6 +53,7 @@ namespace KitchenDesigner.Features.Kitchen.Components
             if (Data == null) Data = new CabinetData();
 
             Data.DimensionsChanged += RebuildCabinet;
+            Data.WorktopToggled += RebuildCabinet;
 
             RebuildCabinet();
         }
@@ -88,6 +92,7 @@ namespace KitchenDesigner.Features.Kitchen.Components
 
             RebuildShelves(innerWidth, h, d, t);
             UpdateSnapPoints(w, h, d);
+            UpdateWorktop();
 
             if (OrientationArrow != null)
             {
@@ -151,6 +156,33 @@ namespace KitchenDesigner.Features.Kitchen.Components
 
                 newShelf.SetDimensions(shelfSize);
             }
+        }
+
+        private void UpdateWorktop()
+        {
+            if (WorktopMesh == null) return;
+
+            WorktopMesh.Visible = Data.HasWorktop;
+
+            if (!Data.HasWorktop) return;
+
+            float w = Data.Width;
+            float d = Data.Depth;
+            float thickness = Data.WorktopThickness;
+            float overhang = Data.WorktopOverhang;
+
+            float totalDepth = d + overhang;
+
+            if (WorktopMesh.Mesh is BoxMesh box)
+            {
+                box.Size = new Vector3(w, thickness, totalDepth);
+            }
+
+            float posY = Data.Height/2 + (thickness / 2.0f);
+
+            float posZ = 0;
+
+            WorktopMesh.Position = new Vector3(0, posY, posZ);
         }
         public Node AsNode() => this;
 

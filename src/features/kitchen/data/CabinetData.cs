@@ -85,6 +85,7 @@ namespace KitchenDesigner.Features.Kitchen.Data
             copy.Height = this.Height;
             copy.Depth = this.Depth;
             copy.ShelfCount = this.ShelfCount;
+            copy.HasWorktop = this.HasWorktop;
             return copy;
         }
 

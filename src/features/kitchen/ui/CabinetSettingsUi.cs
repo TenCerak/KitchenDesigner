@@ -16,6 +16,7 @@ namespace KitchenDesigner.Features.Kitchen.UI
         [Export] public Label DepthValueLabel;
 
         [Export] public SpinBox ShelfCount;
+        [Export] public CheckBox WorktopCheckBox;
 
         private CabinetData _data;
 
@@ -63,6 +64,21 @@ namespace KitchenDesigner.Features.Kitchen.UI
                 ShelfCount.ValueChanged -= OnShelfChanged;
                 ShelfCount.ValueChanged += OnShelfChanged;
             }
+
+            if (WorktopCheckBox != null)
+            {
+                WorktopCheckBox.Toggled -= OnWorktopToggled;
+
+                WorktopCheckBox.ButtonPressed = _data.HasWorktop;
+
+                WorktopCheckBox.Toggled += OnWorktopToggled;
+            }
+        }
+
+        private void OnWorktopToggled(bool pressed)
+        {
+            if (_data == null) return;
+            _data.HasWorktop = pressed;
         }
 
         private void OnWidthChanged(double value)
