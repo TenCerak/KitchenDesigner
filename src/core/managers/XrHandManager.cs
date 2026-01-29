@@ -208,6 +208,14 @@ public partial class XrHandManager : Node
         }
 
         pointer.Set("collision_mask", currentMask);
+        
+    }
+
+    public Vector2 GetDominantHandJoystick()
+    {
+        var controller = DominantHand == HandSide.Right ? RightController : LeftController;
+
+        return controller.GetVector2("primary");
     }
 
     public XRController3D GetActiveController() => DominantHand == HandSide.Right ? RightController : LeftController;
