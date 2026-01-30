@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://dxlklc7mnthdo" path="res://src/features/kitchen/data/CabinetData.cs" id="2_mbcon"]
 [ext_resource type="PackedScene" uid="uid://dequbvjdolyxb" path="res://src/features/kitchen/components/shelf.tscn" id="3_mbcon"]
 [ext_resource type="Material" uid="uid://djlru0p6iv3nm" path="res://assets/materials/kitchen/H1181_ST37_Dub_Halifax_tabakovy.tres" id="4_vawod"]
+[ext_resource type="PackedScene" uid="uid://d1udh4whwmg3m" path="res://src/features/kitchen/components/CabinetDoor.tscn" id="5_akrie"]
 [ext_resource type="PackedScene" uid="uid://7fwdioqk25um" path="res://src/features/kitchen/components/snap_point.tscn" id="5_lpbsj"]
 [ext_resource type="Material" uid="uid://bgtl1ntahy4di" path="res://assets/materials/kitchen/F095_ST87_Mramor_Siena_sedy.tres" id="6_57iyu"]
 
@@ -27,7 +28,7 @@ albedo_color = Color(0.7676564, 0.4009214, 0.10006667, 1)
 [sub_resource type="PrismMesh" id="PrismMesh_57iyu"]
 material = SubResource("StandardMaterial3D_lpbsj")
 
-[node name="Cabinet" type="Node3D" unique_id=1811511594 node_paths=PackedStringArray("VisualsRoot", "LeftPanel", "RightPanel", "BottomPanel", "TopPanel", "BackPanel", "ShelvesContainer", "WorktopMesh", "StaticBody", "ColLeft", "ColRight", "ColBottom", "ColTop", "ColBack", "OrientationArrow", "SnapPointsContainer")]
+[node name="Cabinet" type="Node3D" unique_id=1811511594 node_paths=PackedStringArray("VisualsRoot", "LeftPanel", "RightPanel", "BottomPanel", "TopPanel", "BackPanel", "ShelvesContainer", "WorktopMesh", "StaticBody", "ColLeft", "ColRight", "ColBottom", "ColTop", "ColBack", "DoorsContainer", "OrientationArrow", "SnapPointsContainer")]
 script = ExtResource("1_4cffh")
 Data = SubResource("Resource_vawod")
 ShelfScene = ExtResource("3_mbcon")
@@ -46,6 +47,8 @@ ColRight = NodePath("StaticBody3D/Col_Right")
 ColBottom = NodePath("StaticBody3D/Col_Bottom")
 ColTop = NodePath("StaticBody3D/Col_Top")
 ColBack = NodePath("StaticBody3D/Col_Back")
+DoorPrefab = ExtResource("5_akrie")
+DoorsContainer = NodePath("DoorsContainer")
 OrientationArrow = NodePath("OrientationArrow")
 SnapPointScene = ExtResource("5_lpbsj")
 SnapPointsContainer = NodePath("SnapPoints")
@@ -54,6 +57,7 @@ SnapPointsContainer = NodePath("SnapPoints")
 
 [node name="Worktop" type="MeshInstance3D" parent="Visuals" unique_id=820866812]
 mesh = SubResource("BoxMesh_lpbsj")
+surface_material_override/0 = ExtResource("6_57iyu")
 
 [node name="TopPanel" type="MeshInstance3D" parent="Visuals" unique_id=1381453698]
 mesh = SubResource("BoxMesh_4cffh")
@@ -93,6 +97,8 @@ shape = SubResource("BoxShape3D_vawod")
 
 [node name="Col_Back" type="CollisionShape3D" parent="StaticBody3D" unique_id=1329750843]
 shape = SubResource("BoxShape3D_vawod")
+
+[node name="DoorsContainer" type="Node3D" parent="." unique_id=823867595]
 
 [node name="SnapPoints" type="Node3D" parent="." unique_id=1781990198]
 

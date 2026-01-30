@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://drk48vecjmnqw" path="res://src/features/kitchen/ui/CabinetSettingsUi.cs" id="1_nhbbr"]
 
-[node name="Control" type="Control" unique_id=1622220008 node_paths=PackedStringArray("WidthSlider", "WidthValueLabel", "HeightSlider", "HeightValueLabel", "DepthSlider", "DepthValueLabel", "ShelfCount", "WorktopCheckBox")]
+[node name="Control" type="Control" unique_id=1622220008 node_paths=PackedStringArray("WidthSlider", "WidthValueLabel", "HeightSlider", "HeightValueLabel", "DepthSlider", "DepthValueLabel", "ShelfCount", "WorktopCheckBox", "DoorTypeOption", "DoorStyleOption")]
 custom_minimum_size = Vector2(1280, 720)
 layout_mode = 3
 anchor_right = 1.1110001
@@ -18,6 +18,8 @@ DepthSlider = NodePath("GridContainer/HBoxContainer3/VBoxContainer2/Depth")
 DepthValueLabel = NodePath("GridContainer/HBoxContainer3/VBoxContainer2/DValueLabel")
 ShelfCount = NodePath("GridContainer/HBoxContainer2/SpinBox")
 WorktopCheckBox = NodePath("GridContainer/HBoxContainer2/Worktop")
+DoorTypeOption = NodePath("GridContainer/HBoxContainer4/DoorTypeDropDown")
+DoorStyleOption = NodePath("GridContainer/HBoxContainer4/DoorStyleDropdown")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1925566193]
 layout_mode = 1
@@ -139,3 +141,42 @@ layout_mode = 2
 layout_mode = 2
 text = "WorkTop"
 alignment = 1
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="GridContainer" unique_id=1609434558]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GridContainer/HBoxContainer4" unique_id=927234509]
+layout_mode = 2
+text = "Door type:"
+
+[node name="DoorTypeDropDown" type="OptionButton" parent="GridContainer/HBoxContainer4" unique_id=1288127685]
+layout_mode = 2
+selected = 0
+item_count = 7
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "SingleLeft"
+popup/item_1/id = 1
+popup/item_2/text = "SingleRight"
+popup/item_2/id = 2
+popup/item_3/text = "Double"
+popup/item_3/id = 3
+popup/item_4/text = "FlipUp"
+popup/item_4/id = 4
+popup/item_5/text = "FlipUpDouble"
+popup/item_5/id = 5
+popup/item_6/text = "Drawer"
+popup/item_6/id = 6
+
+[node name="Label2" type="Label" parent="GridContainer/HBoxContainer4" unique_id=1374754309]
+layout_mode = 2
+text = "Door style:"
+
+[node name="DoorStyleDropdown" type="OptionButton" parent="GridContainer/HBoxContainer4" unique_id=1598087587]
+layout_mode = 2
+selected = 0
+item_count = 2
+popup/item_0/text = "Solid"
+popup/item_0/id = 0
+popup/item_1/text = "Glass"
+popup/item_1/id = 1

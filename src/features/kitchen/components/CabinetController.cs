@@ -36,6 +36,10 @@ namespace KitchenDesigner.Features.Kitchen.Components
         [Export] public CollisionShape3D ColTop;
         [Export] public CollisionShape3D ColBack;
 
+        [ExportGroup("Door System")]
+        [Export] public PackedScene DoorPrefab;
+        [Export] public Node3D DoorsContainer;
+
         [ExportGroup("Visual Aids")]
         [Export] public Node3D OrientationArrow;
 
@@ -54,6 +58,7 @@ namespace KitchenDesigner.Features.Kitchen.Components
 
             Data.DimensionsChanged += RebuildCabinet;
             Data.WorktopToggled += RebuildCabinet;
+            Data.DoorChanged += RebuildCabinet;
 
             RebuildCabinet();
         }
@@ -93,6 +98,7 @@ namespace KitchenDesigner.Features.Kitchen.Components
             RebuildShelves(innerWidth, h, d, t);
             UpdateSnapPoints(w, h, d);
             UpdateWorktop();
+            UpdateDoors();
 
             if (OrientationArrow != null)
             {
@@ -163,8 +169,13 @@ namespace KitchenDesigner.Features.Kitchen.Components
             if (WorktopMesh == null) return;
 
             WorktopMesh.Visible = Data.HasWorktop;
-
             if (!Data.HasWorktop) return;
+
+            Material currentMat = WorktopMesh.MaterialOverride;
+            if (currentMat == null && WorktopMesh.Mesh != null)
+            {
+                currentMat = WorktopMesh.Mesh.SurfaceGetMaterial(0);
+            }
 
             float w = Data.Width;
             float d = Data.Depth;
@@ -173,17 +184,80 @@ namespace KitchenDesigner.Features.Kitchen.Components
 
             float totalDepth = d + overhang;
 
-            if (WorktopMesh.Mesh is BoxMesh box)
+            BoxMesh newWorktopMesh = new BoxMesh();
+            newWorktopMesh.Size = new Vector3(w, thickness, totalDepth);
+
+            if (currentMat is not null)
             {
-                box.Size = new Vector3(w, thickness, totalDepth);
+                WorktopMesh.MaterialOverride = currentMat;
             }
 
-            float posY = Data.Height/2 + (thickness / 2.0f);
+            WorktopMesh.Mesh = newWorktopMesh;
 
-            float posZ = 0;
+            float posY = Data.Height / 2 + (thickness / 2.0f);
+
+            float posZ = overhang / 2;
 
             WorktopMesh.Position = new Vector3(0, posY, posZ);
         }
+
+        private void UpdateDoors()
+        {
+            foreach (Node child in DoorsContainer.GetChildren()) child.QueueFree();
+
+            if (DoorPrefab == null || Data.DoorType == DoorType.None) return;
+
+            // Posun kontejneru na čelo skříňky
+            DoorsContainer.Position = new Vector3(0, 0, Data.Depth);
+
+            float w = Data.Width;
+            float h = Data.Height;
+            float thickness = 0.02f;
+            float gap = 0.002f;
+
+            float leftEdge = -w / 2.0f;
+            float rightEdge = w / 2.0f;
+
+            switch (Data.DoorType)
+            {
+                case DoorType.SingleLeft:
+                    CreateDoor(w - (gap * 2), h - (gap * 2), thickness, false, leftEdge + gap);
+                    break;
+
+                case DoorType.SingleRight:
+                    CreateDoor(w - (gap * 2), h - (gap * 2), thickness, true, rightEdge - gap);
+                    break;
+
+                case DoorType.Double:
+                    float halfW = (w / 2.0f) - gap;
+
+                    CreateDoor(halfW, h - (gap * 2), thickness, false, leftEdge + gap);
+
+                    CreateDoor(halfW, h - (gap * 2), thickness, true, rightEdge - gap);
+                    break;
+
+                case DoorType.FlipUp:
+                    //TODO: Implementovat
+                    break;
+            }
+        }
+        private CabinetDoor CreateDoor(float width, float height, float thickness, bool isRight, float xOffset)
+        {
+            var doorInstance = DoorPrefab.Instantiate<CabinetDoor>();
+            DoorsContainer.AddChild(doorInstance);
+
+            doorInstance.Position = new Vector3(xOffset, 0.002f, 0);
+
+            if (isRight)
+            {
+                doorInstance.RotationDegrees = new Vector3(0, 180, 0);
+            }
+
+            bool isGlass = Data.DoorStyle == DoorStyle.Glass;
+            doorInstance.Setup(width, height, thickness, isGlass, isRight);
+            return doorInstance;
+        }
+
         public Node AsNode() => this;
 
         public void Delete()

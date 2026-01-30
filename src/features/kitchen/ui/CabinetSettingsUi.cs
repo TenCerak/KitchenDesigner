@@ -18,6 +18,9 @@ namespace KitchenDesigner.Features.Kitchen.UI
         [Export] public SpinBox ShelfCount;
         [Export] public CheckBox WorktopCheckBox;
 
+        [Export] public OptionButton DoorTypeOption;
+        [Export] public OptionButton DoorStyleOption;
+
         private CabinetData _data;
 
         public string TabName => "Nastavení skříňky";
@@ -73,6 +76,20 @@ namespace KitchenDesigner.Features.Kitchen.UI
 
                 WorktopCheckBox.Toggled += OnWorktopToggled;
             }
+
+            if(DoorStyleOption != null)
+            {
+                DoorStyleOption.Selected = (int)_data.DoorStyle;
+                DoorStyleOption.ItemSelected -= OnDoorStyleChanged;
+                DoorStyleOption.ItemSelected += OnDoorStyleChanged;
+            }
+
+            if(DoorTypeOption != null)
+            {
+                DoorTypeOption.Selected = (int)_data.DoorType;
+                DoorTypeOption.ItemSelected -= OnDoorTypeChanged;
+                DoorTypeOption.ItemSelected += OnDoorTypeChanged;
+            }
         }
 
         private void OnWorktopToggled(bool pressed)
@@ -109,6 +126,14 @@ namespace KitchenDesigner.Features.Kitchen.UI
             if (_data != null) _data.ShelfCount = (int)value;
         }
 
+        void OnDoorStyleChanged(long index)
+        {
+            if (_data != null) _data.DoorStyle = (DoorStyle)index;
+        }
+        void OnDoorTypeChanged(long index)
+        {
+            if (_data != null) _data.DoorType = (DoorType)index;
+        }
         public void OnPageOpened()
         {
         }

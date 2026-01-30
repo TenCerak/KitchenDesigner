@@ -1,5 +1,7 @@
 using Godot;
 using KitchenDesigner.Common.Interfaces;
+using KitchenDesigner.Common.Utils;
+using KitchenDesigner.Features.Kitchen.Components;
 using System;
 
 public partial class Nothing : Node3D, IARTool
@@ -39,6 +41,10 @@ public partial class Nothing : Node3D, IARTool
 
     public void Release()
     {
+        if (_handManager != null) {
+            _handManager.SetPointerLayerEnabled(CollisionLayerHelper.TOOLS, false);
+            _handManager.SetPointerLayerEnabled(CollisionLayerHelper.INTERACTIBLES, false);
+        }
         QueueFree();
     }
 
@@ -50,17 +56,33 @@ public partial class Nothing : Node3D, IARTool
     public void Initialize(XrHandManager handManager)
     {
         _handManager = handManager;
-        _handManager.SetPointerLayerEnabled(TOOLS_LAYER, true);
+        _handManager.SetPointerLayerEnabled(CollisionLayerHelper.TOOLS, true);
+        _handManager.SetPointerLayerEnabled(CollisionLayerHelper.INTERACTIBLES, true);
     }
 
     public void Reattach(XrHandManager handManager)
     {
         _handManager = handManager;
-        _handManager.SetPointerLayerEnabled(TOOLS_LAYER, true);
+        _handManager.SetPointerLayerEnabled(CollisionLayerHelper.TOOLS, true);
+        _handManager.SetPointerLayerEnabled(CollisionLayerHelper.INTERACTIBLES, true);
     }
 
     public void ButtonPressed(string actionName)
     {
+        if (actionName == "trigger_click")
+        {
+            var ray = _handManager.GetActiveRayCast();
+            if (ray.IsColliding())
+            {
+                var collider = ray.GetCollider();
+
+                if (collider is Area3D area && area.GetParent() is CabinetDoor door)
+                {
+                    door.ToggleOpen();
+                    return; 
+                }
+            }
+        }
     }
 
     public void ButtonReleased(string actionName)

@@ -8,6 +8,7 @@ namespace KitchenDesigner.Features.Kitchen.Data
     {
         [Signal] public delegate void DimensionsChangedEventHandler();
         [Signal] public delegate void WorktopToggledEventHandler();
+        [Signal] public delegate void DoorChangedEventHandler();
 
         [Export]
         public bool HasWorktop
@@ -78,6 +79,37 @@ namespace KitchenDesigner.Features.Kitchen.Data
             }
         } = 1;
 
+        [ExportGroup("Fronts")]
+        [Export]
+        public DoorType DoorType
+        {
+            get; set
+            {
+                field = value;
+                EmitSignal(SignalName.DoorChanged);
+            }
+        } = DoorType.None;
+
+        [Export]
+        public DoorStyle DoorStyle
+        {
+            get; set
+            {
+                field = value;
+                EmitSignal(SignalName.DoorChanged);
+            }
+        } = DoorStyle.Solid;
+
+        [Export]
+        public Material HandleMaterial
+        {
+            get; set
+            {
+                field = value;
+                EmitSignal(SignalName.DoorChanged);
+            }
+        }
+
         public CabinetData Duplicate()
         {
             CabinetData copy = new CabinetData();
@@ -86,6 +118,9 @@ namespace KitchenDesigner.Features.Kitchen.Data
             copy.Depth = this.Depth;
             copy.ShelfCount = this.ShelfCount;
             copy.HasWorktop = this.HasWorktop;
+            copy.DoorType = this.DoorType;
+            copy.DoorStyle = this.DoorStyle;
+            copy.HandleMaterial = this.HandleMaterial;
             return copy;
         }
 

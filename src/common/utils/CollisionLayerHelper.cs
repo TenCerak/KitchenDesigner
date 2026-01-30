@@ -18,6 +18,7 @@ namespace KitchenDesigner.Common.Utils
         public const int TOOLS = 11;
         public const int KITCHEN_COMPONENTS = 12;
         public const int SNAP_POINTS = 13;
+        public const int INTERACTIBLES = 14;
 
         public const int HELD_OBJECTS = 17;
         public const int PLAYER_HANDS = 18;
