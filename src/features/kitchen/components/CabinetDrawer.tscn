@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://bc3qu5dth1i72"]
+
+[ext_resource type="Script" uid="uid://c4qsqa3swvx7n" path="res://src/features/kitchen/components/CabinetDrawer.cs" id="1_3vyqn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s5gnb"]
+albedo_color = Color(0.5779315, 0.41587052, 0.27878973, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_c31yo"]
+material = SubResource("StandardMaterial3D_s5gnb")
+top_radius = 0.02
+bottom_radius = 0.02
+height = 0.15
+
+[sub_resource type="BoxMesh" id="BoxMesh_3vyqn"]
+size = Vector3(0.6, 0.3, 0.04)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wv2tp"]
+size = Vector3(0.55, 0.25, 0.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qw2hw"]
+size = Vector3(0.6, 0.3, 0.04)
+
+[node name="DrawerRoot" type="Node3D" unique_id=934081396 node_paths=PackedStringArray("FrontPanel", "DrawerBox", "HandleObj", "ClickArea", "ClickShape")]
+script = ExtResource("1_3vyqn")
+FrontPanel = NodePath("Visuals/FrontPanel")
+DrawerBox = NodePath("Visuals/DrawerBox")
+HandleObj = NodePath("Visuals/HandleObj")
+ClickArea = NodePath("Interaction")
+ClickShape = NodePath("Interaction/CollisionShape3D")
+
+[node name="Visuals" type="Node3D" parent="." unique_id=1311033220]
+
+[node name="HandleObj" type="MeshInstance3D" parent="Visuals" unique_id=732065877]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.0023162365, 0.09069434, 0.46540964)
+mesh = SubResource("CylinderMesh_c31yo")
+skeleton = NodePath("")
+
+[node name="FrontPanel" type="MeshInstance3D" parent="Visuals" unique_id=1309780972]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.4)
+mesh = SubResource("BoxMesh_3vyqn")
+
+[node name="DrawerBox" type="MeshInstance3D" parent="Visuals" unique_id=1359493009]
+mesh = SubResource("BoxMesh_wv2tp")
+
+[node name="Interaction" type="Area3D" parent="." unique_id=833684409]
+collision_layer = 8192
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interaction" unique_id=1010539982]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.4)
+shape = SubResource("BoxShape3D_qw2hw")

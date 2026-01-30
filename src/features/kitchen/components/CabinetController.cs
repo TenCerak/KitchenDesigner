@@ -39,6 +39,7 @@ namespace KitchenDesigner.Features.Kitchen.Components
         [ExportGroup("Door System")]
         [Export] public PackedScene DoorPrefab;
         [Export] public Node3D DoorsContainer;
+        [Export] public PackedScene DrawerPrefab;
 
         [ExportGroup("Visual Aids")]
         [Export] public Node3D OrientationArrow;
@@ -210,6 +211,14 @@ namespace KitchenDesigner.Features.Kitchen.Components
             // Posun kontejneru na čelo skříňky
             DoorsContainer.Position = new Vector3(0, 0, Data.Depth);
 
+            DoorsContainer.Position = new Vector3(0, 0, Data.Depth);
+
+            if (Data.DoorType == DoorType.Drawer)
+            {
+                GenerateDrawers();
+                return;
+            }
+
             float w = Data.Width;
             float h = Data.Height;
             float thickness = 0.02f;
@@ -256,6 +265,37 @@ namespace KitchenDesigner.Features.Kitchen.Components
             bool isGlass = Data.DoorStyle == DoorStyle.Glass;
             doorInstance.Setup(width, height, thickness, isGlass, isRight);
             return doorInstance;
+        }
+
+        private void GenerateDrawers()
+        {
+            if (DrawerPrefab == null) return;
+
+            int drawerCount = Data.ShelfCount + 1;
+
+            float totalHeight = Data.Height;
+            float gap = 0.003f; 
+
+            
+            float usableHeight = totalHeight - (gap * (drawerCount + 1));
+            float singleDrawerHeight = usableHeight / drawerCount;
+
+            float w = Data.Width - (gap * 2);
+            float d = Data.Depth;
+
+            float currentY = gap + (singleDrawerHeight / 2.0f);
+
+            for (int i = 0; i < drawerCount; i++)
+            {
+                var drawer = DrawerPrefab.Instantiate<CabinetDrawer>();
+                DoorsContainer.AddChild(drawer);
+
+                drawer.Position = new Vector3(0, currentY, 0);
+
+                drawer.Setup(w, singleDrawerHeight, d);
+
+                currentY += singleDrawerHeight + gap;
+            }
         }
 
         public Node AsNode() => this;

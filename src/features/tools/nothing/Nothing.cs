@@ -2,6 +2,7 @@ using Godot;
 using KitchenDesigner.Common.Interfaces;
 using KitchenDesigner.Common.Utils;
 using KitchenDesigner.Features.Kitchen.Components;
+using KitchenDesigner.Features.Kitchen.Interfaces;
 using System;
 
 public partial class Nothing : Node3D, IARTool
@@ -10,16 +11,16 @@ public partial class Nothing : Node3D, IARTool
     public bool IsActive { get; set; } = false;
 
     private XrHandManager _handManager;
-    private const int TOOLS_LAYER = 11; 
+    private const int TOOLS_LAYER = 11;
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
-	{
-	}
+    {
+    }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(double delta)
+    {
+    }
 
     public void Activate()
     {
@@ -41,7 +42,8 @@ public partial class Nothing : Node3D, IARTool
 
     public void Release()
     {
-        if (_handManager != null) {
+        if (_handManager != null)
+        {
             _handManager.SetPointerLayerEnabled(CollisionLayerHelper.TOOLS, false);
             _handManager.SetPointerLayerEnabled(CollisionLayerHelper.INTERACTIBLES, false);
         }
@@ -71,17 +73,25 @@ public partial class Nothing : Node3D, IARTool
     {
         if (actionName == "trigger_click")
         {
-            var ray = _handManager.GetActiveRayCast();
-            if (ray.IsColliding())
-            {
-                var collider = ray.GetCollider();
+            InteractWithInteractibleObject();
+        }
+    }
 
-                if (collider is Area3D area && area.GetParent() is CabinetDoor door)
-                {
-                    door.ToggleOpen();
-                    return; 
-                }
-            }
+    private void InteractWithInteractibleObject()
+    {
+        var ray = _handManager.GetActiveRayCast();
+
+        if (ray.IsColliding() == false) return;
+
+        var collider = ray.GetCollider();
+
+        if (collider is not Node hitNode) return;
+
+        var interactable = hitNode.GetComponentInParent<IInteractable>();
+
+        if (interactable is null) return;
+        {
+            interactable.Interact();
         }
     }
 

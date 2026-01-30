@@ -1,9 +1,10 @@
 using Godot;
+using KitchenDesigner.Features.Kitchen.Interfaces;
 using System.Threading.Tasks;
 
 namespace KitchenDesigner.Features.Kitchen.Components
 {
-    public partial class CabinetDoor : Node3D
+    public partial class CabinetDoor : Node3D, IInteractable
     {
         [Export] public MeshInstance3D PanelMesh;
         [Export] public Node3D HandleObj;
@@ -15,6 +16,8 @@ namespace KitchenDesigner.Features.Kitchen.Components
         private float _closedAngle = 0f;
         private float _openAngle = 90f; 
         private Tween _tween;
+
+
 
         public void Setup(float width, float height, float thickness, bool isGlass, bool isRightDoor)
         {
@@ -79,7 +82,10 @@ namespace KitchenDesigner.Features.Kitchen.Components
             }
         }
 
-
+        public void Interact()
+        {
+            ToggleOpen();
+        }
         public void ToggleOpen()
         {
             _isOpen = !_isOpen;

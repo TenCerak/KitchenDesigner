@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://d1udh4whwmg3m" path="res://src/features/kitchen/components/CabinetDoor.tscn" id="5_akrie"]
 [ext_resource type="PackedScene" uid="uid://7fwdioqk25um" path="res://src/features/kitchen/components/snap_point.tscn" id="5_lpbsj"]
 [ext_resource type="Material" uid="uid://bgtl1ntahy4di" path="res://assets/materials/kitchen/F095_ST87_Mramor_Siena_sedy.tres" id="6_57iyu"]
+[ext_resource type="PackedScene" uid="uid://bc3qu5dth1i72" path="res://src/features/kitchen/components/CabinetDrawer.tscn" id="6_sqihg"]
 
 [sub_resource type="Resource" id="Resource_vawod"]
 resource_local_to_scene = true
@@ -49,6 +50,7 @@ ColTop = NodePath("StaticBody3D/Col_Top")
 ColBack = NodePath("StaticBody3D/Col_Back")
 DoorPrefab = ExtResource("5_akrie")
 DoorsContainer = NodePath("DoorsContainer")
+DrawerPrefab = ExtResource("6_sqihg")
 OrientationArrow = NodePath("OrientationArrow")
 SnapPointScene = ExtResource("5_lpbsj")
 SnapPointsContainer = NodePath("SnapPoints")
