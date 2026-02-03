@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using KitchenDesigner;
 
-namespace KitchenDesigner.src.common.utils
+namespace KitchenDesigner.Common.Utils
 {
     public static class ARHelper
     {
