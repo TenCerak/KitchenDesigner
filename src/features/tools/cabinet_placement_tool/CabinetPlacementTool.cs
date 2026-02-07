@@ -234,6 +234,18 @@ namespace KitchenDesigner.Features.Kitchen.Tools
             if (targetPoint.ParentCabinet != null)
             {
                 targetRotation = targetPoint.ParentCabinet.GlobalTransform.Basis.GetRotationQuaternion();
+
+                if (targetPoint.Type == SnapType.CornerFront)
+                {
+                    if (targetPoint.ParentCabinet.Data.CornerIsLeft)
+                    {
+                        targetRotation *= Quaternion.FromEuler(new Vector3(0, Mathf.Pi / 2, 0));
+                    }
+                    else
+                    {
+                        targetRotation *= Quaternion.FromEuler(new Vector3(0, -Mathf.Pi / 2, 0));
+                    }
+                }
             }
 
             Vector3 localOffset = _ghostInstance.ToLocal(ghostPoint.GlobalPosition);
@@ -258,6 +270,7 @@ namespace KitchenDesigner.Features.Kitchen.Tools
             if (ghostType == SnapType.Right && targetType == SnapType.Left) return true;
             if (ghostType == SnapType.Bottom && targetType == SnapType.Top) return true;
             if (ghostType == SnapType.Top && targetType == SnapType.Bottom) return true;
+            if ((ghostType == SnapType.Left || ghostType == SnapType.Right) && targetType == SnapType.CornerFront) return true;
 
             return false;
         }

@@ -23,6 +23,7 @@ namespace KitchenDesigner.Features.Kitchen.Components
         [Export] public MeshInstance3D BottomPanel;
         [Export] public MeshInstance3D TopPanel;
         [Export] public MeshInstance3D BackPanel;
+        [Export] public MeshInstance3D FillerPanel;
         [Export] public Node3D ShelvesContainer;
 
         [ExportGroup("Worktop")]
@@ -96,6 +97,7 @@ namespace KitchenDesigner.Features.Kitchen.Components
             // Pozice Z je úplně vzadu (-d/2) plus polovina tloušťky zad
             UpdatePart(BackPanel, ColBack, Material, new Vector3(w, h, t), new Vector3(0, 0, -d / 2 + t / 2));
 
+            UpdateFillerPanel();
             RebuildShelves(innerWidth, h, d, t);
             UpdateSnapPoints(w, h, d);
             UpdateWorktop();
@@ -208,9 +210,6 @@ namespace KitchenDesigner.Features.Kitchen.Components
 
             if (DoorPrefab == null || Data.DoorType == DoorType.None) return;
 
-            // Posun kontejneru na čelo skříňky
-            DoorsContainer.Position = new Vector3(0, 0, Data.Depth);
-
             DoorsContainer.Position = new Vector3(0, 0, Data.Depth);
 
             if (Data.DoorType == DoorType.Drawer)
@@ -219,13 +218,32 @@ namespace KitchenDesigner.Features.Kitchen.Components
                 return;
             }
 
-            float w = Data.Width;
+            float totalW = Data.Width;
             float h = Data.Height;
             float thickness = 0.02f;
             float gap = 0.002f;
 
-            float leftEdge = -w / 2.0f;
-            float rightEdge = w / 2.0f;
+            float usableWidth = totalW;
+            float startX = -totalW / 2.0f;
+
+            if (Data.Shape == CabinetShape.CornerBlind)
+            {
+                usableWidth = totalW - Data.CornerBlindWidth;
+
+                if (Data.CornerIsLeft)
+                {
+                    startX = (-totalW / 2.0f) + Data.CornerBlindWidth;
+                }
+                else
+                {
+                    startX = -totalW / 2.0f;
+                }
+            }
+
+            float leftEdge = startX;
+            float rightEdge = startX + usableWidth;
+
+            float w = usableWidth;
 
             switch (Data.DoorType)
             {
@@ -239,17 +257,12 @@ namespace KitchenDesigner.Features.Kitchen.Components
 
                 case DoorType.Double:
                     float halfW = (w / 2.0f) - gap;
-
                     CreateDoor(halfW, h - (gap * 2), thickness, false, leftEdge + gap);
-
                     CreateDoor(halfW, h - (gap * 2), thickness, true, rightEdge - gap);
-                    break;
-
-                case DoorType.FlipUp:
-                    //TODO: Implementovat
                     break;
             }
         }
+
         private CabinetDoor CreateDoor(float width, float height, float thickness, bool isRight, float xOffset)
         {
             var doorInstance = DoorPrefab.Instantiate<CabinetDoor>();
@@ -296,6 +309,45 @@ namespace KitchenDesigner.Features.Kitchen.Components
 
                 currentY += singleDrawerHeight + gap;
             }
+        }
+
+        private void UpdateFillerPanel()
+        {
+            if (FillerPanel == null) return;
+
+            if (Data.Shape != CabinetShape.CornerBlind)
+            {
+                FillerPanel.Visible = false;
+                return;
+            }
+
+            FillerPanel.Visible = true;
+
+            float blindW = Data.CornerBlindWidth;
+            float h = Data.Height;
+            float d = Data.Depth;
+            float thickness = 0.018f;
+
+            BoxMesh fillerMesh = new BoxMesh();
+            fillerMesh.Size = new Vector3(blindW, h, thickness);
+            FillerPanel.Mesh = fillerMesh;
+
+            float totalW = Data.Width;
+            float fillerX = 0;
+           
+            float fillerZ = Data.Depth / 2 + (thickness / 2.0f);
+
+            if (Data.CornerIsLeft)
+            {
+                fillerX = (-totalW / 2.0f) + (blindW / 2.0f);
+            }
+            else
+            {
+                fillerX = (totalW / 2.0f) - (blindW / 2.0f);
+            }
+
+            FillerPanel.Position = new Vector3(fillerX, 0, fillerZ);
+
         }
 
         public Node AsNode() => this;
@@ -360,10 +412,35 @@ namespace KitchenDesigner.Features.Kitchen.Components
 
             CreateSnapPoint(SnapType.Bottom, new Vector3(0, 0, centerZ));
 
+            if (Data.Shape == CabinetShape.CornerBlind)
+            {
+
+                float blindW = Data.CornerBlindWidth;
+                float snapX = 0;
+                float snapZ = d; 
+
+                Vector3 rotation = Vector3.Zero;
+
+                if (Data.CornerIsLeft)
+                {
+                    snapX = (-w / 2.0f);
+
+                    rotation = new Vector3(0, -90, 0);
+                }
+                else
+                {
+                    snapX = (w / 2.0f);
+                    rotation = new Vector3(0, 90, 0);
+                }
+
+                var snap = CreateSnapPoint(SnapType.CornerFront, new Vector3(snapX, centerY, snapZ));
+                snap.RotationDegrees = rotation;
+            }
+
         }
 
 
-        private void CreateSnapPoint(SnapType type, Vector3 localPos)
+        private SnapPoint CreateSnapPoint(SnapType type, Vector3 localPos)
         {
             var instance = SnapPointScene.Instantiate<SnapPoint>();
             SnapPointsContainer.AddChild(instance);
@@ -374,6 +451,7 @@ namespace KitchenDesigner.Features.Kitchen.Components
             instance.AreaEntered += Instance_AreaEntered;
 
             ActiveSnapPoints.Add(instance);
+            return instance;
         }
 
         private void Instance_AreaEntered(Area3D area)

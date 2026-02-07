@@ -110,6 +110,35 @@ namespace KitchenDesigner.Features.Kitchen.Data
             }
         }
 
+        [ExportGroup("Corner Settings")]
+        [Export]
+        public CabinetShape Shape
+        {
+            get; set
+            {
+                field = value;
+                EmitSignal(SignalName.DimensionsChanged);
+            }
+        } = CabinetShape.Standard;
+        [Export]
+        public float CornerBlindWidth
+        {
+            get; set
+            {
+                field = value;
+                EmitSignal(SignalName.DimensionsChanged);
+            }
+        } = 0.60f;
+        [Export]
+        public bool CornerIsLeft
+        {
+            get; set
+            {
+                field = value;
+                EmitSignal(SignalName.DimensionsChanged);
+            }
+        } = true;
+
         public CabinetData Duplicate()
         {
             CabinetData copy = new CabinetData();
@@ -121,6 +150,9 @@ namespace KitchenDesigner.Features.Kitchen.Data
             copy.DoorType = this.DoorType;
             copy.DoorStyle = this.DoorStyle;
             copy.HandleMaterial = this.HandleMaterial;
+            copy.Shape = this.Shape;
+            copy.CornerBlindWidth = this.CornerBlindWidth;
+            copy.CornerIsLeft = this.CornerIsLeft;
             return copy;
         }
 

@@ -32,7 +32,7 @@ public partial class ArSceneManager : Node
         ShowSceneAnchors(show);
         ShowSpatialAnchors(show);
     }
-    void ShowSceneAnchors(bool show)
+    public void ShowSceneAnchors(bool show)
     {
         SceneManagerNode.Set("visible", show);
     }

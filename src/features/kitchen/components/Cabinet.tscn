@@ -29,7 +29,7 @@ albedo_color = Color(0.7676564, 0.4009214, 0.10006667, 1)
 [sub_resource type="PrismMesh" id="PrismMesh_57iyu"]
 material = SubResource("StandardMaterial3D_lpbsj")
 
-[node name="Cabinet" type="Node3D" unique_id=1811511594 node_paths=PackedStringArray("VisualsRoot", "LeftPanel", "RightPanel", "BottomPanel", "TopPanel", "BackPanel", "ShelvesContainer", "WorktopMesh", "StaticBody", "ColLeft", "ColRight", "ColBottom", "ColTop", "ColBack", "DoorsContainer", "OrientationArrow", "SnapPointsContainer")]
+[node name="Cabinet" type="Node3D" unique_id=1811511594 node_paths=PackedStringArray("VisualsRoot", "LeftPanel", "RightPanel", "BottomPanel", "TopPanel", "BackPanel", "FillerPanel", "ShelvesContainer", "WorktopMesh", "StaticBody", "ColLeft", "ColRight", "ColBottom", "ColTop", "ColBack", "DoorsContainer", "OrientationArrow", "SnapPointsContainer")]
 script = ExtResource("1_4cffh")
 Data = SubResource("Resource_vawod")
 ShelfScene = ExtResource("3_mbcon")
@@ -40,6 +40,7 @@ RightPanel = NodePath("Visuals/RightPanel")
 BottomPanel = NodePath("Visuals/BottomPanel")
 TopPanel = NodePath("Visuals/TopPanel")
 BackPanel = NodePath("Visuals/BackPanel")
+FillerPanel = NodePath("Visuals/FillerPanel")
 ShelvesContainer = NodePath("Visuals/ShelvesContainer")
 WorktopMesh = NodePath("Visuals/Worktop")
 StaticBody = NodePath("StaticBody3D")
@@ -77,6 +78,10 @@ mesh = SubResource("BoxMesh_4cffh")
 skeleton = NodePath("../LeftPanel")
 
 [node name="BackPanel" type="MeshInstance3D" parent="Visuals" unique_id=1918285086]
+mesh = SubResource("BoxMesh_4cffh")
+skeleton = NodePath("../LeftPanel")
+
+[node name="FillerPanel" type="MeshInstance3D" parent="Visuals" unique_id=1603232211]
 mesh = SubResource("BoxMesh_4cffh")
 skeleton = NodePath("../LeftPanel")
 

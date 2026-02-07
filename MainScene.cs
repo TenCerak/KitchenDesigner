@@ -23,9 +23,12 @@ public partial class MainScene : Node3D
             GetViewport().UseXR = true;
             ARHelper.SwitchToAR(GetViewport());
            
+            var ArSceneManager = GetNode<ArSceneManager>("XrOrigin3D/ARSceneManager");
 
-
-
+            if(ArSceneManager != null)
+            {
+                ArSceneManager.ShowSceneAnchors(false);
+            }
         }
         else
         {

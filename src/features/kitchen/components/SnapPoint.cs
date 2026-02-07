@@ -9,13 +9,14 @@ namespace KitchenDesigner.Features.Kitchen.Components
         Back,
         Front,
         Top,
-        Bottom
+        Bottom,
+        CornerFront
     }
 
     public partial class SnapPoint : Area3D
     {
         [Export] public SnapType Type;
-        public Node3D ParentCabinet;
+        public CabinetController ParentCabinet { get; set; }
         public bool IsGhost { get; set; } = false;
         private CollisionShape3D _colShape;
         public override void _Ready()
