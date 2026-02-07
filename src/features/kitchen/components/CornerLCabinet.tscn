@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://bc3qu5dth1i72" path="res://src/features/kitchen/components/CabinetDrawer.tscn" id="6_oys2p"]
 [ext_resource type="Material" uid="uid://djlru0p6iv3nm" path="res://assets/materials/kitchen/H1181_ST37_Dub_Halifax_tabakovy.tres" id="7_8qet7"]
 [ext_resource type="Material" uid="uid://bgtl1ntahy4di" path="res://assets/materials/kitchen/F095_ST87_Mramor_Siena_sedy.tres" id="8_376f5"]
-[ext_resource type="PackedScene" uid="uid://c1bfe5euhhxwe" path="res://src/common/utils/localSpaceIndicator.tscn" id="8_uyg8o"]
 
 [sub_resource type="Resource" id="Resource_ms8s6"]
 script = ExtResource("3_3l8ie")
@@ -113,9 +112,6 @@ DrawerPrefab = ExtResource("6_oys2p")
 VisualsRoot = NodePath("Visuals")
 OrientationArrow = NodePath("OrientationArrow")
 CabinetMaterial = ExtResource("7_8qet7")
-
-[node name="MeshInstance3D" parent="." unique_id=156885836 instance=ExtResource("8_uyg8o")]
-skeleton = NodePath("../Visuals")
 
 [node name="Visuals" type="Node3D" parent="." unique_id=263903778]
 
