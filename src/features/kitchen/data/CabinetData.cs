@@ -7,8 +7,6 @@ namespace KitchenDesigner.Features.Kitchen.Data
     public partial class CabinetData : Resource
     {
         [Signal] public delegate void DimensionsChangedEventHandler();
-        [Signal] public delegate void WorktopToggledEventHandler();
-        [Signal] public delegate void DoorChangedEventHandler();
 
         [Export]
         public bool HasWorktop
@@ -16,7 +14,7 @@ namespace KitchenDesigner.Features.Kitchen.Data
             get; set
             {
                 field = value;
-                EmitSignal(SignalName.WorktopToggled);
+                EmitSignal(SignalName.DimensionsChanged);
             }
         } = true;
 
@@ -86,7 +84,7 @@ namespace KitchenDesigner.Features.Kitchen.Data
             get; set
             {
                 field = value;
-                EmitSignal(SignalName.DoorChanged);
+                EmitSignal(SignalName.DimensionsChanged);
             }
         } = DoorType.None;
 
@@ -96,7 +94,7 @@ namespace KitchenDesigner.Features.Kitchen.Data
             get; set
             {
                 field = value;
-                EmitSignal(SignalName.DoorChanged);
+                EmitSignal(SignalName.DimensionsChanged);
             }
         } = DoorStyle.Solid;
 
@@ -106,7 +104,7 @@ namespace KitchenDesigner.Features.Kitchen.Data
             get; set
             {
                 field = value;
-                EmitSignal(SignalName.DoorChanged);
+                EmitSignal(SignalName.DimensionsChanged);
             }
         }
 
@@ -139,6 +137,48 @@ namespace KitchenDesigner.Features.Kitchen.Data
             }
         } = true;
 
+        [Export(PropertyHint.Range, "0.2, 1.2")]
+        public float CornerLeftDepth
+        {
+            get; set
+            {
+                field = value;
+                EmitSignal(SignalName.DimensionsChanged);
+            }
+        } = 0.60f;
+
+        [Export(PropertyHint.Range, "0.2, 1.2")]
+        public float CornerRightDepth
+        {
+            get; set
+            {
+                field = value;
+                EmitSignal(SignalName.DimensionsChanged);
+            }
+        } = 0.60f;
+
+        [Export]
+        public float CornerLeftWidth
+        {
+            get; set
+            {
+                field = value;
+                EmitSignal(SignalName.DimensionsChanged);
+            }
+        } = 0.60f;
+
+        [Export]
+        public float CornerRightWidth
+        {
+            get; set
+            {
+                field = value;
+                EmitSignal(SignalName.DimensionsChanged);
+            }
+        } = 0.60f;
+
+
+
         public CabinetData Duplicate()
         {
             CabinetData copy = new CabinetData();
@@ -153,6 +193,11 @@ namespace KitchenDesigner.Features.Kitchen.Data
             copy.Shape = this.Shape;
             copy.CornerBlindWidth = this.CornerBlindWidth;
             copy.CornerIsLeft = this.CornerIsLeft;
+            copy.CornerLeftDepth = this.CornerLeftDepth;
+            copy.CornerRightDepth = this.CornerRightDepth;
+            copy.CornerLeftWidth = this.CornerLeftWidth;
+            copy.CornerRightWidth = this.CornerRightWidth;
+
             return copy;
         }
 

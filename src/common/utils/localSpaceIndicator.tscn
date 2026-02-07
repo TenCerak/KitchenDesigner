@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://c1bfe5euhhxwe"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ms8s6"]
+shading_mode = 0
+
+[sub_resource type="SphereMesh" id="SphereMesh_uyg8o"]
+material = SubResource("StandardMaterial3D_ms8s6")
+radius = 0.02
+height = 0.04
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uyg8o"]
+shading_mode = 0
+albedo_color = Color(0.7735612, 4.813075e-08, 0.4153632, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_5j5ki"]
+material = SubResource("StandardMaterial3D_uyg8o")
+radius = 0.02
+height = 0.04
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3l8ie"]
+shading_mode = 0
+albedo_color = Color(0.38449907, 0.2351585, 0.9906916, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_gtvj6"]
+material = SubResource("StandardMaterial3D_3l8ie")
+radius = 0.02
+height = 0.04
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jmdgv"]
+shading_mode = 0
+albedo_color = Color(0.41433662, 0.7180003, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_oys2p"]
+material = SubResource("StandardMaterial3D_jmdgv")
+radius = 0.02
+height = 0.04
+
+[node name="MeshInstance3D" type="MeshInstance3D" unique_id=156885836]
+mesh = SubResource("SphereMesh_uyg8o")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1989738825]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0)
+mesh = SubResource("SphereMesh_5j5ki")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=1312847549]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.2)
+mesh = SubResource("SphereMesh_gtvj6")
+skeleton = NodePath("../MeshInstance3D2")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=626764181]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+mesh = SubResource("SphereMesh_oys2p")

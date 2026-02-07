@@ -2,6 +2,7 @@ using Godot;
 using KitchenDesigner.Common.Interfaces;
 using KitchenDesigner.Common.Utils;
 using KitchenDesigner.Features.Kitchen.Components;
+using KitchenDesigner.Features.Kitchen.Resources;
 using KitchenDesigner.Features.Kitchen.UI;
 using System;
 
@@ -12,10 +13,12 @@ namespace KitchenDesigner.Features.Kitchen.Tools
         [Export] public string ToolName { get; private set; } = "Umístit skříňku";
         public bool IsActive { get; set; } = false;
 
-        [Export] public PackedScene CabinetScene;
+        [Export] CabinetDefinition defaultCabinetDefinition;
+        private CabinetDefinition _selectedItem;
 
         [ExportGroup("UI")]
         [Export] public PackedScene SettingsUiPrefab;
+        private CabinetSettingsUi SettingsUiInstance;
 
         [Export] public float SnapConnectDistance = 0.20f;
         [Export] public float SnapBreakDistance = 0.60f;
@@ -34,13 +37,20 @@ namespace KitchenDesigner.Features.Kitchen.Tools
         private Quaternion _snappedRotation;
 
         private XrHandManager _handManager;
-        private Node3D _ghostInstance;
-        private CabinetController _ghostController;
+        private CabinetBase _ghostInstance;
 
         public void Initialize(XrHandManager handManager)
         {
             _handManager = handManager;
             handManager.SetPointerLayerEnabled(CollisionLayerHelper.ENVIRONMENT, true);
+            DesignerEvents.Instance.CabinetDefinitionSelected += HandleItemSelected;
+
+        }
+        void HandleItemSelected(CabinetDefinition definition)
+        {
+            DestroyGhost();
+            _selectedItem = definition;
+            CreateGhost();
         }
 
         public void Reattach(XrHandManager handManager)
@@ -184,7 +194,7 @@ namespace KitchenDesigner.Features.Kitchen.Tools
         {
             float closestDistSq = float.MaxValue;
 
-            foreach (var ghostPoint in _ghostController.ActiveSnapPoints)
+            foreach (var ghostPoint in _ghostInstance.ActiveSnapPoints)
             {
                 var overlaps = ghostPoint.GetOverlappingAreas();
                 foreach (var area in overlaps)
@@ -233,7 +243,7 @@ namespace KitchenDesigner.Features.Kitchen.Tools
             Quaternion targetRotation = Quaternion.Identity;
             if (targetPoint.ParentCabinet != null)
             {
-                targetRotation = targetPoint.ParentCabinet.GlobalTransform.Basis.GetRotationQuaternion();
+                targetRotation = targetPoint.GlobalTransform.Basis.GetRotationQuaternion();
 
                 if (targetPoint.Type == SnapType.CornerFront)
                 {
@@ -292,10 +302,11 @@ namespace KitchenDesigner.Features.Kitchen.Tools
 
         private void PlaceCabinet()
         {
-            if (CabinetScene == null) return;
+            if (_selectedItem == null) return;
 
-            Node3D newCabinet = CabinetScene.Instantiate<Node3D>();
-            (newCabinet as CabinetController).Data = _ghostController.Data.Duplicate();
+            CabinetBase newCabinet = _selectedItem.Prefab.Instantiate<CabinetBase>();
+            newCabinet.Data = _ghostInstance.Data.Duplicate();
+            newCabinet.Rebuild();
 
             GetTree().Root.AddChild(newCabinet);
 
@@ -307,31 +318,46 @@ namespace KitchenDesigner.Features.Kitchen.Tools
         }
         private void CreateGhost()
         {
-            if (CabinetScene == null)
+            if (_selectedItem == null)
             {
-                GD.PrintErr("CabinetPlacementTool: Není přiřazena CabinetScene!");
-                return;
+                _selectedItem = defaultCabinetDefinition;
+
+                if (defaultCabinetDefinition is null)
+                {
+                    GD.PrintErr("Není vybrána vchozí nastavení nástroje CabinetPlacementTool!");
+                    return;
+                }
             }
 
 
-            Node instance = CabinetScene.Instantiate();
-            _ghostController = instance as CabinetController;
-            _ghostInstance = instance as Node3D;
+            Node instance = _selectedItem.Prefab.Instantiate();
+            _ghostInstance = instance as CabinetBase;
+            _ghostInstance.Data = _selectedItem.DefaultData.Duplicate();
 
             AddChild(_ghostInstance);
+
+            if (SettingsUiInstance is not null)
+            {
+                SettingsUiInstance.BindData(ref _ghostInstance.Data);
+            }
 
             MakeNodeTransparent(_ghostInstance);
 
             DisableCollisions(_ghostInstance);
 
-            _ghostController.SetGhostMode(true);
+            _ghostInstance.SetGhostMode(true);
         }
+
 
         private void DestroyGhost()
         {
-            if (_ghostInstance != null)
+            if (_ghostInstance != null && _ghostInstance.IsQueuedForDeletion() == false)
             {
-                _ghostInstance.QueueFree();
+                _ghostInstance.Delete();
+                _ghostInstance = null;
+            }
+            else
+            {
                 _ghostInstance = null;
             }
         }
@@ -380,19 +406,18 @@ namespace KitchenDesigner.Features.Kitchen.Tools
         {
             if (SettingsUiPrefab == null) return null;
 
-            var uiInstance = SettingsUiPrefab.Instantiate<CabinetSettingsUi>();
+            SettingsUiInstance = SettingsUiPrefab.Instantiate<CabinetSettingsUi>();
 
-            if (_ghostController != null)
+            if (_ghostInstance != null)
             {
-                uiInstance.BindData(ref _ghostController.Data);
+                SettingsUiInstance.BindData(ref _ghostInstance.Data);
             }
             else
             {
                 CreateGhost();
-                uiInstance.BindData(ref _ghostController.Data);
             }
 
-            return uiInstance;
+            return SettingsUiInstance;
         }
     }
 }

@@ -7,12 +7,15 @@ namespace KitchenDesigner.Features.Kitchen.UI
 {
     public partial class CabinetSettingsUi : Control, IMenuPage
     {
+        [Export] public Container WidthContainer;
         [Export] public HSlider WidthSlider;
         [Export] public Label WidthValueLabel;
 
+        [Export] public Container HeightContainer;
         [Export] public VSlider HeightSlider;
         [Export] public Label HeightValueLabel;
 
+        [Export] public Container DepthContainer;
         [Export] public VSlider DepthSlider;
         [Export] public Label DepthValueLabel;
 
@@ -27,6 +30,22 @@ namespace KitchenDesigner.Features.Kitchen.UI
 
         [Export] public HSlider WidthBlindSlider;
         [Export] public Label WidthBlindValueLabel;
+
+        [Export] public Container CornerLeftDepthContainer;
+        [Export] public VSlider CornerLeftDepthSlider;
+        [Export] public Label CornerLeftDepthValueLabel;
+
+        [Export] public Container CornerRightDepthContainer;
+        [Export] public VSlider CornerRightDepthSlider;
+        [Export] public Label CornerRightDepthValueLabel;
+
+        [Export] public Container CornerLeftWidthContainer;
+        [Export] public HSlider CornerLeftWidthSlider;
+        [Export] public Label CornerLeftWidthValueLabel;
+
+        [Export] public Container CornerRightWidthContainer;
+        [Export] public HSlider CornerRightWidthSlider;
+        [Export] public Label CornerRightWidthValueLabel;
 
         const double MaxCabinetWidth = 0.8f;
         const double MinCabinetWidth = 0.2f;
@@ -123,6 +142,78 @@ namespace KitchenDesigner.Features.Kitchen.UI
                     WidthBlindValueLabel.Text = $"{_data.CornerBlindWidth * 100:N0} cm";
                 }
             }
+
+            if (CornerLeftDepthSlider is not null)
+            {
+                CornerLeftDepthSlider.Value = _data.CornerLeftDepth;
+                CornerLeftDepthSlider.ValueChanged -= OnCornerLeftDepthChanged;
+                CornerLeftDepthSlider.ValueChanged += OnCornerLeftDepthChanged;
+                if (CornerLeftDepthValueLabel is not null)
+                {
+                    CornerLeftDepthValueLabel.Text = $"{_data.CornerLeftDepth * 100:N0} cm";
+                }
+            }
+
+            if (CornerRightDepthSlider is not null)
+            {
+                CornerRightDepthSlider.Value = _data.CornerRightDepth;
+                CornerRightDepthSlider.ValueChanged -= OnCornerRightDepthChanged;
+                CornerRightDepthSlider.ValueChanged += OnCornerRightDepthChanged;
+                if (CornerRightDepthValueLabel is not null)
+                {
+                    CornerRightDepthValueLabel.Text = $"{_data.CornerRightDepth * 100:N0} cm";
+                }
+            }
+
+            if (CornerLeftWidthSlider is not null)
+            {
+                CornerLeftWidthSlider.Value = _data.CornerLeftWidth;
+                CornerLeftWidthSlider.ValueChanged -= OnCornerLeftWidthChanged;
+                CornerLeftWidthSlider.ValueChanged += OnCornerLeftWidthChanged;
+                if (CornerLeftWidthValueLabel is not null)
+                {
+                    CornerLeftWidthValueLabel.Text = $"{_data.CornerLeftWidth * 100:N0} cm";
+                }
+            }
+
+            if (CornerRightWidthSlider is not null)
+            {
+                CornerRightWidthSlider.Value = _data.CornerRightWidth;
+                CornerRightWidthSlider.ValueChanged -= OnCornerRightWidthChanged;
+                CornerRightWidthSlider.ValueChanged += OnCornerRightWidthChanged;
+                if (CornerRightWidthValueLabel is not null)
+                {
+                    CornerRightWidthValueLabel.Text = $"{_data.CornerRightWidth * 100:N0} cm";
+                }
+            }
+        }
+        private void OnCornerRightWidthChanged(double value)
+        {
+            if (_data is not null) _data.CornerRightWidth = (float)value;
+            if (CornerRightWidthValueLabel is null) return;
+            CornerRightWidthValueLabel.Text = $"{value * 100:N0} cm";
+
+        }
+
+        private void OnCornerLeftWidthChanged(double value)
+        {
+            if (_data is not null) _data.CornerLeftWidth = (float)value;
+            if (CornerLeftWidthValueLabel is null) return;
+            CornerLeftWidthValueLabel.Text = $"{value * 100:N0} cm";
+        }
+
+        private void OnCornerRightDepthChanged(double value)
+        {
+            if (_data is not null) _data.CornerRightDepth = (float)value;
+            if (CornerRightDepthValueLabel is null) return;
+            CornerRightDepthValueLabel.Text = $"{value * 100:N0} cm";
+        }
+
+        private void OnCornerLeftDepthChanged(double value)
+        {
+            if (_data is not null) _data.CornerLeftDepth = (float)value;
+            if (CornerLeftDepthValueLabel is null) return;
+            CornerLeftDepthValueLabel.Text = $"{value * 100:N0} cm";
         }
 
         void OnWidthBlindChanged(double value)
@@ -139,21 +230,39 @@ namespace KitchenDesigner.Features.Kitchen.UI
         private void OnCabinetShapeChanged(long index)
         {
             if (_data is not null) _data.Shape = (CabinetShape)index;
+
+            WidthBlindSlider?.Visible = false;
+            WidthSlider?.MaxValue = MaxCabinetWidth;
+
+            CornerLeftDepthContainer?.Visible = false;
+            CornerRightDepthContainer?.Visible = false;
+
+            CornerLeftWidthContainer?.Visible = false;
+            CornerRightWidthContainer?.Visible = false;
+
+            WidthContainer?.Visible = true;
+            DepthContainer?.Visible = true;
+
             if ((index) == (int)CabinetShape.CornerBlind)
             {
-                if (WidthBlindSlider is not null) WidthBlindSlider.Visible = true;
-                if (WidthSlider is not null)
-                {
-                    WidthSlider.MaxValue = (MaxCabinetWidth * 2);
-                }
+                WidthBlindSlider?.Visible = true;
+                WidthSlider?.MaxValue = MaxCabinetWidth * 2;
             }
             else
             {
-                if (WidthBlindSlider is not null) WidthBlindSlider.Visible = false;
-                if (WidthSlider is not null)
-                {
-                    WidthSlider.MaxValue = MaxCabinetWidth;
-                }
+                WidthSlider?.MaxValue = MaxCabinetWidth;
+            }
+
+            if ((index) == (int)CabinetShape.CornerL || (index) == (int)CabinetShape.CornerDiagonal)
+            {
+                CornerLeftDepthContainer?.Visible = true;
+                CornerRightDepthContainer?.Visible = true;
+
+                CornerLeftWidthContainer?.Visible = true;
+                CornerRightWidthContainer?.Visible = true;
+
+                WidthContainer?.Visible = false;
+                DepthContainer?.Visible = false;
             }
         }
 

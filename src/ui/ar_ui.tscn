@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://clt8h3r6sbvl6"]
+[gd_scene format=3 uid="uid://clt8h3r6sbvl6"]
 
 [ext_resource type="Script" uid="uid://ci7o7dqyivfpw" path="res://src/ui/ArUi.cs" id="1_of56m"]
 
-[node name="ArUi" type="Control" node_paths=PackedStringArray("SceneCaptureRequestButton", "DisplaySceneAnchorsButton", "DisplaySpatialAnchorsButton")]
+[node name="ArUi" type="Control" unique_id=562170346 node_paths=PackedStringArray("SceneCaptureRequestButton", "DisplaySceneAnchorsButton", "DisplaySpatialAnchorsButton")]
 layout_mode = 3
 anchor_right = 1.1110001
 anchor_bottom = 1.1110001
@@ -15,7 +15,7 @@ SceneCaptureRequestButton = NodePath("HBoxContainer/Button")
 DisplaySceneAnchorsButton = NodePath("HBoxContainer/SceneAnchors")
 DisplaySpatialAnchorsButton = NodePath("HBoxContainer/SpatialAnchors")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=943088708]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -29,15 +29,15 @@ offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="HBoxContainer"]
+[node name="Button" type="Button" parent="HBoxContainer" unique_id=1362065088]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 text = "Request Scene Capture"
 
-[node name="SceneAnchors" type="CheckButton" parent="HBoxContainer"]
+[node name="SceneAnchors" type="CheckButton" parent="HBoxContainer" unique_id=1308608652]
 layout_mode = 2
 text = "Show Scene Anchors"
 
-[node name="SpatialAnchors" type="CheckButton" parent="HBoxContainer"]
+[node name="SpatialAnchors" type="CheckButton" parent="HBoxContainer" unique_id=1663106925]
 layout_mode = 2
 text = "Show Spatial Anchors"

@@ -6,28 +6,23 @@ using System.Collections.Generic;
 
 namespace KitchenDesigner.Features.Kitchen.Components
 {
-    public partial class CabinetController : Node3D, IKitchenComponent
+    public partial class StandardCabinet : CabinetBase
     {
         [ExportGroup("Data")]
-        [Export] public CabinetData Data;
         [Export] public float BoardThickness = 0.018f;
 
-        [ExportGroup("External Scenes")]
-        [Export] public PackedScene ShelfScene;
-
-        [ExportGroup("Panel Meshes")]
-        [Export] public Material Material;
-        [Export] public Node3D VisualsRoot;
+        [ExportGroup("Standard Panels")]
         [Export] public MeshInstance3D LeftPanel;
         [Export] public MeshInstance3D RightPanel;
-        [Export] public MeshInstance3D BottomPanel;
         [Export] public MeshInstance3D TopPanel;
+        [Export] public MeshInstance3D BottomPanel;
         [Export] public MeshInstance3D BackPanel;
-        [Export] public MeshInstance3D FillerPanel;
-        [Export] public Node3D ShelvesContainer;
 
-        [ExportGroup("Worktop")]
+        [ExportGroup("Components")]
+        [Export] public Node3D ShelvesContainer;
+        [Export] public PackedScene ShelfScene;
         [Export] public MeshInstance3D WorktopMesh;
+
 
         [ExportGroup("Panel Colliders")]
         [Export] public StaticBody3D StaticBody;
@@ -37,35 +32,11 @@ namespace KitchenDesigner.Features.Kitchen.Components
         [Export] public CollisionShape3D ColTop;
         [Export] public CollisionShape3D ColBack;
 
-        [ExportGroup("Door System")]
-        [Export] public PackedScene DoorPrefab;
-        [Export] public Node3D DoorsContainer;
-        [Export] public PackedScene DrawerPrefab;
-
-        [ExportGroup("Visual Aids")]
-        [Export] public Node3D OrientationArrow;
-
-        [ExportGroup("Snapping System")]
-        [Export] public PackedScene SnapPointScene;
-        [Export] public Node3D SnapPointsContainer;
 
 
         private List<ShelfController> _activeShelves = new List<ShelfController>();
-        public List<SnapPoint> ActiveSnapPoints { get; private set; } = new List<SnapPoint>();
-        private bool _isGhost = false;
 
-        public override void _Ready()
-        {
-            if (Data == null) Data = new CabinetData();
-
-            Data.DimensionsChanged += RebuildCabinet;
-            Data.WorktopToggled += RebuildCabinet;
-            Data.DoorChanged += RebuildCabinet;
-
-            RebuildCabinet();
-        }
-
-        public void RebuildCabinet()
+        protected override void RebuildGeometry()
         {
             if (Data == null) return;
 
@@ -75,8 +46,6 @@ namespace KitchenDesigner.Features.Kitchen.Components
             float t = BoardThickness;
 
             // 1. Nastavení Pivotu (Align to Bottom-Back-Center)
-            // Střed skříňky je geometricky v (0, h/2, d/2)
-            // Posuneme kontejnery tak, aby (0,0,0) celého objektu bylo "dole vzadu".
             Vector3 centerOffset = new Vector3(0, h / 2.0f, d / 2.0f);
 
             if (VisualsRoot != null) VisualsRoot.Position = centerOffset;
@@ -85,59 +54,31 @@ namespace KitchenDesigner.Features.Kitchen.Components
             // 2. Rozměry a pozice dílců (Relativní vůči středu VisualsRoot)
 
             // Bočnice (Stojí na zemi, celá výška)
-            UpdatePart(LeftPanel, ColLeft, Material, new Vector3(t, h, d), new Vector3(-w / 2 + t / 2, 0, 0));
-            UpdatePart(RightPanel, ColRight, Material, new Vector3(t, h, d), new Vector3(w / 2 - t / 2, 0, 0));
+            UpdatePart(LeftPanel, ColLeft, CabinetMaterial, new Vector3(t, h, d), new Vector3(-w / 2 + t / 2, 0, 0));
+            UpdatePart(RightPanel, ColRight, CabinetMaterial, new Vector3(t, h, d), new Vector3(w / 2 - t / 2, 0, 0));
 
             // Dno a Strop (Vložené mezi bočnice)
             float innerWidth = w - (2 * t);
-            UpdatePart(BottomPanel, ColBottom, Material, new Vector3(innerWidth, t, d), new Vector3(0, -h / 2 + t / 2, 0));
-            UpdatePart(TopPanel, ColTop, Material, new Vector3(innerWidth, t, d), new Vector3(0, h / 2 - t / 2, 0));
+            UpdatePart(BottomPanel, ColBottom, CabinetMaterial, new Vector3(innerWidth, t, d), new Vector3(0, -h / 2 + t / 2, 0));
+            UpdatePart(TopPanel, ColTop, CabinetMaterial, new Vector3(innerWidth, t, d), new Vector3(0, h / 2 - t / 2, 0));
 
             // Záda (Naložená zezadu)
             // Pozice Z je úplně vzadu (-d/2) plus polovina tloušťky zad
-            UpdatePart(BackPanel, ColBack, Material, new Vector3(w, h, t), new Vector3(0, 0, -d / 2 + t / 2));
+            UpdatePart(BackPanel, ColBack, CabinetMaterial, new Vector3(w, h, t), new Vector3(0, 0, -d / 2 + t / 2));
 
-            UpdateFillerPanel();
             RebuildShelves(innerWidth, h, d, t);
-            UpdateSnapPoints(w, h, d);
             UpdateWorktop();
-            UpdateDoors();
 
             if (OrientationArrow != null)
             {
                 float arrowZ = Data.Depth + 0.15f;
                 OrientationArrow.Position = new Vector3(0, 0.01f, arrowZ);
             }
+
             SetGhostMode(_isGhost);
         }
 
-        private void UpdatePart(MeshInstance3D mesh, CollisionShape3D col, Material material, Vector3 size, Vector3 pos)
-        {
-            // A. Mesh
-            if (mesh != null)
-            {
-                mesh.Position = pos;
-                if (mesh.Mesh is BoxMesh box)
-                {
-                    // Duplikace resource, aby se nezměnily ostatní skříňky
-                    if (box.GetReferenceCount() > 1) mesh.Mesh = (Mesh)box.Duplicate();
-                    ((BoxMesh)mesh.Mesh).Size = size;
-                    if (material != null)
-                        mesh.SetSurfaceOverrideMaterial(0, material);
-                }
-            }
 
-            // B. Collider
-            if (col != null)
-            {
-                col.Position = pos;
-                if (col.Shape is BoxShape3D shape)
-                {
-                    if (shape.GetReferenceCount() > 1) col.Shape = (Shape3D)shape.Duplicate();
-                    ((BoxShape3D)col.Shape).Size = size;
-                }
-            }
-        }
 
         private void RebuildShelves(float innerWidth, float h, float d, float t)
         {
@@ -204,7 +145,7 @@ namespace KitchenDesigner.Features.Kitchen.Components
             WorktopMesh.Position = new Vector3(0, posY, posZ);
         }
 
-        private void UpdateDoors()
+        protected override void UpdateDoors()
         {
             foreach (Node child in DoorsContainer.GetChildren()) child.QueueFree();
 
@@ -287,9 +228,9 @@ namespace KitchenDesigner.Features.Kitchen.Components
             int drawerCount = Data.ShelfCount + 1;
 
             float totalHeight = Data.Height;
-            float gap = 0.003f; 
+            float gap = 0.003f;
 
-            
+
             float usableHeight = totalHeight - (gap * (drawerCount + 1));
             float singleDrawerHeight = usableHeight / drawerCount;
 
@@ -311,53 +252,8 @@ namespace KitchenDesigner.Features.Kitchen.Components
             }
         }
 
-        private void UpdateFillerPanel()
-        {
-            if (FillerPanel == null) return;
 
-            if (Data.Shape != CabinetShape.CornerBlind)
-            {
-                FillerPanel.Visible = false;
-                return;
-            }
-
-            FillerPanel.Visible = true;
-
-            float blindW = Data.CornerBlindWidth;
-            float h = Data.Height;
-            float d = Data.Depth;
-            float thickness = 0.018f;
-
-            BoxMesh fillerMesh = new BoxMesh();
-            fillerMesh.Size = new Vector3(blindW, h, thickness);
-            FillerPanel.Mesh = fillerMesh;
-
-            float totalW = Data.Width;
-            float fillerX = 0;
-           
-            float fillerZ = Data.Depth / 2 + (thickness / 2.0f);
-
-            if (Data.CornerIsLeft)
-            {
-                fillerX = (-totalW / 2.0f) + (blindW / 2.0f);
-            }
-            else
-            {
-                fillerX = (totalW / 2.0f) - (blindW / 2.0f);
-            }
-
-            FillerPanel.Position = new Vector3(fillerX, 0, fillerZ);
-
-        }
-
-        public Node AsNode() => this;
-
-        public void Delete()
-        {
-            QueueFree();
-        }
-
-        public void SetHighlight(bool active, bool isDeletePreview = false)
+        public override void SetHighlight(bool active, bool isDeletePreview = false)
         {
             StandardMaterial3D highlightMat = null;
             if (active)
@@ -366,8 +262,8 @@ namespace KitchenDesigner.Features.Kitchen.Components
                 highlightMat.Transparency = BaseMaterial3D.TransparencyEnum.Alpha;
                 highlightMat.AlbedoColor = isDeletePreview ? new Color(1, 0, 0, 0.5f) : new Color(1, 1, 0, 0.5f);
 
-                if (Material == null && LeftPanel != null)
-                    Material = LeftPanel.GetSurfaceOverrideMaterial(0);
+                if (CabinetMaterial == null && LeftPanel != null)
+                    CabinetMaterial = LeftPanel.GetSurfaceOverrideMaterial(0);
             }
 
             ApplyMaterialToMesh(LeftPanel, active, highlightMat);
@@ -382,18 +278,12 @@ namespace KitchenDesigner.Features.Kitchen.Components
             }
         }
 
-        private void ApplyMaterialToMesh(MeshInstance3D mesh, bool active, Material mat)
+        protected override void UpdateSnapPoints()
         {
-            if (mesh == null) return;
+            float w = Data.Width;
+            float h = Data.Height;
+            float d = Data.Depth;
 
-            if (active)
-                mesh.SetSurfaceOverrideMaterial(0, mat);
-            else
-                mesh.SetSurfaceOverrideMaterial(0, Material);
-        }
-
-        private void UpdateSnapPoints(float w, float h, float d)
-        {
             foreach (Node child in SnapPointsContainer.GetChildren()) child.QueueFree();
             ActiveSnapPoints.Clear();
 
@@ -404,83 +294,13 @@ namespace KitchenDesigner.Features.Kitchen.Components
             float centerZ = 0;
 
 
-            CreateSnapPoint(SnapType.Left, new Vector3(-w / 2.0f, centerY, centerZ));
+            CreateSnapPoint(SnapType.Left, new Vector3(-w / 2.0f, centerY, centerZ), Vector3.Zero);
 
-            CreateSnapPoint(SnapType.Right, new Vector3(w / 2.0f, centerY, centerZ));
+            CreateSnapPoint(SnapType.Right, new Vector3(w / 2.0f, centerY, centerZ), Vector3.Zero);
 
-            CreateSnapPoint(SnapType.Top, new Vector3(0, h, centerZ));
+            CreateSnapPoint(SnapType.Top, new Vector3(0, h, centerZ), Vector3.Zero);
 
-            CreateSnapPoint(SnapType.Bottom, new Vector3(0, 0, centerZ));
-
-            if (Data.Shape == CabinetShape.CornerBlind)
-            {
-
-                float blindW = Data.CornerBlindWidth;
-                float snapX = 0;
-                float snapZ = d; 
-
-                Vector3 rotation = Vector3.Zero;
-
-                if (Data.CornerIsLeft)
-                {
-                    snapX = (-w / 2.0f);
-
-                    rotation = new Vector3(0, -90, 0);
-                }
-                else
-                {
-                    snapX = (w / 2.0f);
-                    rotation = new Vector3(0, 90, 0);
-                }
-
-                var snap = CreateSnapPoint(SnapType.CornerFront, new Vector3(snapX, centerY, snapZ));
-                snap.RotationDegrees = rotation;
-            }
-
-        }
-
-
-        private SnapPoint CreateSnapPoint(SnapType type, Vector3 localPos)
-        {
-            var instance = SnapPointScene.Instantiate<SnapPoint>();
-            SnapPointsContainer.AddChild(instance);
-
-            instance.Position = localPos;
-            instance.Type = type;
-            instance.ParentCabinet = this;
-            instance.AreaEntered += Instance_AreaEntered;
-
-            ActiveSnapPoints.Add(instance);
-            return instance;
-        }
-
-        private void Instance_AreaEntered(Area3D area)
-        {
-        }
-
-        public void SetGhostMode(bool isGhost)
-        {
-            _isGhost = isGhost;
-            foreach (var sp in ActiveSnapPoints)
-            {
-                sp.IsGhost = isGhost;
-
-                if (OrientationArrow != null)
-                {
-                    OrientationArrow.Visible = isGhost;
-                }
-
-                if (isGhost)
-                {
-                    sp.Monitoring = true;
-                    sp.Monitorable = false;
-                }
-                else
-                {
-                    sp.Monitoring = false;
-                    sp.Monitorable = true;
-                }
-            }
+            CreateSnapPoint(SnapType.Bottom, new Vector3(0, 0, centerZ), Vector3.Zero);
         }
     }
 }

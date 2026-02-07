@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://b3pd6fak8xlhd"]
+[gd_resource type="Resource" format=3 uid="uid://b3pd6fak8xlhd"]
 
 [ext_resource type="PackedScene" uid="uid://bqb7hskdo2drl" path="res://src/features/tools/cabinet_placement_tool/CabinetPlacementTool.tscn" id="1_awetb"]
 [ext_resource type="Script" uid="uid://qttmbog3t42" path="res://src/features/tools/ARToolResource.cs" id="2_kjxv3"]

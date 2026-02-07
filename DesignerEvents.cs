@@ -1,4 +1,5 @@
 using Godot;
+using KitchenDesigner.Features.Kitchen.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,8 @@ namespace KitchenDesigner
         [Signal] public delegate void ShowSpatialAnchorsEventHandler(bool show);
 
         [Signal] public delegate void RequestDominantHandChangeEventHandler(bool rightHand);
+
+        [Signal] public delegate void CabinetDefinitionSelectedEventHandler(CabinetDefinition definition);
 
         public static DesignerEvents Instance { get; private set; }
         public override void _Ready()

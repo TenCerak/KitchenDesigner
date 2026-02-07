@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b2f7ky76g4d8e"]
 
-[ext_resource type="Script" uid="uid://cgrkrxn5pwief" path="res://src/features/kitchen/components/CabinetController.cs" id="1_4cffh"]
+[ext_resource type="Script" uid="uid://dukga5rj0neqn" path="res://src/features/kitchen/components/StandardCabinet.cs" id="1_sqihg"]
 [ext_resource type="Script" uid="uid://dxlklc7mnthdo" path="res://src/features/kitchen/data/CabinetData.cs" id="2_mbcon"]
 [ext_resource type="PackedScene" uid="uid://dequbvjdolyxb" path="res://src/features/kitchen/components/shelf.tscn" id="3_mbcon"]
 [ext_resource type="Material" uid="uid://djlru0p6iv3nm" path="res://assets/materials/kitchen/H1181_ST37_Dub_Halifax_tabakovy.tres" id="4_vawod"]
@@ -9,8 +9,7 @@
 [ext_resource type="Material" uid="uid://bgtl1ntahy4di" path="res://assets/materials/kitchen/F095_ST87_Mramor_Siena_sedy.tres" id="6_57iyu"]
 [ext_resource type="PackedScene" uid="uid://bc3qu5dth1i72" path="res://src/features/kitchen/components/CabinetDrawer.tscn" id="6_sqihg"]
 
-[sub_resource type="Resource" id="Resource_vawod"]
-resource_local_to_scene = true
+[sub_resource type="Resource" id="Resource_2gjl1"]
 script = ExtResource("2_mbcon")
 metadata/_custom_type_script = "uid://dxlklc7mnthdo"
 
@@ -29,19 +28,15 @@ albedo_color = Color(0.7676564, 0.4009214, 0.10006667, 1)
 [sub_resource type="PrismMesh" id="PrismMesh_57iyu"]
 material = SubResource("StandardMaterial3D_lpbsj")
 
-[node name="Cabinet" type="Node3D" unique_id=1811511594 node_paths=PackedStringArray("VisualsRoot", "LeftPanel", "RightPanel", "BottomPanel", "TopPanel", "BackPanel", "FillerPanel", "ShelvesContainer", "WorktopMesh", "StaticBody", "ColLeft", "ColRight", "ColBottom", "ColTop", "ColBack", "DoorsContainer", "OrientationArrow", "SnapPointsContainer")]
-script = ExtResource("1_4cffh")
-Data = SubResource("Resource_vawod")
-ShelfScene = ExtResource("3_mbcon")
-Material = ExtResource("4_vawod")
-VisualsRoot = NodePath("Visuals")
+[node name="Cabinet" type="Node3D" unique_id=1811511594 node_paths=PackedStringArray("LeftPanel", "RightPanel", "TopPanel", "BottomPanel", "BackPanel", "ShelvesContainer", "WorktopMesh", "StaticBody", "ColLeft", "ColRight", "ColBottom", "ColTop", "ColBack", "SnapPointsContainer", "DoorsContainer", "VisualsRoot", "OrientationArrow")]
+script = ExtResource("1_sqihg")
 LeftPanel = NodePath("Visuals/LeftPanel")
 RightPanel = NodePath("Visuals/RightPanel")
-BottomPanel = NodePath("Visuals/BottomPanel")
 TopPanel = NodePath("Visuals/TopPanel")
+BottomPanel = NodePath("Visuals/BottomPanel")
 BackPanel = NodePath("Visuals/BackPanel")
-FillerPanel = NodePath("Visuals/FillerPanel")
 ShelvesContainer = NodePath("Visuals/ShelvesContainer")
+ShelfScene = ExtResource("3_mbcon")
 WorktopMesh = NodePath("Visuals/Worktop")
 StaticBody = NodePath("StaticBody3D")
 ColLeft = NodePath("StaticBody3D/Col_Left")
@@ -49,12 +44,15 @@ ColRight = NodePath("StaticBody3D/Col_Right")
 ColBottom = NodePath("StaticBody3D/Col_Bottom")
 ColTop = NodePath("StaticBody3D/Col_Top")
 ColBack = NodePath("StaticBody3D/Col_Back")
-DoorPrefab = ExtResource("5_akrie")
-DoorsContainer = NodePath("DoorsContainer")
-DrawerPrefab = ExtResource("6_sqihg")
-OrientationArrow = NodePath("OrientationArrow")
-SnapPointScene = ExtResource("5_lpbsj")
+Data = SubResource("Resource_2gjl1")
 SnapPointsContainer = NodePath("SnapPoints")
+SnapPointScene = ExtResource("5_lpbsj")
+DoorsContainer = NodePath("DoorsContainer")
+DoorPrefab = ExtResource("5_akrie")
+DrawerPrefab = ExtResource("6_sqihg")
+VisualsRoot = NodePath("Visuals")
+OrientationArrow = NodePath("OrientationArrow")
+CabinetMaterial = ExtResource("4_vawod")
 
 [node name="Visuals" type="Node3D" parent="." unique_id=263903778]
 
@@ -78,10 +76,6 @@ mesh = SubResource("BoxMesh_4cffh")
 skeleton = NodePath("../LeftPanel")
 
 [node name="BackPanel" type="MeshInstance3D" parent="Visuals" unique_id=1918285086]
-mesh = SubResource("BoxMesh_4cffh")
-skeleton = NodePath("../LeftPanel")
-
-[node name="FillerPanel" type="MeshInstance3D" parent="Visuals" unique_id=1603232211]
 mesh = SubResource("BoxMesh_4cffh")
 skeleton = NodePath("../LeftPanel")
 
