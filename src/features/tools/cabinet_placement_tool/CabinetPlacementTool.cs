@@ -308,18 +308,47 @@ namespace KitchenDesigner.Features.Kitchen.Tools
         private void PlaceCabinet()
         {
             if (_selectedItem == null) return;
+           
+            XROrigin3D xrOrigin = GetXROrigin();
+            if (xrOrigin == null)
+            {
+                GD.PrintErr("CHYBA: Nelze vytvořit Spatial Anchor - XROrigin3D nenalezen!");
+
+                CabinetBase fallbackCabinet = _selectedItem.Prefab.Instantiate<CabinetBase>();
+
+                fallbackCabinet.Data = _ghostInstance.Data.Duplicate();
+                fallbackCabinet.Rebuild();
+
+                GetTree().Root.AddChild(fallbackCabinet);
+
+                fallbackCabinet.GlobalTransform = _ghostInstance.GlobalTransform;
+
+                _handManager.VibrateDominantHand(0.5f, 0.1f);
+
+                GD.Print("Skříňka umístěna.");
+
+                return;
+            }
+
+            XRAnchor3D anchor = new XRAnchor3D();
+
+            xrOrigin.AddChild(anchor);
+
+            anchor.GlobalTransform = _ghostInstance.GlobalTransform;
 
             CabinetBase newCabinet = _selectedItem.Prefab.Instantiate<CabinetBase>();
-            newCabinet.Data = _ghostInstance.Data.Duplicate();
+            newCabinet.Data = _ghostInstance.Data.Duplicate(); 
+
+            anchor.AddChild(newCabinet);
+
+            newCabinet.Position = Vector3.Zero;
+            newCabinet.Rotation = Vector3.Zero;
+
             newCabinet.Rebuild();
 
-            GetTree().Root.AddChild(newCabinet);
-
-            newCabinet.GlobalTransform = _ghostInstance.GlobalTransform;
-
             _handManager.VibrateDominantHand(0.5f, 0.1f);
+            GD.Print("Skříňka ukotvena (Spatial Anchor created).");
 
-            GD.Print("Skříňka umístěna.");
         }
         private void CreateGhost()
         {
@@ -423,6 +452,22 @@ namespace KitchenDesigner.Features.Kitchen.Tools
             }
 
             return SettingsUiInstance;
+        }
+
+        private XROrigin3D GetXROrigin()
+        {
+
+            Node current = this;
+            while (current != null)
+            {
+                if (current is XROrigin3D origin)
+                {
+                    return origin;
+                }
+                current = current.GetParent();
+            }
+
+            return null;
         }
     }
 }
