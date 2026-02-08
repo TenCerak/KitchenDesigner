@@ -187,6 +187,28 @@ namespace KitchenDesigner.Features.Kitchen.UI
                 }
             }
         }
+
+        public override void _ExitTree()
+        {
+            CornerRightWidthSlider?.ValueChanged -= OnCornerRightWidthChanged;
+            CornerLeftWidthSlider?.ValueChanged -= OnCornerLeftWidthChanged;
+            CornerRightDepthSlider?.ValueChanged -= OnCornerRightDepthChanged;
+            CornerLeftDepthSlider?.ValueChanged -= OnCornerLeftDepthChanged;
+            WidthBlindSlider?.ValueChanged -= OnWidthBlindChanged;
+            CabinetIsLeftCorner?.Toggled -= OnCabinetIsLeftCornerToggled;
+            CabinetShapeOption?.ItemSelected -= OnCabinetShapeChanged;
+            WorktopCheckBox?.Toggled -= OnWorktopToggled;
+            WidthSlider?.ValueChanged -= OnWidthChanged;
+            HeightSlider?.ValueChanged -= OnHeightChanged;
+            DepthSlider?.ValueChanged -= OnDepthChanged;
+            ShelfCount?.ValueChanged -= OnShelfChanged;
+            DoorStyleOption?.ItemSelected -= OnDoorStyleChanged;
+            DoorTypeOption?.ItemSelected -= OnDoorTypeChanged;
+
+
+            base._ExitTree();
+        }
+
         private void OnCornerRightWidthChanged(double value)
         {
             if (_data is not null) _data.CornerRightWidth = (float)value;

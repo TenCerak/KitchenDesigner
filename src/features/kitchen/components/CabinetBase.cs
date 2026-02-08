@@ -162,6 +162,7 @@ namespace KitchenDesigner.Features.Kitchen.Components
         }
         public void Delete()
         {
+            Data.DimensionsChanged -= Rebuild;
             QueueFree();
         }
 

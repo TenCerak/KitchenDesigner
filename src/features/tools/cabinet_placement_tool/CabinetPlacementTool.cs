@@ -63,6 +63,7 @@ namespace KitchenDesigner.Features.Kitchen.Tools
         public void Activate()
         {
             IsActive = true;
+            DestroyGhost();
             CreateGhost();
 
             _currentDistance = 1.5f;
@@ -81,11 +82,15 @@ namespace KitchenDesigner.Features.Kitchen.Tools
 
         public void Deactivate()
         {
-            IsActive = false;
             DestroyGhost();
+
+            IsActive = false;
+            SettingsUiInstance = null;
             GD.Print($"{ToolName} deaktivován.");
             _handManager.SetPointerLayerEnabled(CollisionLayerHelper.ENVIRONMENT, false);
+            DesignerEvents.Instance.CabinetDefinitionSelected -= HandleItemSelected;
 
+            QueueFree();
         }
 
         public void SetHighlight(bool enabled)
@@ -336,9 +341,13 @@ namespace KitchenDesigner.Features.Kitchen.Tools
 
             AddChild(_ghostInstance);
 
-            if (SettingsUiInstance is not null)
+            if (GodotObject.IsInstanceValid(SettingsUiInstance))
             {
                 SettingsUiInstance.BindData(ref _ghostInstance.Data);
+            }
+            else
+            {
+                SettingsUiInstance = null;
             }
 
             MakeNodeTransparent(_ghostInstance);
@@ -351,7 +360,7 @@ namespace KitchenDesigner.Features.Kitchen.Tools
 
         private void DestroyGhost()
         {
-            if (_ghostInstance != null && _ghostInstance.IsQueuedForDeletion() == false)
+            if (_ghostInstance != null)
             {
                 _ghostInstance.Delete();
                 _ghostInstance = null;
@@ -408,13 +417,9 @@ namespace KitchenDesigner.Features.Kitchen.Tools
 
             SettingsUiInstance = SettingsUiPrefab.Instantiate<CabinetSettingsUi>();
 
-            if (_ghostInstance != null)
+            if (GodotObject.IsInstanceValid(_ghostInstance))
             {
                 SettingsUiInstance.BindData(ref _ghostInstance.Data);
-            }
-            else
-            {
-                CreateGhost();
             }
 
             return SettingsUiInstance;
