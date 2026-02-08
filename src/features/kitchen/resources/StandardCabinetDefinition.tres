@@ -4,13 +4,14 @@
 [ext_resource type="Script" uid="uid://dnbhptx5uhuxm" path="res://src/features/kitchen/resources/CabinetDefinition.cs" id="1_pi40b"]
 [ext_resource type="PackedScene" uid="uid://b2f7ky76g4d8e" path="res://src/features/kitchen/components/Cabinet.tscn" id="2_orkag"]
 
-[sub_resource type="Resource" id="Resource_pbb1e"]
+[sub_resource type="Resource" id="Resource_rqpoh"]
 resource_local_to_scene = true
+resource_name = "Klasická skříňka"
 script = ExtResource("1_5ij83")
 metadata/_custom_type_script = "uid://dxlklc7mnthdo"
 
 [resource]
 script = ExtResource("1_pi40b")
-Name = "Standard Cabinet"
+Name = "Klasická skříňka"
 Prefab = ExtResource("2_orkag")
-DefaultData = SubResource("Resource_pbb1e")
+DefaultData = SubResource("Resource_rqpoh")

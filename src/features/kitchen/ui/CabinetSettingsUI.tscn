@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://dxlklc7mnthdo" path="res://src/features/kitchen/data/CabinetData.cs" id="5_gc2be"]
 [ext_resource type="PackedScene" uid="uid://c3vn5b0eny10s" path="res://src/features/kitchen/components/CornerLCabinet.tscn" id="6_1ld6v"]
 [ext_resource type="Script" uid="uid://dnbhptx5uhuxm" path="res://src/features/kitchen/resources/CabinetDefinition.cs" id="7_bxncm"]
+[ext_resource type="PackedScene" uid="uid://b2f7ky76g4d8e" path="res://src/features/kitchen/components/Cabinet.tscn" id="8_1ld6v"]
 
 [sub_resource type="Resource" id="Resource_hfugd"]
 resource_local_to_scene = true
@@ -24,10 +25,63 @@ metadata/_custom_type_script = "uid://dxlklc7mnthdo"
 
 [sub_resource type="Resource" id="Resource_f2v0h"]
 resource_local_to_scene = true
+resource_name = "Malý roh"
 script = ExtResource("7_bxncm")
 Name = "L Corner Small"
 Prefab = ExtResource("6_1ld6v")
 DefaultData = SubResource("Resource_hfugd")
+
+[sub_resource type="Resource" id="Resource_bxncm"]
+resource_local_to_scene = true
+script = ExtResource("5_gc2be")
+ShelfCount = 2
+DoorType = 3
+metadata/_custom_type_script = "uid://dxlklc7mnthdo"
+
+[sub_resource type="Resource" id="Resource_cws86"]
+resource_local_to_scene = true
+resource_name = "Spodní skříňka"
+script = ExtResource("7_bxncm")
+Name = "Spodní skříňka"
+Prefab = ExtResource("8_1ld6v")
+DefaultData = SubResource("Resource_bxncm")
+
+[sub_resource type="Resource" id="Resource_0lqhh"]
+resource_local_to_scene = true
+script = ExtResource("5_gc2be")
+HasWorktop = false
+Depth = 0.3
+ShelfCount = 2
+DoorType = 3
+DoorStyle = 1
+metadata/_custom_type_script = "uid://dxlklc7mnthdo"
+
+[sub_resource type="Resource" id="Resource_rwfh7"]
+resource_local_to_scene = true
+resource_name = "Vrchní skříňka"
+script = ExtResource("7_bxncm")
+Name = "Vrchní skříňka"
+Prefab = ExtResource("8_1ld6v")
+DefaultData = SubResource("Resource_0lqhh")
+
+[sub_resource type="Resource" id="Resource_1ld6v"]
+resource_local_to_scene = true
+resource_name = "Klasická skříňka"
+script = ExtResource("5_gc2be")
+HasWorktop = false
+Width = 0.3
+Depth = 0.3
+ShelfCount = 2
+DoorType = 1
+DoorStyle = 1
+metadata/_custom_type_script = "uid://dxlklc7mnthdo"
+
+[sub_resource type="Resource" id="Resource_fmbjl"]
+resource_name = "Úzká vrchní"
+script = ExtResource("7_bxncm")
+Name = "Úzká vrchní"
+Prefab = ExtResource("8_1ld6v")
+DefaultData = SubResource("Resource_1ld6v")
 
 [node name="Control" type="Control" unique_id=1622220008 node_paths=PackedStringArray("WidthContainer", "WidthSlider", "WidthValueLabel", "HeightContainer", "HeightSlider", "HeightValueLabel", "DepthContainer", "DepthSlider", "DepthValueLabel", "ShelfCount", "WorktopCheckBox", "DoorTypeOption", "DoorStyleOption", "CabinetShapeOption", "CabinetIsLeftCorner", "WidthBlindSlider", "WidthBlindValueLabel", "CornerLeftDepthContainer", "CornerLeftDepthSlider", "CornerLeftDepthValueLabel", "CornerRightDepthContainer", "CornerRightDepthSlider", "CornerRightDepthValueLabel", "CornerLeftWidthContainer", "CornerLeftWidthSlider", "CornerLeftWidthValueLabel", "CornerRightWidthContainer", "CornerRightWidthSlider", "CornerRightWidthValueLabel")]
 custom_minimum_size = Vector2(1280, 720)
@@ -380,12 +434,20 @@ text = "0cm"
 [node name="VBoxContainer2" type="VBoxContainer" parent="GridContainer/HBoxContainer" unique_id=2138686844 node_paths=PackedStringArray("Container")]
 layout_mode = 2
 script = ExtResource("2_t3ox8")
-Container = NodePath("ButtonContainer")
-AvailableItems = Array[Resource]([ExtResource("3_7u56l"), ExtResource("4_mioof"), SubResource("Resource_f2v0h")])
+Container = NodePath("ScrollContainer/ButtonContainer")
+AvailableItems = Array[Resource]([ExtResource("3_7u56l"), ExtResource("4_mioof"), SubResource("Resource_f2v0h"), SubResource("Resource_cws86"), SubResource("Resource_rwfh7"), SubResource("Resource_fmbjl")])
 
 [node name="Label" type="Label" parent="GridContainer/HBoxContainer/VBoxContainer2" unique_id=113338999]
 layout_mode = 2
 text = "Predefined scenes"
 
-[node name="ButtonContainer" type="VBoxContainer" parent="GridContainer/HBoxContainer/VBoxContainer2" unique_id=1527909308]
+[node name="ScrollContainer" type="ScrollContainer" parent="GridContainer/HBoxContainer/VBoxContainer2" unique_id=317549990]
+custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="ButtonContainer" type="VBoxContainer" parent="GridContainer/HBoxContainer/VBoxContainer2/ScrollContainer" unique_id=1527909308]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
