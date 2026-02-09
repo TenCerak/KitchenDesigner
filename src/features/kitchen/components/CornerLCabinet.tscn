@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://juk6ae30tvwg" path="res://src/features/kitchen/components/CornerLCabinet.cs" id="1_xgewl"]
 [ext_resource type="PackedScene" uid="uid://dequbvjdolyxb" path="res://src/features/kitchen/components/shelf.tscn" id="2_5j5ki"]
 [ext_resource type="Script" uid="uid://dxlklc7mnthdo" path="res://src/features/kitchen/data/CabinetData.cs" id="3_3l8ie"]
+[ext_resource type="PackedScene" uid="uid://degh068k1vmkl" path="res://src/features/kitchen/components/CabinetDoorNoHandle.tscn" id="4_5j5ki"]
 [ext_resource type="PackedScene" uid="uid://7fwdioqk25um" path="res://src/features/kitchen/components/snap_point.tscn" id="4_gtvj6"]
 [ext_resource type="PackedScene" uid="uid://d1udh4whwmg3m" path="res://src/features/kitchen/components/CabinetDoor.tscn" id="5_jmdgv"]
 [ext_resource type="PackedScene" uid="uid://bc3qu5dth1i72" path="res://src/features/kitchen/components/CabinetDrawer.tscn" id="6_oys2p"]
@@ -103,6 +104,8 @@ WorktopPartA = NodePath("Visuals/Worktop_PartA")
 WorktopPartB = NodePath("Visuals/Worktop_PartB")
 ShelvesContainer = NodePath("Visuals/ShelvesContainer")
 ShelfScene = ExtResource("2_5j5ki")
+MainDoorScene = ExtResource("5_jmdgv")
+SecondDoorScene = ExtResource("4_5j5ki")
 Data = SubResource("Resource_ms8s6")
 SnapPointsContainer = NodePath("SnapPoints")
 SnapPointScene = ExtResource("4_gtvj6")
@@ -205,7 +208,7 @@ shape = SubResource("BoxShape3D_vawod")
 [node name="SnapPoints" type="Node3D" parent="." unique_id=1781990198]
 
 [node name="OrientationArrow" type="Node3D" parent="." unique_id=1658542590]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0.6)
+transform = Transform3D(0.70710677, -0.70710677, 3.090862e-08, 0, -4.371139e-08, -1, 0.70710677, 0.70710677, -3.090862e-08, -0.3, 0, 0.3)
 visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="OrientationArrow" unique_id=1488029660]

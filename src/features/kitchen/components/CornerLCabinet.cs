@@ -1,5 +1,6 @@
 using Godot;
 using KitchenDesigner.Features.Kitchen.Components;
+using KitchenDesigner.Features.Kitchen.Data;
 using System;
 
 public partial class CornerLCabinet : CabinetBase
@@ -38,6 +39,10 @@ public partial class CornerLCabinet : CabinetBase
 
     [Export] public Node3D ShelvesContainer;
     [Export] public PackedScene ShelfScene;
+
+    [Export] public PackedScene MainDoorScene;
+    [Export] public PackedScene SecondDoorScene;
+
 
     protected override void RebuildGeometry()
     {
@@ -113,6 +118,7 @@ public partial class CornerLCabinet : CabinetBase
 
         UpdateWorktop();
         RebuildShelves();
+        UpdateDoors();
         SetGhostMode(_isGhost);
     }
 
@@ -278,7 +284,7 @@ public partial class CornerLCabinet : CabinetBase
         {
             shelf.Call("SetDimensions", size);
         }
-        else if (shelf is MeshInstance3D meshInst) 
+        else if (shelf is MeshInstance3D meshInst)
         {
             if (meshInst.Mesh is BoxMesh box)
             {
@@ -319,7 +325,7 @@ public partial class CornerLCabinet : CabinetBase
             0
         );
 
-        CreateSnapPoint(SnapType.Left, leftSnapPos, new Vector3(0,90,0));
+        CreateSnapPoint(SnapType.Left, leftSnapPos, new Vector3(0, 90, 0));
 
 
         Vector3 rightSnapPos = new Vector3(
@@ -334,7 +340,53 @@ public partial class CornerLCabinet : CabinetBase
     {
         foreach (Node child in DoorsContainer.GetChildren()) child.QueueFree();
 
-        //TODO
+        if (Data == null) return;
+
+        float LeftWidth = Data.CornerLeftWidth;
+        float RightWidth = Data.CornerRightWidth;
+
+        CabinetDoor mainDoor = null;
+        CabinetDoor secondDoor = null;
+
+
+        if (Data.DoorType == DoorType.None)
+        {
+            return;
+        }
+
+        if (Data.DoorType == DoorType.SingleLeft)
+        {
+            LeftWidth -= 0.02f;
+            mainDoor = MainDoorScene.Instantiate() as CabinetDoor;
+            DoorsContainer.AddChild(mainDoor);
+
+            secondDoor = SecondDoorScene.Instantiate() as CabinetDoor;
+            DoorsContainer.AddChild(secondDoor);
+
+            mainDoor.Setup(LeftWidth, Data.Height, 0.018f, Data.DoorStyle == DoorStyle.Glass ? true : false, false, 150);
+            mainDoor.Position = new Vector3(-Data.CornerRightDepth - (Data.CornerLeftWidth), 0, Data.CornerLeftDepth);
+
+            secondDoor.Setup(RightWidth, Data.Height, 0.018f, Data.DoorStyle == DoorStyle.Glass ? true : false, true, 150);
+            secondDoor.Position = new Vector3(-Data.CornerRightDepth, 0, Data.CornerLeftDepth + Data.CornerRightWidth);
+            secondDoor.RotationDegrees = new Vector3(0, 90, 0);
+
+        }
+        else if (Data.DoorType == DoorType.SingleRight)
+        {
+            RightWidth -= 0.02f;
+            mainDoor = MainDoorScene.Instantiate() as CabinetDoor;
+            DoorsContainer.AddChild(mainDoor);
+
+            secondDoor = SecondDoorScene.Instantiate() as CabinetDoor;
+            DoorsContainer.AddChild(secondDoor);
+
+            mainDoor.Setup(RightWidth, Data.Height, 0.018f, Data.DoorStyle == DoorStyle.Glass ? true : false, true, 150);
+            mainDoor.Position = new Vector3(-Data.CornerRightDepth, 0, Data.CornerLeftDepth + Data.CornerRightWidth);
+            mainDoor.RotationDegrees = new Vector3(0, 90, 0);
+
+            secondDoor.Setup(LeftWidth, Data.Height, 0.018f, Data.DoorStyle == DoorStyle.Glass ? true : false, false, 150);
+            secondDoor.Position = new Vector3(-Data.CornerRightDepth - (Data.CornerLeftWidth), 0, Data.CornerLeftDepth);
+        }
     }
 
     public override void SetHighlight(bool active, bool isDeletePreview = false)

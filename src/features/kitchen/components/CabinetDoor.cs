@@ -14,16 +14,23 @@ namespace KitchenDesigner.Features.Kitchen.Components
         // Nastavení animace
         private bool _isOpen = false;
         private float _closedAngle = 0f;
-        private float _openAngle = 90f; 
+        private float _openAngle = 90f;
+        private bool _isRightDoor = false;
+        private float _maxOpenAngle = 90f;
         private Tween _tween;
-
 
 
         public void Setup(float width, float height, float thickness, bool isGlass, bool isRightDoor)
         {
+            Setup(width, height, thickness, isGlass, isRightDoor, 90);
+        }
+
+        public void Setup(float width, float height, float thickness, bool isGlass, bool isRightDoor, float maxOpenAgle)
+        {
             BoxMesh newMesh = new BoxMesh();
             newMesh.Size = new Vector3(width, height, thickness);
-
+            _isRightDoor = isRightDoor;
+            _maxOpenAngle = maxOpenAgle;
             PanelMesh.Mesh = newMesh;
 
             float panelZ = isRightDoor ? -thickness / 2.0f : thickness / 2.0f;
@@ -34,7 +41,7 @@ namespace KitchenDesigner.Features.Kitchen.Components
             BoxShape3D newShape = new BoxShape3D();
             newShape.Size = new Vector3(width, height, thickness);
 
-            ClickShape.Shape = newShape; 
+            ClickShape.Shape = newShape;
 
             ClickShape.Position = centerPosition;
 
@@ -63,12 +70,12 @@ namespace KitchenDesigner.Features.Kitchen.Components
 
             if (isRightDoor)
             {
-                _openAngle = 270f;
+                _openAngle = 180f + maxOpenAgle;
                 _closedAngle = 180f;
             }
             else
             {
-                _openAngle = -90f;
+                _openAngle = -maxOpenAgle;
                 _closedAngle = 0f;
             }
 
@@ -88,6 +95,20 @@ namespace KitchenDesigner.Features.Kitchen.Components
         }
         public void ToggleOpen()
         {
+            if (_isOpen == false && _closedAngle != RotationDegrees.Y)
+            {
+                _closedAngle = RotationDegrees.Y;
+
+                if (_isRightDoor)
+                {
+                    _openAngle = _closedAngle + _maxOpenAngle;
+                }
+                else
+                {
+                    _openAngle = _closedAngle - _maxOpenAngle;
+                }
+            }
+
             _isOpen = !_isOpen;
 
             if (_tween != null && _tween.IsValid()) _tween.Kill();
