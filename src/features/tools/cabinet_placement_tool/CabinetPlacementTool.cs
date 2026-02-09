@@ -245,35 +245,34 @@ namespace KitchenDesigner.Features.Kitchen.Tools
 
         private void ApplySnap(SnapPoint ghostPoint, SnapPoint targetPoint)
         {
-            Quaternion targetRotation = Quaternion.Identity;
-            if (targetPoint.ParentCabinet != null)
-            {
-                targetRotation = targetPoint.GlobalTransform.Basis.GetRotationQuaternion();
+            Quaternion targetPointRotation = targetPoint.GlobalTransform.Basis.GetRotationQuaternion();
 
-                if (targetPoint.Type == SnapType.CornerFront)
-                {
-                    if (targetPoint.ParentCabinet.Data.CornerIsLeft)
-                    {
-                        targetRotation *= Quaternion.FromEuler(new Vector3(0, Mathf.Pi / 2, 0));
-                    }
-                    else
-                    {
-                        targetRotation *= Quaternion.FromEuler(new Vector3(0, -Mathf.Pi / 2, 0));
-                    }
-                }
-            }
+            Quaternion currentGhostRotation = _ghostInstance.GlobalTransform.Basis.GetRotationQuaternion();
+
+            Vector3 targetEuler = targetPointRotation.GetEuler();
+            Vector3 ghostEuler = currentGhostRotation.GetEuler();
+
+            float diffAngleY = ghostEuler.Y - targetEuler.Y;
+
+
+            float snapStep = Mathf.Pi / 2.0f; 
+            float snappedDiffY = Mathf.Round(diffAngleY / snapStep) * snapStep;
+
+            Quaternion snappedOffsetRotation = Quaternion.FromEuler(new Vector3(0, snappedDiffY, 0));
+            Quaternion finalRotation = targetPointRotation * snappedOffsetRotation;
+
 
             Vector3 localOffset = _ghostInstance.ToLocal(ghostPoint.GlobalPosition);
 
-            Vector3 rotatedOffset = targetRotation * localOffset;
+            Vector3 rotatedOffset = finalRotation * localOffset;
 
             Vector3 newPos = targetPoint.GlobalPosition - rotatedOffset;
 
             _ghostInstance.GlobalPosition = newPos;
-            _ghostInstance.GlobalRotation = targetRotation.GetEuler();
+            _ghostInstance.GlobalRotation = finalRotation.GetEuler();
 
             _snappedPosition = newPos;
-            _snappedRotation = targetRotation;
+            _snappedRotation = finalRotation;
             _isSnapped = true;
 
             _handManager.VibrateDominantHand(0.5f, 0.05f);
