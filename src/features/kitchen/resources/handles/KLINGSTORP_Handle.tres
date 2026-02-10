@@ -1,0 +1,11 @@
+[gd_resource type="Resource" format=3 uid="uid://b57d4gx0gsbpm"]
+
+[ext_resource type="Texture2D" uid="uid://po72vf765v47" path="res://src/features/kitchen/resources/handles/klingstorp.png" id="1_ieaiq"]
+[ext_resource type="PackedScene" uid="uid://cmjk7s5qosdpb" path="res://src/features/kitchen/components/handles/klingstorp_handle.tscn" id="2_f3oto"]
+[ext_resource type="Script" uid="uid://l5msdt5nccor" path="res://src/features/kitchen/resources/HandleDefinition.cs" id="3_n88kg"]
+
+[resource]
+script = ExtResource("3_n88kg")
+Name = "KLINGSTORP"
+Icon = ExtResource("1_ieaiq")
+Prefab = ExtResource("2_f3oto")

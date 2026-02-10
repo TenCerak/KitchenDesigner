@@ -1,0 +1,9 @@
+[gd_resource type="Resource" format=3 uid="uid://dh0lttfpu3bn1"]
+
+[ext_resource type="PackedScene" uid="uid://yppahyo45oi8" path="res://src/features/tools/handle_placement_tool/handle_placement_tool.tscn" id="1_751d5"]
+[ext_resource type="Script" uid="uid://qttmbog3t42" path="res://src/features/tools/ARToolResource.cs" id="2_alyet"]
+
+[resource]
+script = ExtResource("2_alyet")
+ToolName = "Handle Placement"
+ToolScene = ExtResource("1_751d5")

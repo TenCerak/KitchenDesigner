@@ -1,4 +1,4 @@
-[gd_resource type="Resource" format=3 uid="uid://bc6echx6t5anl"]
+[gd_resource type="Resource" format=3 uid="uid://bgqjgul2ucl4g"]
 
 [ext_resource type="Script" uid="uid://dxlklc7mnthdo" path="res://src/features/kitchen/data/CabinetData.cs" id="1_ib7ig"]
 [ext_resource type="PackedScene" uid="uid://c3vn5b0eny10s" path="res://src/features/kitchen/components/CornerLCabinet.tscn" id="2_qvluy"]

@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://drk48vecjmnqw" path="res://src/features/kitchen/ui/CabinetSettingsUi.cs" id="1_nhbbr"]
 [ext_resource type="Script" uid="uid://4j4u1f3y7llc" path="res://src/features/kitchen/ui/CabinetSelectorUi.cs" id="2_t3ox8"]
-[ext_resource type="Resource" uid="uid://drih0uhxkhbpp" path="res://src/features/kitchen/resources/StandardCabinetDefinition.tres" id="3_7u56l"]
-[ext_resource type="Resource" uid="uid://bc6echx6t5anl" path="res://src/features/kitchen/resources/CornerLCabinetDefinition.tres" id="4_mioof"]
+[ext_resource type="Resource" uid="uid://drih0uhxkhbpp" path="res://src/features/kitchen/resources/cabinets/StandardCabinetDefinition.tres" id="3_7u56l"]
+[ext_resource type="Resource" uid="uid://bc6echx6t5anl" path="res://src/features/kitchen/resources/cabinets/CornerLCabinetDefinition.tres" id="4_mioof"]
 [ext_resource type="Script" uid="uid://dxlklc7mnthdo" path="res://src/features/kitchen/data/CabinetData.cs" id="5_gc2be"]
 [ext_resource type="PackedScene" uid="uid://c3vn5b0eny10s" path="res://src/features/kitchen/components/CornerLCabinet.tscn" id="6_1ld6v"]
 [ext_resource type="Script" uid="uid://dnbhptx5uhuxm" path="res://src/features/kitchen/resources/CabinetDefinition.cs" id="7_bxncm"]

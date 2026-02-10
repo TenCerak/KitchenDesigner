@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://ctxsrrt8f4pux"]
+
+[ext_resource type="PackedScene" uid="uid://cpnsyanxa46oo" path="res://assets/materials/kitchen/handles/KALERUM úchytka - barva nerezavějící oceli (60553644).glb" id="1_yx86n"]
+
+[node name="KalerumHandle" type="Node3D" unique_id=1750497861]
+
+[node name="cascade-scene-0" parent="." unique_id=1350332390 instance=ExtResource("1_yx86n")]
+transform = Transform3D(1.9106855e-15, -4.371139e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, -4.371139e-08, 0, 0, 0)

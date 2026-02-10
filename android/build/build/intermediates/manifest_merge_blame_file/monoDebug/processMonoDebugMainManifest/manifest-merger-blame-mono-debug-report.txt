@@ -31,95 +31,95 @@
 23    <uses-permission android:name="android.permission.INTERNET" />
 23-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:11:5-67
 23-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:11:22-64
-24    <!-- Start of manifest element contents from GodotOpenXRMeta -->
-25    <uses-permission android:name="com.oculus.permission.HAND_TRACKING" />
-25-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:13:5-75
-25-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:13:22-72
-26
-27    <uses-feature
-27-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:14:5-111
-28        android:name="oculus.software.handtracking"
-28-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:14:40-83
-29        android:required="false" />
-29-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:14:84-108
-30    <uses-feature
-30-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:15:5-112
-31        android:name="com.oculus.feature.PASSTHROUGH"
-31-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:15:40-85
-32        android:required="true" />
-32-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:15:86-109
-33
-34    <uses-permission android:name="com.oculus.permission.RENDER_MODEL" />
-34-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:16:5-74
-34-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:16:22-71
-35
-36    <uses-feature
-36-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:17:5-113
-37        android:name="com.oculus.feature.RENDER_MODEL"
-37-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:17:40-86
-38        android:required="true" />
-38-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:17:87-110
+24    <!-- Start of manifest element contents from OpenXRExportPlugin -->
+25
+26    <uses-permission android:name="org.khronos.openxr.permission.OPENXR" />
+26-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:14:5-76
+26-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:14:22-73
+27    <uses-permission android:name="org.khronos.openxr.permission.OPENXR_SYSTEM" />
+27-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:15:2-80
+27-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:15:19-77
+28
+29    <queries>
+29-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:17:5-27:15
+30        <provider android:authorities="org.khronos.openxr.runtime_broker;org.khronos.openxr.system_runtime_broker" />
+30-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:18:9-118
+30-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:18:19-115
+31
+32        <intent>
+32-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:20:9-22:18
+33            <action android:name="org.khronos.openxr.OpenXRRuntimeService" />
+33-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:21:13-78
+33-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:21:21-75
+34        </intent>
+35        <intent>
+35-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:23:9-25:18
+36            <action android:name="org.khronos.openxr.OpenXRApiLayerService" />
+36-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:24:13-79
+36-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:24:21-76
+37        </intent>
+38    </queries>
 39
-40    <uses-permission android:name="com.oculus.permission.USE_ANCHOR_API" />
-40-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:18:5-76
-40-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:18:22-73
-41    <uses-permission android:name="com.oculus.permission.IMPORT_EXPORT_IOT_MAP_DATA" />
-41-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:19:5-88
-41-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:19:22-85
-42    <uses-permission android:name="com.oculus.permission.USE_SCENE" />
-42-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:20:5-71
-42-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:20:22-68
+40    <!-- End of manifest element contents from OpenXRExportPlugin -->
+41    <!-- Start of manifest element contents from GodotOpenXRMeta -->
+42    <uses-permission android:name="com.oculus.permission.HAND_TRACKING" />
+42-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:31:5-75
+42-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:31:22-72
 43
 44    <uses-feature
-44-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:21:5-117
-45        android:name="com.oculus.feature.BOUNDARYLESS_APP"
-45-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:21:40-90
-46        android:required="true" />
-46-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:21:91-114
+44-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:32:5-111
+45        android:name="oculus.software.handtracking"
+45-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:32:40-83
+46        android:required="false" />
+46-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:32:84-108
 47    <uses-feature
-47-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:22:5-134
-48        android:name="android.hardware.vr.headtracking"
-48-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:22:19-66
-49        android:required="true"
-49-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:22:67-90
-50        android:version="1" />
-50-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:22:91-110
-51
-52    <!-- End of manifest element contents from GodotOpenXRMeta -->
-53    <!-- Start of manifest element contents from OpenXRExportPlugin -->
-54
-55    <uses-permission android:name="org.khronos.openxr.permission.OPENXR" />
-55-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:27:5-76
-55-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:27:22-73
-56    <uses-permission android:name="org.khronos.openxr.permission.OPENXR_SYSTEM" />
-56-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:28:2-80
-56-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:28:19-77
-57
-58    <queries>
-58-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:30:5-40:15
-59        <provider android:authorities="org.khronos.openxr.runtime_broker;org.khronos.openxr.system_runtime_broker" />
-59-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:31:9-118
-59-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:31:19-115
+47-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:33:5-112
+48        android:name="com.oculus.feature.PASSTHROUGH"
+48-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:33:40-85
+49        android:required="true" />
+49-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:33:86-109
+50
+51    <uses-permission android:name="com.oculus.permission.RENDER_MODEL" />
+51-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:34:5-74
+51-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:34:22-71
+52
+53    <uses-feature
+53-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:35:5-113
+54        android:name="com.oculus.feature.RENDER_MODEL"
+54-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:35:40-86
+55        android:required="true" />
+55-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:35:87-110
+56
+57    <uses-permission android:name="com.oculus.permission.USE_ANCHOR_API" />
+57-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:36:5-76
+57-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:36:22-73
+58    <uses-permission android:name="com.oculus.permission.IMPORT_EXPORT_IOT_MAP_DATA" />
+58-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:37:5-88
+58-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:37:22-85
+59    <uses-permission android:name="com.oculus.permission.USE_SCENE" />
+59-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:38:5-71
+59-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:38:22-68
 60
-61        <intent>
-61-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:33:9-35:18
-62            <action android:name="org.khronos.openxr.OpenXRRuntimeService" />
-62-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:34:13-78
-62-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:34:21-75
-63        </intent>
-64        <intent>
-64-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:36:9-38:18
-65            <action android:name="org.khronos.openxr.OpenXRApiLayerService" />
-65-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:37:13-79
-65-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:37:21-76
-66        </intent>
-67    </queries>
+61    <uses-feature
+61-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:39:5-117
+62        android:name="com.oculus.feature.BOUNDARYLESS_APP"
+62-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:39:40-90
+63        android:required="true" />
+63-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:39:91-114
+64    <uses-feature
+64-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:40:5-134
+65        android:name="android.hardware.vr.headtracking"
+65-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:40:19-66
+66        android:required="true"
+66-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:40:67-90
+67        android:version="1" />
+67-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:40:91-110
 68
 69    <horizonos:uses-horizonos-sdk
 69-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\f35cd972c20fe33d2793e1d4214ee681\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:8:5-10:43
 70        horizonos:minSdkVersion="69"
 70-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\f35cd972c20fe33d2793e1d4214ee681\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:9:9-37
-71        horizonos:targetSdkVersion="69" /> <!-- End of manifest element contents from OpenXRExportPlugin -->
+71        horizonos:targetSdkVersion="69" /> <!-- End of manifest element contents from GodotOpenXRMeta -->
 71-->[godotopenxr-meta-debug.aar] C:\Users\cerov\.gradle\caches\8.11.1\transforms\f35cd972c20fe33d2793e1d4214ee681\transformed\jetified-godotopenxr-meta-debug\AndroidManifest.xml:10:9-40
 72    <application
 72-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:18:5-54:19
@@ -201,10 +201,10 @@
 113            android:windowSoftInputMode="adjustResize" >
 113-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:39:13-55
 114
-115            <!-- Start of manifest activity element contents from GodotOpenXRMeta -->
+115            <!-- Start of manifest activity element contents from OpenXRExportPlugin -->
 116
 117            <intent-filter>
-117-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:65:5-80:21
+117-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:65:13-71:29
 118                <action android:name="android.intent.action.MAIN" />
 118-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:48:17-69
 118-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:48:25-66
@@ -212,42 +212,42 @@
 120                <category android:name="android.intent.category.DEFAULT" />
 120-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:49:17-76
 120-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:49:27-73
-121
-122                <!--
-123                    Enable access to OpenXR on Oculus mobile devices, no-op on other Android
-124					platforms.
-125                -->
-126                <category android:name="com.oculus.intent.category.VR" />
-126-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:72:6-63
-126-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:72:16-60
-127
-128                <!--
-129                    OpenXR category tag to indicate the activity starts in an immersive OpenXR mode.
-130					See https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#android-runtime-category.
-131                -->
-132                <category android:name="org.khronos.openxr.intent.category.IMMERSIVE_HMD" />
-132-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:76:6-82
-132-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:76:16-79
-133            </intent-filter>
-134
-135            <!-- End of manifest activity element contents from GodotOpenXRMeta -->
-136            <!-- Start of manifest activity element contents from OpenXRExportPlugin -->
+121                <category android:name="org.khronos.openxr.intent.category.IMMERSIVE_HMD" />
+121-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:70:17-93
+121-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:70:27-90
+122            </intent-filter>
+123
+124            <!-- End of manifest activity element contents from OpenXRExportPlugin -->
+125            <!-- Start of manifest activity element contents from GodotOpenXRMeta -->
+126
+127            <intent-filter>
+127-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:76:5-91:21
+128                <action android:name="android.intent.action.MAIN" />
+128-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:48:17-69
+128-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:48:25-66
+129
+130                <category android:name="android.intent.category.DEFAULT" />
+130-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:49:17-76
+130-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:49:27-73
+131
+132                <!--
+133                    Enable access to OpenXR on Oculus mobile devices, no-op on other Android
+134					platforms.
+135                -->
+136                <category android:name="com.oculus.intent.category.VR" />
+136-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:83:6-63
+136-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:83:16-60
 137
-138            <intent-filter>
-138-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:85:13-91:29
-139                <action android:name="android.intent.action.MAIN" />
-139-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:48:17-69
-139-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:48:25-66
-140
-141                <category android:name="android.intent.category.DEFAULT" />
-141-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:49:17-76
-141-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:49:27-73
+138                <!--
+139                    OpenXR category tag to indicate the activity starts in an immersive OpenXR mode.
+140					See https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#android-runtime-category.
+141                -->
 142                <category android:name="org.khronos.openxr.intent.category.IMMERSIVE_HMD" />
-142-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:76:6-82
-142-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:76:16-79
+142-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:70:17-93
+142-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:70:27-90
 143            </intent-filter>
 144
-145            <!-- End of manifest activity element contents from OpenXRExportPlugin -->
+145            <!-- End of manifest activity element contents from GodotOpenXRMeta -->
 146        </activity>
 147
 148        <activity-alias
@@ -271,10 +271,10 @@
 156-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:50:17-77
 156-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:50:27-74
 157            </intent-filter>
-158            <!-- Start of manifest activity element contents from GodotOpenXRMeta -->
+158            <!-- Start of manifest activity element contents from OpenXRExportPlugin -->
 159
 160            <intent-filter>
-160-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:107:5-122:21
+160-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:65:13-71:29
 161                <action android:name="android.intent.action.MAIN" />
 161-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:48:17-69
 161-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:48:25-66
@@ -282,45 +282,45 @@
 163                <category android:name="android.intent.category.DEFAULT" />
 163-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:49:17-76
 163-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:49:27-73
-164
-165                <!--
-166                    Enable access to OpenXR on Oculus mobile devices, no-op on other Android
-167					platforms.
-168                -->
-169                <category android:name="com.oculus.intent.category.VR" />
-169-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:72:6-63
-169-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:72:16-60
-170
-171                <!--
-172                    OpenXR category tag to indicate the activity starts in an immersive OpenXR mode.
-173					See https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#android-runtime-category.
-174                -->
-175                <category android:name="org.khronos.openxr.intent.category.IMMERSIVE_HMD" />
-175-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:76:6-82
-175-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:76:16-79
-176                <category android:name="android.intent.category.LAUNCHER" />
-176-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:50:17-77
-176-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:50:27-74
-177            </intent-filter>
-178
-179            <!-- End of manifest activity element contents from GodotOpenXRMeta -->
-180            <!-- Start of manifest activity element contents from OpenXRExportPlugin -->
-181
-182            <intent-filter>
-182-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:85:13-91:29
-183                <action android:name="android.intent.action.MAIN" />
-183-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:48:17-69
-183-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:48:25-66
-184
-185                <category android:name="android.intent.category.DEFAULT" />
-185-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:49:17-76
-185-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:49:27-73
-186                <category android:name="org.khronos.openxr.intent.category.IMMERSIVE_HMD" />
-186-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:76:6-82
-186-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:76:16-79
+164                <category android:name="org.khronos.openxr.intent.category.IMMERSIVE_HMD" />
+164-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:70:17-93
+164-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:70:27-90
+165            </intent-filter>
+166
+167            <!-- End of manifest activity element contents from OpenXRExportPlugin -->
+168            <!-- Start of manifest activity element contents from GodotOpenXRMeta -->
+169
+170            <intent-filter>
+170-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:118:5-133:21
+171                <action android:name="android.intent.action.MAIN" />
+171-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:48:17-69
+171-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:48:25-66
+172
+173                <category android:name="android.intent.category.DEFAULT" />
+173-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:49:17-76
+173-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:49:27-73
+174
+175                <!--
+176                    Enable access to OpenXR on Oculus mobile devices, no-op on other Android
+177					platforms.
+178                -->
+179                <category android:name="com.oculus.intent.category.VR" />
+179-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:83:6-63
+179-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:83:16-60
+180
+181                <!--
+182                    OpenXR category tag to indicate the activity starts in an immersive OpenXR mode.
+183					See https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#android-runtime-category.
+184                -->
+185                <category android:name="org.khronos.openxr.intent.category.IMMERSIVE_HMD" />
+185-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:70:17-93
+185-->S:\GodotProjects\KitchenDesigner\android\build\src\debug\AndroidManifest.xml:70:27-90
+186                <category android:name="android.intent.category.LAUNCHER" />
+186-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:50:17-77
+186-->S:\GodotProjects\KitchenDesigner\android\build\src\main\AndroidManifest.xml:50:27-74
 187            </intent-filter>
 188
-189            <!-- End of manifest activity element contents from OpenXRExportPlugin -->
+189            <!-- End of manifest activity element contents from GodotOpenXRMeta -->
 190        </activity-alias>
 191
 192        <profileable

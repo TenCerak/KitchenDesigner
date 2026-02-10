@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://yppahyo45oi8"]
+
+[ext_resource type="Script" uid="uid://b1020r0yb18sm" path="res://src/features/tools/handle_placement_tool/HandlePlacementTool.cs" id="1_3ijdq"]
+[ext_resource type="PackedScene" uid="uid://csthqicj5k2rk" path="res://src/features/kitchen/ui/HandleSettingsUI.tscn" id="2_y841r"]
+
+[node name="HandlePlacementTool" type="Node3D" unique_id=1569937514]
+script = ExtResource("1_3ijdq")
+SettingsUiPrefab = ExtResource("2_y841r")

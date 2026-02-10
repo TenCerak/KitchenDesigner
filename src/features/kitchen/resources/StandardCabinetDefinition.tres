@@ -1,4 +1,4 @@
-[gd_resource type="Resource" format=3 uid="uid://drih0uhxkhbpp"]
+[gd_resource type="Resource" format=3 uid="uid://rm70dqi4aca"]
 
 [ext_resource type="Script" uid="uid://dxlklc7mnthdo" path="res://src/features/kitchen/data/CabinetData.cs" id="1_5ij83"]
 [ext_resource type="Script" uid="uid://dnbhptx5uhuxm" path="res://src/features/kitchen/resources/CabinetDefinition.cs" id="1_pi40b"]

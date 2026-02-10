@@ -3,7 +3,7 @@ using KitchenDesigner.Features.Kitchen.Interfaces;
 
 namespace KitchenDesigner.Features.Kitchen.Components
 {
-    public partial class CabinetDrawer : Node3D, IInteractable
+    public partial class CabinetDrawer : Node3D, IInteractable, IHandleContainer
     {
         [Export] public MeshInstance3D FrontPanel;
         [Export] public MeshInstance3D DrawerBottom;
@@ -12,7 +12,7 @@ namespace KitchenDesigner.Features.Kitchen.Components
         [Export] public MeshInstance3D DrawerLeftSide;
         [Export] public MeshInstance3D DrawerRightSide;
 
-        [Export] public Node3D HandleObj;
+        [Export] public Node3D HandleContainer { get; set; }
 
         [Export] public Area3D ClickArea;
         [Export] public CollisionShape3D ClickShape;
@@ -20,8 +20,6 @@ namespace KitchenDesigner.Features.Kitchen.Components
         private bool _isOpen = false;
         private float _slideDistance = 0.4f;
         private Tween _tween;
-
-
 
         public void Setup(float width, float height, float depth)
         {
@@ -84,10 +82,9 @@ namespace KitchenDesigner.Features.Kitchen.Components
             }
             ClickShape.Position = FrontPanel.Position;
 
-            if (HandleObj != null)
+            if (HandleContainer != null)
             {
-                HandleObj.Position = new Vector3(0, 0, materialThickness + 0.02f);
-                HandleObj.RotationDegrees = new Vector3(0, 0, 90);
+                HandleContainer.Position = new Vector3(0, 0, materialThickness);
             }
 
             _slideDistance = depth * 0.8f;
@@ -97,6 +94,17 @@ namespace KitchenDesigner.Features.Kitchen.Components
             ToggleOpen();
         }
 
+        public void SetHandle(PackedScene handle)
+        {
+            if (HandleContainer == null) return;
+            foreach (Node child in HandleContainer.GetChildren()) child.QueueFree();
+            if (handle != null)
+            {
+                Node3D handleInstance = handle.Instantiate() as Node3D;
+                HandleContainer.AddChild(handleInstance);
+                handleInstance.Position = Vector3.Zero;
+            }
+        }
 
         public void ToggleOpen()
         {

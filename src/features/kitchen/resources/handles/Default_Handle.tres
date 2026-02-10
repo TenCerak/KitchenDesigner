@@ -1,0 +1,9 @@
+[gd_resource type="Resource" format=3 uid="uid://cdedxdpkoimak"]
+
+[ext_resource type="PackedScene" uid="uid://bxqealn6ttgwb" path="res://src/features/kitchen/components/handles/basic_handle.tscn" id="1_5xhlg"]
+[ext_resource type="Script" uid="uid://l5msdt5nccor" path="res://src/features/kitchen/resources/HandleDefinition.cs" id="2_6qys3"]
+
+[resource]
+script = ExtResource("2_6qys3")
+Name = "Default handle"
+Prefab = ExtResource("1_5xhlg")

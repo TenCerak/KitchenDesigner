@@ -1,15 +1,7 @@
 [gd_scene format=3 uid="uid://bc3qu5dth1i72"]
 
 [ext_resource type="Script" uid="uid://c4qsqa3swvx7n" path="res://src/features/kitchen/components/CabinetDrawer.cs" id="1_3vyqn"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s5gnb"]
-albedo_color = Color(0.5779315, 0.41587052, 0.27878973, 1)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_c31yo"]
-material = SubResource("StandardMaterial3D_s5gnb")
-top_radius = 0.02
-bottom_radius = 0.02
-height = 0.15
+[ext_resource type="PackedScene" uid="uid://bxqealn6ttgwb" path="res://src/features/kitchen/components/handles/basic_handle.tscn" id="2_wv2tp"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_3vyqn"]
 size = Vector3(0.6, 0.3, 0.04)
@@ -26,7 +18,7 @@ size = Vector3(0.018, 0.2, 0.8)
 [sub_resource type="BoxShape3D" id="BoxShape3D_qw2hw"]
 size = Vector3(0.6, 0.3, 0.04)
 
-[node name="DrawerRoot" type="Node3D" unique_id=934081396 node_paths=PackedStringArray("FrontPanel", "DrawerBottom", "DrawerBack", "DrawerFront", "DrawerLeftSide", "DrawerRightSide", "HandleObj", "ClickArea", "ClickShape")]
+[node name="DrawerRoot" type="Node3D" unique_id=934081396 node_paths=PackedStringArray("FrontPanel", "DrawerBottom", "DrawerBack", "DrawerFront", "DrawerLeftSide", "DrawerRightSide", "HandleContainer", "ClickArea", "ClickShape")]
 script = ExtResource("1_3vyqn")
 FrontPanel = NodePath("Visuals/FrontPanel")
 DrawerBottom = NodePath("Visuals/DrawerBottom")
@@ -34,16 +26,11 @@ DrawerBack = NodePath("Visuals/DrawerBack")
 DrawerFront = NodePath("Visuals/DrawerFront")
 DrawerLeftSide = NodePath("Visuals/DrawerLeftSide")
 DrawerRightSide = NodePath("Visuals/DrawerRightSide")
-HandleObj = NodePath("Visuals/HandleObj")
+HandleContainer = NodePath("Visuals/HandleContainer")
 ClickArea = NodePath("Interaction")
 ClickShape = NodePath("Interaction/CollisionShape3D")
 
 [node name="Visuals" type="Node3D" parent="." unique_id=1311033220]
-
-[node name="HandleObj" type="MeshInstance3D" parent="Visuals" unique_id=732065877]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.0023162365, 0.09069434, 0.46540964)
-mesh = SubResource("CylinderMesh_c31yo")
-skeleton = NodePath("")
 
 [node name="FrontPanel" type="MeshInstance3D" parent="Visuals" unique_id=1309780972]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.4)
@@ -73,6 +60,12 @@ skeleton = NodePath("")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.256, 0, -0.018)
 mesh = SubResource("BoxMesh_hcf5h")
 skeleton = NodePath("")
+
+[node name="HandleContainer" type="Node3D" parent="Visuals" unique_id=2010949348]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.44981134)
+
+[node name="HandleObj" parent="Visuals/HandleContainer" unique_id=1688339280 instance=ExtResource("2_wv2tp")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0.02)
 
 [node name="Interaction" type="Area3D" parent="." unique_id=833684409]
 collision_layer = 8192

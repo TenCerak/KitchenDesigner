@@ -8,10 +8,9 @@ size = Vector3(1, 1, 0.02)
 [sub_resource type="BoxShape3D" id="BoxShape3D_qep4n"]
 size = Vector3(1, 1, 0.02)
 
-[node name="DoorPivot" type="Node3D" unique_id=470555007 node_paths=PackedStringArray("PanelMesh", "HandleObj", "ClickArea", "ClickShape")]
+[node name="DoorPivot" type="Node3D" unique_id=470555007 node_paths=PackedStringArray("PanelMesh", "ClickArea", "ClickShape")]
 script = ExtResource("1_k20lt")
 PanelMesh = NodePath("Visuals/Panel")
-HandleObj = NodePath("")
 ClickArea = NodePath("Interaction")
 ClickShape = NodePath("Interaction/CollisionShape3D")
 

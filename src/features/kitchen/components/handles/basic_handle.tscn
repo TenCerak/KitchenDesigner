@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bxqealn6ttgwb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s5gnb"]
+albedo_color = Color(0.5779315, 0.41587052, 0.27878973, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_c31yo"]
+material = SubResource("StandardMaterial3D_s5gnb")
+top_radius = 0.02
+bottom_radius = 0.02
+height = 0.15
+
+[node name="HandleObj" type="MeshInstance3D" unique_id=1688339280]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_c31yo")
+skeleton = NodePath("")

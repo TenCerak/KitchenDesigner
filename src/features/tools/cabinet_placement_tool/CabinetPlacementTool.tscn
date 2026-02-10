@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bqb7hskdo2drl"]
 
 [ext_resource type="Script" uid="uid://c1fykt3mx8m2d" path="res://src/features/tools/cabinet_placement_tool/CabinetPlacementTool.cs" id="1_4va5t"]
-[ext_resource type="Resource" uid="uid://drih0uhxkhbpp" path="res://src/features/kitchen/resources/StandardCabinetDefinition.tres" id="2_6fp86"]
+[ext_resource type="Resource" uid="uid://drih0uhxkhbpp" path="res://src/features/kitchen/resources/cabinets/StandardCabinetDefinition.tres" id="2_6fp86"]
 [ext_resource type="PackedScene" uid="uid://q1dvsd7nc6lk" path="res://src/features/kitchen/ui/CabinetSettingsUI.tscn" id="3_6fp86"]
 
 [node name="CabinetPlacementTool" type="Node3D" unique_id=54839168]

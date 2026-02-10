@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cmjk7s5qosdpb"]
+
+[ext_resource type="PackedScene" uid="uid://my20ps6etx1x" path="res://assets/materials/kitchen/handles/KLINGSTORP úchytka - krémovápochromované (90553685).glb" id="1_11y1b"]
+
+[node name="KLINGSTORP" type="Node3D" unique_id=1946501362]
+
+[node name="cascade-scene-0" parent="." unique_id=806331840 instance=ExtResource("1_11y1b")]
+transform = Transform3D(1.9106855e-15, -4.371139e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, -4.371139e-08, 0, 0, 0)

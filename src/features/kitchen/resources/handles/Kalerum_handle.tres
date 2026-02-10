@@ -1,0 +1,11 @@
+[gd_resource type="Resource" format=3 uid="uid://dhgskyyuqbcnl"]
+
+[ext_resource type="Texture2D" uid="uid://babq1ytstclqu" path="res://src/features/kitchen/resources/handles/kalerum.png" id="1_fep5a"]
+[ext_resource type="PackedScene" uid="uid://ctxsrrt8f4pux" path="res://src/features/kitchen/components/handles/kalerum_handle.tscn" id="1_mv74e"]
+[ext_resource type="Script" uid="uid://l5msdt5nccor" path="res://src/features/kitchen/resources/HandleDefinition.cs" id="2_fep5a"]
+
+[resource]
+script = ExtResource("2_fep5a")
+Name = "Kalerum"
+Icon = ExtResource("1_fep5a")
+Prefab = ExtResource("1_mv74e")
