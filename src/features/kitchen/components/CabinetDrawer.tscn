@@ -15,15 +15,25 @@ height = 0.15
 size = Vector3(0.6, 0.3, 0.04)
 
 [sub_resource type="BoxMesh" id="BoxMesh_wv2tp"]
-size = Vector3(0.55, 0.25, 0.8)
+size = Vector3(0.5, 0.018, 0.8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qw2hw"]
+size = Vector3(0.5, 0.2, 0.018)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hcf5h"]
+size = Vector3(0.018, 0.2, 0.8)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qw2hw"]
 size = Vector3(0.6, 0.3, 0.04)
 
-[node name="DrawerRoot" type="Node3D" unique_id=934081396 node_paths=PackedStringArray("FrontPanel", "DrawerBox", "HandleObj", "ClickArea", "ClickShape")]
+[node name="DrawerRoot" type="Node3D" unique_id=934081396 node_paths=PackedStringArray("FrontPanel", "DrawerBottom", "DrawerBack", "DrawerFront", "DrawerLeftSide", "DrawerRightSide", "HandleObj", "ClickArea", "ClickShape")]
 script = ExtResource("1_3vyqn")
 FrontPanel = NodePath("Visuals/FrontPanel")
-DrawerBox = NodePath("Visuals/DrawerBox")
+DrawerBottom = NodePath("Visuals/DrawerBottom")
+DrawerBack = NodePath("Visuals/DrawerBack")
+DrawerFront = NodePath("Visuals/DrawerFront")
+DrawerLeftSide = NodePath("Visuals/DrawerLeftSide")
+DrawerRightSide = NodePath("Visuals/DrawerRightSide")
 HandleObj = NodePath("Visuals/HandleObj")
 ClickArea = NodePath("Interaction")
 ClickShape = NodePath("Interaction/CollisionShape3D")
@@ -39,8 +49,30 @@ skeleton = NodePath("")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.4)
 mesh = SubResource("BoxMesh_3vyqn")
 
-[node name="DrawerBox" type="MeshInstance3D" parent="Visuals" unique_id=1359493009]
+[node name="DrawerBottom" type="MeshInstance3D" parent="Visuals" unique_id=878069846]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.09148753, 0)
 mesh = SubResource("BoxMesh_wv2tp")
+skeleton = NodePath("")
+
+[node name="DrawerBack" type="MeshInstance3D" parent="Visuals" unique_id=1692350568]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.408)
+mesh = SubResource("BoxMesh_qw2hw")
+skeleton = NodePath("")
+
+[node name="DrawerFront" type="MeshInstance3D" parent="Visuals" unique_id=337020844]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.374)
+mesh = SubResource("BoxMesh_qw2hw")
+skeleton = NodePath("")
+
+[node name="DrawerRightSide" type="MeshInstance3D" parent="Visuals" unique_id=1050797094]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.258, 0, -0.018)
+mesh = SubResource("BoxMesh_hcf5h")
+skeleton = NodePath("")
+
+[node name="DrawerLeftSide" type="MeshInstance3D" parent="Visuals" unique_id=1418598756]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.256, 0, -0.018)
+mesh = SubResource("BoxMesh_hcf5h")
+skeleton = NodePath("")
 
 [node name="Interaction" type="Area3D" parent="." unique_id=833684409]
 collision_layer = 8192
