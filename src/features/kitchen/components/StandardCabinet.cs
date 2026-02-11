@@ -134,6 +134,7 @@ namespace KitchenDesigner.Features.Kitchen.Components
             if (currentMat is not null)
             {
                 WorktopMesh.MaterialOverride = currentMat;
+                Data.WorktopMaterial = currentMat;
             }
 
             WorktopMesh.Mesh = newWorktopMesh;
@@ -301,6 +302,58 @@ namespace KitchenDesigner.Features.Kitchen.Components
             CreateSnapPoint(SnapType.Top, new Vector3(0, h, centerZ), Vector3.Zero);
 
             CreateSnapPoint(SnapType.Bottom, new Vector3(0, 0, centerZ), Vector3.Zero);
+        }
+
+        protected override void UpdateMaterials()
+        {
+            if (Data is null) return;
+
+            LeftPanel?.MaterialOverride = Data.BodyMaterial;
+            RightPanel?.MaterialOverride = Data.BodyMaterial;
+            TopPanel?.MaterialOverride = Data.BodyMaterial;
+            BottomPanel?.MaterialOverride = Data.BodyMaterial;
+            BackPanel?.MaterialOverride = Data.BodyMaterial;
+
+            foreach (var shelf in _activeShelves)
+            {
+                shelf.SetMaterial(Data.BodyMaterial);
+            }
+
+            if (Data.HasWorktop)
+            {
+                Material currentMat = WorktopMesh.MaterialOverride;
+                if (currentMat == null && WorktopMesh.Mesh != null)
+                {
+                    currentMat = WorktopMesh.Mesh.SurfaceGetMaterial(0);
+                }
+
+                if (currentMat != null)
+                {
+                    WorktopMesh.MaterialOverride = Data.WorktopMaterial;
+                }
+            }
+
+            if (Data.DoorType == DoorType.Drawer)
+            {
+                foreach (Node child in DoorsContainer.GetChildren())
+                {
+                    if (child is CabinetDrawer drawer)
+                    {
+                        drawer.SetBodyMaterial(Data.BodyMaterial);
+                        drawer.SetFrontMaterial(Data.FrontMaterial);
+                    }
+                }
+            }
+            else
+            {
+                foreach (Node child in DoorsContainer.GetChildren())
+                {
+                    if (child is CabinetDoor door)
+                    {
+                        door.SetMaterial(Data.FrontMaterial);
+                    }
+                }
+            }
         }
     }
 }

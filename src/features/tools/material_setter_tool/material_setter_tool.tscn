@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://d10jm1okrt7y"]
+
+[ext_resource type="Script" uid="uid://dn8bd7y8me3wt" path="res://src/features/tools/material_setter_tool/MaterialSetterTool.cs" id="1_0x3bm"]
+[ext_resource type="PackedScene" uid="uid://elgy86uh540v" path="res://src/features/kitchen/ui/MaterialSettingsUI.tscn" id="2_al268"]
+
+[node name="MaterialSetterTool" type="Node3D" unique_id=467507986]
+script = ExtResource("1_0x3bm")
+SettingsUiPrefab = ExtResource("2_al268")

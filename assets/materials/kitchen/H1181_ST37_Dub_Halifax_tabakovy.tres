@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://b4ahvsl68ihps" path="res://assets/materials/kitchen/H1181 ST37 Dub Halifax tabákový.png" id="1_2a4rc"]
 
 [resource]
+resource_name = "Dub Halifax tabákový"
 albedo_texture = ExtResource("1_2a4rc")
 uv1_triplanar = true
 point_size = 86.4

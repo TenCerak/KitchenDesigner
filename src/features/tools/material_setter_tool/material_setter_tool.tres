@@ -1,0 +1,9 @@
+[gd_resource type="Resource" format=3 uid="uid://drnpla2vhm3hf"]
+
+[ext_resource type="PackedScene" uid="uid://d10jm1okrt7y" path="res://src/features/tools/material_setter_tool/material_setter_tool.tscn" id="1_pj0yc"]
+[ext_resource type="Script" uid="uid://qttmbog3t42" path="res://src/features/tools/ARToolResource.cs" id="2_g2pa7"]
+
+[resource]
+script = ExtResource("2_g2pa7")
+ToolName = "Nastavení materiálu"
+ToolScene = ExtResource("1_pj0yc")

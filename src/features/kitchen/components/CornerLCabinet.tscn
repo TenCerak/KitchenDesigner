@@ -170,7 +170,6 @@ surface_material_override/0 = ExtResource("8_376f5")
 [node name="ShelvesContainer" type="Node3D" parent="Visuals" unique_id=94092235]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1930627413]
-visible = false
 collision_layer = 2049
 
 [node name="Col_LeftBack" type="CollisionShape3D" parent="StaticBody3D" unique_id=1294239064]

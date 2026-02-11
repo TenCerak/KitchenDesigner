@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://elgy86uh540v"]
+
+[ext_resource type="Script" uid="uid://cl4c82yqfvbmk" path="res://src/features/kitchen/ui/MaterialSettingsUi.cs" id="1_m6fsu"]
+[ext_resource type="Material" uid="uid://bgtl1ntahy4di" path="res://assets/materials/kitchen/F095_ST87_Mramor_Siena_sedy.tres" id="2_ld5pw"]
+[ext_resource type="Material" uid="uid://djlru0p6iv3nm" path="res://assets/materials/kitchen/H1181_ST37_Dub_Halifax_tabakovy.tres" id="3_1m7rg"]
+[ext_resource type="ButtonGroup" uid="uid://dx0d2d0lym02g" path="res://src/features/kitchen/ui/material_zone_button_group.tres" id="4_1m7rg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ld5pw"]
+resource_name = "Šedá"
+albedo_color = Color(0.627451, 0.627451, 0.627451, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q5u8r"]
+resource_name = "Bílá"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xiwmw"]
+resource_name = "Modrá"
+albedo_color = Color(0, 0, 1, 1)
+
+[node name="Control" type="Control" unique_id=2101275826 node_paths=PackedStringArray("_materialContainer", "FrontZoneButton", "BodyZoneButton", "WorktopZoneButton")]
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 3
+anchor_left = -0.056
+anchor_top = -0.056
+anchor_right = 1.056
+anchor_bottom = 1.056
+offset_left = 64.512
+offset_top = 36.288002
+offset_right = -64.51196
+offset_bottom = -36.288025
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_m6fsu")
+_materialContainer = NodePath("VBoxContainer/GridContainer")
+Materials = Array[Material]([SubResource("StandardMaterial3D_ld5pw"), SubResource("StandardMaterial3D_q5u8r"), SubResource("StandardMaterial3D_xiwmw"), ExtResource("2_ld5pw"), ExtResource("3_1m7rg")])
+FrontZoneButton = NodePath("VBoxContainer/HBoxContainer/ButtonFront")
+BodyZoneButton = NodePath("VBoxContainer/HBoxContainer/ButtonBody")
+WorktopZoneButton = NodePath("VBoxContainer/HBoxContainer/ButtonWorktop")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=191909737]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1045059242]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ButtonBody" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=810601502]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+toggle_mode = true
+button_pressed = true
+button_group = ExtResource("4_1m7rg")
+text = "Body"
+
+[node name="ButtonFront" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1336931792]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+toggle_mode = true
+button_group = ExtResource("4_1m7rg")
+text = "Front"
+
+[node name="ButtonWorktop" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1553705003]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+toggle_mode = true
+button_group = ExtResource("4_1m7rg")
+text = "Worktop"
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=682001226]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer" unique_id=222426476]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 6

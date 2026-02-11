@@ -414,4 +414,32 @@ public partial class CornerLCabinet : CabinetBase
             ApplyMaterialToMesh(WorktopPartB, active, highlightMat);
         }
     }
+
+    protected override void UpdateMaterials()
+    {
+        LeftBack?.MaterialOverride = Data.BodyMaterial;
+        LeftSide?.MaterialOverride = Data.BodyMaterial;
+        BottomPartA?.MaterialOverride = Data.BodyMaterial;
+        RightBack?.MaterialOverride = Data.BodyMaterial;
+        RightSide?.MaterialOverride = Data.BodyMaterial;
+        BottomPartB?.MaterialOverride = Data.BodyMaterial;
+        TopPartA?.MaterialOverride = Data.BodyMaterial;
+        TopPartB?.MaterialOverride = Data.BodyMaterial;
+
+        if (Data.HasWorktop)
+        {
+            WorktopPartA?.MaterialOverride = Data.WorktopMaterial;
+            WorktopPartB?.MaterialOverride = Data.WorktopMaterial;
+        }
+
+        foreach (ShelfController shelf in ShelvesContainer.GetChildren())
+        {
+            shelf.SetMaterial(Data.BodyMaterial);
+        }
+
+        foreach (CabinetDoor door in DoorsContainer.GetChildren())
+        {
+            door.SetMaterial(Data.FrontMaterial);
+        }
+    }
 }

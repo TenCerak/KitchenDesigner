@@ -117,5 +117,17 @@ namespace KitchenDesigner.Features.Kitchen.Components
 
             _tween.TweenProperty(this, "position:z", targetZ, 0.5f);
         }
+        public void SetBodyMaterial(Material material)
+        {
+            DrawerBottom?.MaterialOverride = material;
+            DrawerBack?.MaterialOverride = material;
+            DrawerFront?.MaterialOverride = material;
+            DrawerLeftSide?.MaterialOverride = material;
+            DrawerRightSide?.MaterialOverride = material;
+        }
+        public void SetFrontMaterial(Material material)
+        {
+            FrontPanel?.MaterialOverride = material;
+        }
     }
 }

@@ -1,6 +1,7 @@
 using Godot;
 using KitchenDesigner.Features.Kitchen.Data;
 using KitchenDesigner.Features.Kitchen.Interfaces;
+using KitchenDesigner.src.features.kitchen.enums;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -8,7 +9,7 @@ using System.Text;
 
 namespace KitchenDesigner.Features.Kitchen.Components
 {
-    public abstract partial class CabinetBase : Node3D, IInteractable, IKitchenComponent
+    public abstract partial class CabinetBase : Node3D, IInteractable, IKitchenComponent, IMaterialTarget
     {
         [ExportGroup("Data")]
         [Export] public CabinetData Data;
@@ -156,9 +157,9 @@ namespace KitchenDesigner.Features.Kitchen.Components
             if (mesh == null) return;
 
             if (active)
-                mesh.SetSurfaceOverrideMaterial(0, mat);
+                mesh.MaterialOverride = mat;
             else
-                mesh.SetSurfaceOverrideMaterial(0, CabinetMaterial);
+                mesh.MaterialOverride = Data.BodyMaterial;
         }
         public void Delete()
         {
@@ -169,6 +170,54 @@ namespace KitchenDesigner.Features.Kitchen.Components
         public Node AsNode()
         {
             return this;
+        }
+
+        public void SetMaterial(Material material, MaterialZone zone)
+        {
+            if (Data == null) return;
+
+            switch (zone)
+            {
+                case MaterialZone.Body:
+                    Data.BodyMaterial = material;
+                    break;
+                case MaterialZone.Front:
+                    Data.FrontMaterial = material;
+                    break;
+                case MaterialZone.Worktop:
+                    Data.WorktopMaterial = material;
+                    break;
+            }
+
+            UpdateMaterials();
+        }
+
+        protected virtual void UpdateMaterials()
+        {
+            if (Data == null) return;
+        }
+
+        public bool HasZone(MaterialZone zone)
+        {
+            return zone switch
+            {
+                MaterialZone.Body => true,
+                MaterialZone.Front => true,
+                MaterialZone.Worktop => Data.HasWorktop,
+                _ => false
+            };
+        }
+
+        public Material GetMaterial(MaterialZone zone)
+        {
+            return zone switch
+            {
+                MaterialZone.Body => Data.BodyMaterial,
+                MaterialZone.Front => Data.FrontMaterial,
+                MaterialZone.Worktop => Data.WorktopMaterial,
+                _ => null
+            };
+
         }
     }
 }

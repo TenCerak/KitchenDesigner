@@ -130,5 +130,9 @@ namespace KitchenDesigner.Features.Kitchen.Components
                 handleInstance.Position = Vector3.Zero;
             }
         }
+        public void SetMaterial(Material material)
+        {
+            PanelMesh?.MaterialOverride = material;
+        }
     }
 }

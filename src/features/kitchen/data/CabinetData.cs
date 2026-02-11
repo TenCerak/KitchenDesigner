@@ -177,6 +177,9 @@ namespace KitchenDesigner.Features.Kitchen.Data
             }
         } = 0.60f;
 
+        public Material WorktopMaterial { get; set; } = new();
+        public Material FrontMaterial { get; set; } = new();
+        public Material BodyMaterial { get; set; } = new();
 
 
         public CabinetData Duplicate()
@@ -197,6 +200,10 @@ namespace KitchenDesigner.Features.Kitchen.Data
             copy.CornerRightDepth = this.CornerRightDepth;
             copy.CornerLeftWidth = this.CornerLeftWidth;
             copy.CornerRightWidth = this.CornerRightWidth;
+
+            copy.WorktopMaterial = this.WorktopMaterial;
+            copy.FrontMaterial = this.FrontMaterial;
+            copy.BodyMaterial = this.BodyMaterial;
 
             return copy;
         }

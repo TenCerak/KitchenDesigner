@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://b3pd6fak8xlhd" path="res://src/features/tools/cabinet_placement_tool/cabinet_placement_tool.tres" id="4_5rj1o"]
 [ext_resource type="Resource" uid="uid://2gbpfg7clwev" path="res://src/features/tools/delete_tool/delete_tool.tres" id="5_ceou1"]
 [ext_resource type="Resource" uid="uid://dh0lttfpu3bn1" path="res://src/features/tools/handle_placement_tool/handle_placement_tool.tres" id="6_fqph7"]
+[ext_resource type="Resource" uid="uid://drnpla2vhm3hf" path="res://src/features/tools/material_setter_tool/material_setter_tool.tres" id="7_5gfkw"]
 
 [node name="ToolMenu" type="Control" unique_id=1575242466]
 layout_mode = 3
@@ -16,7 +17,7 @@ offset_bottom = 0.07196045
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_875y8")
-AvailableTools = Array[Resource]([ExtResource("2_cyxkh"), ExtResource("3_40b3o"), ExtResource("4_5rj1o"), ExtResource("5_ceou1"), ExtResource("6_fqph7")])
+AvailableTools = Array[Resource]([ExtResource("2_cyxkh"), ExtResource("3_40b3o"), ExtResource("4_5rj1o"), ExtResource("5_ceou1"), ExtResource("6_fqph7"), ExtResource("7_5gfkw")])
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1759824147]
 layout_mode = 1

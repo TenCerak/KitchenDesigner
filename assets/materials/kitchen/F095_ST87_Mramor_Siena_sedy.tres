@@ -3,5 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://oajwb85nufv1" path="res://assets/materials/kitchen/F095_ST87_Mramor_Siena_sedy.png" id="1_ptgdn"]
 
 [resource]
+resource_name = "Mramor Seina šedý"
 albedo_texture = ExtResource("1_ptgdn")
 uv1_triplanar = true
