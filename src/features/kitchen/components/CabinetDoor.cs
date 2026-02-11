@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 
 namespace KitchenDesigner.Features.Kitchen.Components
 {
-    public partial class CabinetDoor : Node3D, IInteractable
+    public partial class CabinetDoor : Node3D, IInteractable, IHandleContainer
     {
         [Export] public MeshInstance3D PanelMesh;
-        [Export] public Node3D HandleObj;
+        [Export] public Node3D HandleContainer;
         [Export] public Area3D ClickArea;
         [Export] public CollisionShape3D ClickShape;
 
@@ -45,25 +45,25 @@ namespace KitchenDesigner.Features.Kitchen.Components
 
             ClickShape.Position = centerPosition;
 
-            if (HandleObj != null)
+            if (HandleContainer != null)
             {
                 float handleX = width - 0.05f;
                 float handleY = height - 0.10f;
-                float handleZ = thickness + 0.02f;
+                float handleZ = thickness;
 
                 if (isRightDoor)
                 {
 
                     handleZ = -handleZ;
 
-                    HandleObj.RotationDegrees = new Vector3(0, 180, 0);
+                    HandleContainer.RotationDegrees = new Vector3(0, 180, 90);
                 }
                 else
                 {
-                    HandleObj.RotationDegrees = Vector3.Zero;
+                    HandleContainer.RotationDegrees = new Vector3(0, 0, 90);
                 }
 
-                HandleObj.Position = new Vector3(handleX, handleY, handleZ);
+                HandleContainer.Position = new Vector3(handleX, handleY, handleZ);
             }
 
             _openAngle = isRightDoor ? 90f : 90f;
@@ -117,6 +117,18 @@ namespace KitchenDesigner.Features.Kitchen.Components
             float targetRotation = _isOpen ? _openAngle : _closedAngle;
 
             _tween.TweenProperty(this, "rotation_degrees:y", targetRotation, 0.5f);
+        }
+
+        public void SetHandle(PackedScene handle)
+        {
+            if (HandleContainer == null) return;
+            foreach (Node child in HandleContainer.GetChildren()) child.QueueFree();
+            if (handle != null)
+            {
+                Node3D handleInstance = handle.Instantiate() as Node3D;
+                HandleContainer.AddChild(handleInstance);
+                handleInstance.Position = Vector3.Zero;
+            }
         }
     }
 }

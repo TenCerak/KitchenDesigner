@@ -1,26 +1,18 @@
 [gd_scene format=3 uid="uid://d1udh4whwmg3m"]
 
 [ext_resource type="Script" uid="uid://gsxey757l1av" path="res://src/features/kitchen/components/CabinetDoor.cs" id="1_7573f"]
+[ext_resource type="PackedScene" uid="uid://bxqealn6ttgwb" path="res://src/features/kitchen/components/handles/basic_handle.tscn" id="2_poqo3"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_poqo3"]
 size = Vector3(1, 1, 0.02)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s5gnb"]
-albedo_color = Color(0.5779315, 0.41587052, 0.27878973, 1)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_6afpe"]
-material = SubResource("StandardMaterial3D_s5gnb")
-top_radius = 0.02
-bottom_radius = 0.02
-height = 0.15
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_qep4n"]
 size = Vector3(1, 1, 0.02)
 
-[node name="DoorPivot" type="Node3D" unique_id=470555007 node_paths=PackedStringArray("PanelMesh", "HandleObj", "ClickArea", "ClickShape")]
+[node name="DoorPivot" type="Node3D" unique_id=470555007 node_paths=PackedStringArray("PanelMesh", "HandleContainer", "ClickArea", "ClickShape")]
 script = ExtResource("1_7573f")
 PanelMesh = NodePath("Visuals/Panel")
-HandleObj = NodePath("Visuals/HandleObj")
+HandleContainer = NodePath("Visuals/HandleContainer")
 ClickArea = NodePath("Interaction")
 ClickShape = NodePath("Interaction/CollisionShape3D")
 
@@ -30,10 +22,10 @@ ClickShape = NodePath("Interaction/CollisionShape3D")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.01)
 mesh = SubResource("BoxMesh_poqo3")
 
-[node name="HandleObj" type="MeshInstance3D" parent="Visuals" unique_id=557101986]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 0.8, 0.05)
-mesh = SubResource("CylinderMesh_6afpe")
-skeleton = NodePath("")
+[node name="HandleContainer" type="Node3D" parent="Visuals" unique_id=507982110]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0.9, 0.8, 0.020166568)
+
+[node name="HandleObj" parent="Visuals/HandleContainer" unique_id=1688339280 instance=ExtResource("2_poqo3")]
 
 [node name="Interaction" type="Area3D" parent="." unique_id=170009392]
 collision_layer = 8192

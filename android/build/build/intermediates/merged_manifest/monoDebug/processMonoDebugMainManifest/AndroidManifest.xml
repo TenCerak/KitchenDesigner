@@ -21,23 +21,6 @@
         android:required="true" />
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <!-- Start of manifest element contents from OpenXRExportPlugin -->
-
-    <uses-permission android:name="org.khronos.openxr.permission.OPENXR" />
-    <uses-permission android:name="org.khronos.openxr.permission.OPENXR_SYSTEM" />
-
-    <queries>
-        <provider android:authorities="org.khronos.openxr.runtime_broker;org.khronos.openxr.system_runtime_broker" />
-
-        <intent>
-            <action android:name="org.khronos.openxr.OpenXRRuntimeService" />
-        </intent>
-        <intent>
-            <action android:name="org.khronos.openxr.OpenXRApiLayerService" />
-        </intent>
-    </queries>
-
-    <!-- End of manifest element contents from OpenXRExportPlugin -->
     <!-- Start of manifest element contents from GodotOpenXRMeta -->
     <uses-permission android:name="com.oculus.permission.HAND_TRACKING" />
 
@@ -66,9 +49,26 @@
         android:required="true"
         android:version="1" />
 
+    <!-- End of manifest element contents from GodotOpenXRMeta -->
+    <!-- Start of manifest element contents from OpenXRExportPlugin -->
+
+    <uses-permission android:name="org.khronos.openxr.permission.OPENXR" />
+    <uses-permission android:name="org.khronos.openxr.permission.OPENXR_SYSTEM" />
+
+    <queries>
+        <provider android:authorities="org.khronos.openxr.runtime_broker;org.khronos.openxr.system_runtime_broker" />
+
+        <intent>
+            <action android:name="org.khronos.openxr.OpenXRRuntimeService" />
+        </intent>
+        <intent>
+            <action android:name="org.khronos.openxr.OpenXRApiLayerService" />
+        </intent>
+    </queries>
+
     <horizonos:uses-horizonos-sdk
         horizonos:minSdkVersion="69"
-        horizonos:targetSdkVersion="69" /> <!-- End of manifest element contents from GodotOpenXRMeta -->
+        horizonos:targetSdkVersion="69" /> <!-- End of manifest element contents from OpenXRExportPlugin -->
     <application
         android:allowBackup="false"
         android:appCategory="game"
@@ -112,16 +112,6 @@
             android:theme="@style/GodotAppSplashTheme"
             android:windowSoftInputMode="adjustResize" >
 
-            <!-- Start of manifest activity element contents from OpenXRExportPlugin -->
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="org.khronos.openxr.intent.category.IMMERSIVE_HMD" />
-            </intent-filter>
-
-            <!-- End of manifest activity element contents from OpenXRExportPlugin -->
             <!-- Start of manifest activity element contents from GodotOpenXRMeta -->
 
             <intent-filter>
@@ -143,6 +133,16 @@
             </intent-filter>
 
             <!-- End of manifest activity element contents from GodotOpenXRMeta -->
+            <!-- Start of manifest activity element contents from OpenXRExportPlugin -->
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="org.khronos.openxr.intent.category.IMMERSIVE_HMD" />
+            </intent-filter>
+
+            <!-- End of manifest activity element contents from OpenXRExportPlugin -->
         </activity>
 
         <activity-alias
@@ -155,16 +155,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <!-- Start of manifest activity element contents from OpenXRExportPlugin -->
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="org.khronos.openxr.intent.category.IMMERSIVE_HMD" />
-            </intent-filter>
-
-            <!-- End of manifest activity element contents from OpenXRExportPlugin -->
             <!-- Start of manifest activity element contents from GodotOpenXRMeta -->
 
             <intent-filter>
@@ -187,6 +177,16 @@
             </intent-filter>
 
             <!-- End of manifest activity element contents from GodotOpenXRMeta -->
+            <!-- Start of manifest activity element contents from OpenXRExportPlugin -->
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="org.khronos.openxr.intent.category.IMMERSIVE_HMD" />
+            </intent-filter>
+
+            <!-- End of manifest activity element contents from OpenXRExportPlugin -->
         </activity-alias>
 
         <profileable
