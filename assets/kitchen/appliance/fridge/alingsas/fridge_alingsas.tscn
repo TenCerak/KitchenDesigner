@@ -1,7 +1,34 @@
 [gd_scene format=3 uid="uid://bvor4o2ltdt8a"]
 
+[ext_resource type="Script" uid="uid://cumx5d4kq1bxt" path="res://src/features/kitchen/components/ApplianceBase.cs" id="1_1h6bt"]
 [ext_resource type="PackedScene" uid="uid://0fyj6xwxmtgr" path="res://assets/kitchen/appliance/fridge/alingsas/ALINGSÅS lednice s mrazničkou - IKEA 500 samostatně stojícínerezavějící ocel (20567959).glb" id="1_buqsf"]
+[ext_resource type="PackedScene" uid="uid://7fwdioqk25um" path="res://src/features/kitchen/components/snap_point.tscn" id="2_dn1fo"]
 
-[node name="fridge_alingsas" type="Node3D" unique_id=1394003117]
+[sub_resource type="BoxShape3D" id="BoxShape3D_1h6bt"]
+size = Vector3(0.6, 1.9, 0.68)
+
+[node name="fridge_alingsas" type="Node3D" unique_id=1394003117 node_paths=PackedStringArray("SnapPointsContainer")]
+script = ExtResource("1_1h6bt")
+SnapPointsContainer = NodePath("SnapPoints")
 
 [node name="fridge" parent="." unique_id=841537633 instance=ExtResource("1_buqsf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.36)
+
+[node name="SnapPoints" type="Node3D" parent="." unique_id=283930285]
+
+[node name="LeftSnapPoint" parent="SnapPoints" unique_id=1157341234 instance=ExtResource("2_dn1fo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, 0)
+
+[node name="RightSnapPoint" parent="SnapPoints" unique_id=1544861994 instance=ExtResource("2_dn1fo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0, 0)
+Type = 1
+
+[node name="BackSnapPoint" parent="SnapPoints" unique_id=199310026 instance=ExtResource("2_dn1fo")]
+Type = 2
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1115333688]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0.4)
+collision_layer = 2049
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1014770951]
+shape = SubResource("BoxShape3D_1h6bt")

@@ -30,6 +30,8 @@ namespace KitchenDesigner.Features.Kitchen.Components
 
         public List<SnapPoint> ActiveSnapPoints { get; protected set; } = new List<SnapPoint>();
 
+        public Node3D RootNode => this;
+
         protected bool _isGhost = false;
 
         public override void _Ready()
@@ -167,7 +169,7 @@ namespace KitchenDesigner.Features.Kitchen.Components
             QueueFree();
         }
 
-        public Node AsNode()
+        public Node3D AsNode()
         {
             return this;
         }

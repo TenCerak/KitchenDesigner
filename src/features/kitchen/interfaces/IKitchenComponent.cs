@@ -8,6 +8,6 @@ namespace KitchenDesigner.Features.Kitchen.Interfaces
 
         void Delete();
 
-        Node AsNode();
+        Node3D AsNode();
     }
 }

@@ -2,6 +2,8 @@ using Godot;
 using KitchenDesigner.Common.Interfaces;
 using KitchenDesigner.Common.Utils;
 using KitchenDesigner.Features.Kitchen.Components;
+using KitchenDesigner.Features.Kitchen.Data;
+using KitchenDesigner.Features.Kitchen.Interfaces;
 using KitchenDesigner.Features.Kitchen.Resources;
 using KitchenDesigner.Features.Kitchen.UI;
 using System;
@@ -14,7 +16,7 @@ namespace KitchenDesigner.Features.Kitchen.Tools
         public bool IsActive { get; set; } = false;
 
         [Export] CabinetDefinition defaultCabinetDefinition;
-        private CabinetDefinition _selectedItem;
+        private KitchenComponentDefinition _selectedItem;
 
         [ExportGroup("UI")]
         [Export] public PackedScene SettingsUiPrefab;
@@ -37,16 +39,14 @@ namespace KitchenDesigner.Features.Kitchen.Tools
         private Quaternion _snappedRotation;
 
         private XrHandManager _handManager;
-        private CabinetBase _ghostInstance;
+        private IKitchenComponent _ghostInstance;
 
         public void Initialize(XrHandManager handManager)
         {
             _handManager = handManager;
             handManager.SetPointerLayerEnabled(CollisionLayerHelper.ENVIRONMENT, true);
-            DesignerEvents.Instance.CabinetDefinitionSelected += HandleItemSelected;
-
         }
-        void HandleItemSelected(CabinetDefinition definition)
+        void HandleItemSelected(KitchenComponentDefinition definition)
         {
             DestroyGhost();
             _selectedItem = definition;
@@ -125,7 +125,7 @@ namespace KitchenDesigner.Features.Kitchen.Tools
 
         public void ButtonPressed(string actionName)
         {
-            if (IsActive && _ghostInstance != null && _ghostInstance.Visible && _handManager.HandMenu.Visible == false)
+            if (IsActive && _ghostInstance != null && _ghostInstance.AsNode().Visible && _handManager.HandMenu.Visible == false)
             {
                 if (actionName == "trigger_click")
                 {
@@ -141,13 +141,13 @@ namespace KitchenDesigner.Features.Kitchen.Tools
             var ray = _handManager.GetActiveRayCast();
             if (ray == null || !ray.IsColliding())
             {
-                _ghostInstance.Visible = false;
+                _ghostInstance.AsNode().Visible = false;
                 _isSnapped = false;
                 return;
             }
 
             Vector3 hitPoint = ray.GetCollisionPoint();
-            _ghostInstance.Visible = true;
+            _ghostInstance.AsNode().Visible = true;
 
             if (_isSnapped)
             {
@@ -173,11 +173,11 @@ namespace KitchenDesigner.Features.Kitchen.Tools
                 }
             }
 
-            _ghostInstance.GlobalPosition = targetPoint;
+            _ghostInstance.AsNode().GlobalPosition = targetPoint;
 
-            _ghostInstance.GlobalTransform = new Transform3D(
+            _ghostInstance.AsNode().GlobalTransform = new Transform3D(
                 new Basis(Vector3.Up, _currentRotationY),
-                _ghostInstance.GlobalPosition
+                _ghostInstance.AsNode().GlobalPosition
             );
 
 
@@ -199,7 +199,9 @@ namespace KitchenDesigner.Features.Kitchen.Tools
         {
             float closestDistSq = float.MaxValue;
 
-            foreach (var ghostPoint in _ghostInstance.ActiveSnapPoints)
+            if (_ghostInstance is not ISnappable snappable) return float.MaxValue;
+
+            foreach (var ghostPoint in snappable.ActiveSnapPoints)
             {
                 var overlaps = ghostPoint.GetOverlappingAreas();
                 foreach (var area in overlaps)
@@ -237,8 +239,8 @@ namespace KitchenDesigner.Features.Kitchen.Tools
             }
             else
             {
-                _ghostInstance.GlobalPosition = _snappedPosition;
-                _ghostInstance.GlobalRotation = _snappedRotation.GetEuler();
+                _ghostInstance.AsNode().GlobalPosition = _snappedPosition;
+                _ghostInstance.AsNode().GlobalRotation = _snappedRotation.GetEuler();
                 return false;
             }
         }
@@ -247,7 +249,7 @@ namespace KitchenDesigner.Features.Kitchen.Tools
         {
             Quaternion targetPointRotation = targetPoint.GlobalTransform.Basis.GetRotationQuaternion();
 
-            Quaternion currentGhostRotation = _ghostInstance.GlobalTransform.Basis.GetRotationQuaternion();
+            Quaternion currentGhostRotation = _ghostInstance.AsNode().GlobalTransform.Basis.GetRotationQuaternion();
 
             Vector3 targetEuler = targetPointRotation.GetEuler();
             Vector3 ghostEuler = currentGhostRotation.GetEuler();
@@ -255,21 +257,21 @@ namespace KitchenDesigner.Features.Kitchen.Tools
             float diffAngleY = ghostEuler.Y - targetEuler.Y;
 
 
-            float snapStep = Mathf.Pi / 2.0f; 
+            float snapStep = Mathf.Pi / 2.0f;
             float snappedDiffY = Mathf.Round(diffAngleY / snapStep) * snapStep;
 
             Quaternion snappedOffsetRotation = Quaternion.FromEuler(new Vector3(0, snappedDiffY, 0));
             Quaternion finalRotation = targetPointRotation * snappedOffsetRotation;
 
 
-            Vector3 localOffset = _ghostInstance.ToLocal(ghostPoint.GlobalPosition);
+            Vector3 localOffset = _ghostInstance.AsNode().ToLocal(ghostPoint.GlobalPosition);
 
             Vector3 rotatedOffset = finalRotation * localOffset;
 
             Vector3 newPos = targetPoint.GlobalPosition - rotatedOffset;
 
-            _ghostInstance.GlobalPosition = newPos;
-            _ghostInstance.GlobalRotation = finalRotation.GetEuler();
+            _ghostInstance.AsNode().GlobalPosition = newPos;
+            _ghostInstance.AsNode().GlobalRotation = finalRotation.GetEuler();
 
             _snappedPosition = newPos;
             _snappedRotation = finalRotation;
@@ -295,31 +297,36 @@ namespace KitchenDesigner.Features.Kitchen.Tools
             if (camera != null)
             {
                 Vector3 targetPos = camera.GlobalPosition;
-                targetPos.Y = _ghostInstance.GlobalPosition.Y;
+                targetPos.Y = _ghostInstance.AsNode().GlobalPosition.Y;
 
-                _ghostInstance.LookAt(targetPos, Vector3.Up);
+                _ghostInstance.AsNode().LookAt(targetPos, Vector3.Up);
 
-                _ghostInstance.RotateObjectLocal(Vector3.Up, Mathf.Pi);
+                _ghostInstance.AsNode().RotateObjectLocal(Vector3.Up, Mathf.Pi);
             }
         }
 
         private void PlaceCabinet()
         {
             if (_selectedItem == null) return;
-           
+
             XROrigin3D xrOrigin = GetXROrigin();
             if (xrOrigin == null)
             {
                 GD.PrintErr("CHYBA: Nelze vytvořit Spatial Anchor - XROrigin3D nenalezen!");
 
-                CabinetBase fallbackCabinet = _selectedItem.Prefab.Instantiate<CabinetBase>();
+                IKitchenComponent fallbackKitchenComponent = _selectedItem.Prefab.Instantiate<IKitchenComponent>();
 
-                fallbackCabinet.Data = _ghostInstance.Data.Duplicate();
-                fallbackCabinet.Rebuild();
 
-                GetTree().Root.AddChild(fallbackCabinet);
+                if (_ghostInstance is CabinetBase cabinet)
+                {
+                    cabinet.Data = cabinet.Data.Duplicate();
+                    cabinet.Rebuild();
+                }
 
-                fallbackCabinet.GlobalTransform = _ghostInstance.GlobalTransform;
+
+                GetTree().Root.AddChild(fallbackKitchenComponent.AsNode());
+
+                fallbackKitchenComponent.AsNode().GlobalTransform = _ghostInstance.AsNode().GlobalTransform;
 
                 _handManager.VibrateDominantHand(0.5f, 0.1f);
 
@@ -332,17 +339,21 @@ namespace KitchenDesigner.Features.Kitchen.Tools
 
             xrOrigin.AddChild(anchor);
 
-            anchor.GlobalTransform = _ghostInstance.GlobalTransform;
+            anchor.GlobalTransform = _ghostInstance.AsNode().GlobalTransform;
 
-            CabinetBase newCabinet = _selectedItem.Prefab.Instantiate<CabinetBase>();
-            newCabinet.Data = _ghostInstance.Data.Duplicate(); 
+            IKitchenComponent newKitchenComponent = _selectedItem.Prefab.Instantiate<IKitchenComponent>();
+            
 
-            anchor.AddChild(newCabinet);
+            anchor.AddChild(newKitchenComponent.AsNode());
 
-            newCabinet.Position = Vector3.Zero;
-            newCabinet.Rotation = Vector3.Zero;
+            newKitchenComponent.AsNode().Position = Vector3.Zero;
+            newKitchenComponent.AsNode().Rotation = Vector3.Zero;
 
-            newCabinet.Rebuild();
+            if (_ghostInstance is CabinetBase ghostCabinet && newKitchenComponent is CabinetBase newCabinet)
+            {
+                newCabinet.Data = ghostCabinet.Data.Duplicate();
+                newCabinet.Rebuild();
+            }
 
             _handManager.VibrateDominantHand(0.5f, 0.1f);
             GD.Print("Skříňka ukotvena (Spatial Anchor created).");
@@ -363,25 +374,33 @@ namespace KitchenDesigner.Features.Kitchen.Tools
 
 
             Node instance = _selectedItem.Prefab.Instantiate();
-            _ghostInstance = instance as CabinetBase;
-            _ghostInstance.Data = _selectedItem.DefaultData.Duplicate();
+            CabinetBase cabinet = instance as CabinetBase;
 
-            AddChild(_ghostInstance);
+            _ghostInstance = instance as IKitchenComponent;
+            if (cabinet is not null && _selectedItem is CabinetDefinition cData)
+            {
+                cabinet.Data = cData.DefaultData.Duplicate();
+            }
+
+            AddChild(_ghostInstance.AsNode());
 
             if (GodotObject.IsInstanceValid(SettingsUiInstance))
             {
-                SettingsUiInstance.BindData(ref _ghostInstance.Data);
+                if (cabinet is not null)
+                {
+                    SettingsUiInstance.BindData(ref cabinet.Data);
+                }
             }
             else
             {
                 SettingsUiInstance = null;
             }
 
-            MakeNodeTransparent(_ghostInstance);
+            MakeNodeTransparent(_ghostInstance.AsNode());
 
-            DisableCollisions(_ghostInstance);
+            DisableCollisions(_ghostInstance.AsNode());
 
-            _ghostInstance.SetGhostMode(true);
+            cabinet?.SetGhostMode(true);
         }
 
 
@@ -443,10 +462,12 @@ namespace KitchenDesigner.Features.Kitchen.Tools
             if (SettingsUiPrefab == null) return null;
 
             SettingsUiInstance = SettingsUiPrefab.Instantiate<CabinetSettingsUi>();
+            SettingsUiInstance.CabinetSelectorUi?.KitchenComponentDefinitionSelected += HandleItemSelected;
 
-            if (GodotObject.IsInstanceValid(_ghostInstance))
+            if (GodotObject.IsInstanceValid(_ghostInstance.AsNode()))
             {
-                SettingsUiInstance.BindData(ref _ghostInstance.Data);
+                if (_ghostInstance is CabinetBase cabinet)
+                    SettingsUiInstance.BindData(ref cabinet.Data);
             }
 
             return SettingsUiInstance;

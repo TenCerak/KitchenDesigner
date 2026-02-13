@@ -6,14 +6,11 @@ using System.Text;
 
 namespace KitchenDesigner.Features.Kitchen.Interfaces
 {
+
     public interface ISnappable
     {
-        public interface ISnappable
-        {
-            Node3D RootNode { get; }
-            List<SnapPoint> ActiveSnapPoints { get; }
-            void UpdateSnapPoints();
-            Quaternion GetRotation();
-        }
+        public Node3D RootNode { get; }
+        public List<SnapPoint> ActiveSnapPoints { get; }
     }
+
 }

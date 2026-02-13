@@ -50,6 +50,8 @@ namespace KitchenDesigner.Features.Kitchen.UI
         const double MaxCabinetWidth = 0.8f;
         const double MinCabinetWidth = 0.2f;
 
+        [Export] public CabinetSelectorUi CabinetSelectorUi; 
+
         private CabinetData _data;
 
         public string TabName => "Nastavení skříňky";

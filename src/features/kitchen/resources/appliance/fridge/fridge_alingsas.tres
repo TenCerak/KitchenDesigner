@@ -1,0 +1,9 @@
+[gd_resource type="Resource" format=3 uid="uid://chsg8i644hsuj"]
+
+[ext_resource type="PackedScene" uid="uid://bvor4o2ltdt8a" path="res://assets/kitchen/appliance/fridge/alingsas/fridge_alingsas.tscn" id="1_whe57"]
+[ext_resource type="Script" uid="uid://bfoo8vjjbsaf0" path="res://src/features/kitchen/resources/KitchenComponentDefinition.cs" id="2_jgotq"]
+
+[resource]
+script = ExtResource("2_jgotq")
+Name = "lednička alingsas"
+Prefab = ExtResource("1_whe57")

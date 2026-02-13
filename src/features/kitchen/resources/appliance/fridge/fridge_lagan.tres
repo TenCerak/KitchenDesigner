@@ -1,0 +1,9 @@
+[gd_resource type="Resource" format=3 uid="uid://ckfwgaj30sjae"]
+
+[ext_resource type="PackedScene" uid="uid://b6t5y6m2fwyfc" path="res://assets/kitchen/appliance/fridge/lagan/fridge_lagan.tscn" id="1_28ms5"]
+[ext_resource type="Script" uid="uid://bfoo8vjjbsaf0" path="res://src/features/kitchen/resources/KitchenComponentDefinition.cs" id="2_0fa1v"]
+
+[resource]
+script = ExtResource("2_0fa1v")
+Name = "lednička lagan"
+Prefab = ExtResource("1_28ms5")

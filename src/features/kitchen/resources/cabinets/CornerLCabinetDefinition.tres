@@ -12,6 +12,6 @@ metadata/_custom_type_script = "uid://dxlklc7mnthdo"
 [resource]
 resource_name = "Klasický roh"
 script = ExtResource("3_diqox")
+DefaultData = SubResource("Resource_00qsm")
 Name = "L Corner"
 Prefab = ExtResource("2_qvluy")
-DefaultData = SubResource("Resource_00qsm")

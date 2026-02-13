@@ -1,7 +1,34 @@
 [gd_scene format=3 uid="uid://b6t5y6m2fwyfc"]
 
+[ext_resource type="Script" uid="uid://cumx5d4kq1bxt" path="res://src/features/kitchen/components/ApplianceBase.cs" id="1_jvp1t"]
 [ext_resource type="PackedScene" uid="uid://dyawsq62ftnv3" path="res://assets/kitchen/appliance/fridge/lagan/LAGAN lednice s mrazicí přihrádkou - samostatně stojícíbílá (30578801).glb" id="1_veut2"]
+[ext_resource type="PackedScene" uid="uid://7fwdioqk25um" path="res://src/features/kitchen/components/snap_point.tscn" id="3_4urql"]
 
-[node name="fridge_lagan" type="Node3D" unique_id=971110545]
+[sub_resource type="BoxShape3D" id="BoxShape3D_jvp1t"]
+size = Vector3(0.55, 0.84, 0.57)
+
+[node name="fridge_lagan" type="Node3D" unique_id=971110545 node_paths=PackedStringArray("SnapPointsContainer")]
+script = ExtResource("1_jvp1t")
+SnapPointsContainer = NodePath("SnapPoints")
 
 [node name="LAGAN lednice s mrazicí přihrádkou - samostatně stojícíbílá (30578801)" parent="." unique_id=377116479 instance=ExtResource("1_veut2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.285)
+
+[node name="SnapPoints" type="Node3D" parent="." unique_id=1730403885]
+
+[node name="LeftSnapPoint" parent="SnapPoints" unique_id=1157341234 instance=ExtResource("3_4urql")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.275, 0, 0)
+
+[node name="RightSnapPoint" parent="SnapPoints" unique_id=1614791790 instance=ExtResource("3_4urql")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.275, 0, 0)
+Type = 1
+
+[node name="BackSnapPoint" parent="SnapPoints" unique_id=1620135176 instance=ExtResource("3_4urql")]
+Type = 2
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=2146105369]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0.275)
+collision_layer = 2049
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=621555230]
+shape = SubResource("BoxShape3D_jvp1t")

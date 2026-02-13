@@ -6,7 +6,9 @@ using System;
 public partial class CabinetSelectorUi : VBoxContainer
 {
     [Export] public Node Container;
-    [Export] public CabinetDefinition[] AvailableItems;
+    [Export] public KitchenComponentDefinition[] AvailableItems;
+
+    [Signal] public delegate void KitchenComponentDefinitionSelectedEventHandler(KitchenComponentDefinition definition);
     public override void _Ready()
 	{
         GenerateButtons();
@@ -38,8 +40,8 @@ public partial class CabinetSelectorUi : VBoxContainer
         }
     }
 
-    private void OnItemClicked(CabinetDefinition item)
+    private void OnItemClicked(KitchenComponentDefinition item)
     {
-        DesignerEvents.Instance.EmitSignal(nameof(DesignerEvents.CabinetDefinitionSelected), item);
+        EmitSignal(nameof(CabinetSelectorUi.KitchenComponentDefinitionSelected), item);
     }
 }

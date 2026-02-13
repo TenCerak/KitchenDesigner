@@ -6,11 +6,8 @@ using System.Text;
 
 namespace KitchenDesigner.Features.Kitchen.Resources
 {
-    public partial class CabinetDefinition : Resource
+    public partial class CabinetDefinition : KitchenComponentDefinition
     {
-        [Export] public string Name;
-        [Export] public Texture2D Icon;
-        [Export] public PackedScene Prefab; 
         [Export] public CabinetData DefaultData;
     }
 }
