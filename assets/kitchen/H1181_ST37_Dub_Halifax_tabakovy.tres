@@ -1,6 +1,6 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://djlru0p6iv3nm"]
 
-[ext_resource type="Texture2D" uid="uid://b4ahvsl68ihps" path="res://assets/materials/kitchen/H1181 ST37 Dub Halifax tabákový.png" id="1_2a4rc"]
+[ext_resource type="Texture2D" uid="uid://b4ahvsl68ihps" path="res://assets/kitchen/H1181 ST37 Dub Halifax tabákový.png" id="1_2a4rc"]
 
 [resource]
 resource_name = "Dub Halifax tabákový"

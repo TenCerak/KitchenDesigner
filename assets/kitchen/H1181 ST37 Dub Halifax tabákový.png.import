@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://oajwb85nufv1"
-path.s3tc="res://.godot/imported/F095_ST87_Mramor_Siena_sedy.png-684053e66e145f72e9090d17ed2ddad8.s3tc.ctex"
-path.etc2="res://.godot/imported/F095_ST87_Mramor_Siena_sedy.png-684053e66e145f72e9090d17ed2ddad8.etc2.ctex"
+uid="uid://b4ahvsl68ihps"
+path.s3tc="res://.godot/imported/H1181 ST37 Dub Halifax tabákový.png-de19fe64bcf24fd7b456bff945d86519.s3tc.ctex"
+path.etc2="res://.godot/imported/H1181 ST37 Dub Halifax tabákový.png-de19fe64bcf24fd7b456bff945d86519.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/materials/kitchen/F095_ST87_Mramor_Siena_sedy.png"
-dest_files=["res://.godot/imported/F095_ST87_Mramor_Siena_sedy.png-684053e66e145f72e9090d17ed2ddad8.s3tc.ctex", "res://.godot/imported/F095_ST87_Mramor_Siena_sedy.png-684053e66e145f72e9090d17ed2ddad8.etc2.ctex"]
+source_file="res://assets/kitchen/H1181 ST37 Dub Halifax tabákový.png"
+dest_files=["res://.godot/imported/H1181 ST37 Dub Halifax tabákový.png-de19fe64bcf24fd7b456bff945d86519.s3tc.ctex", "res://.godot/imported/H1181 ST37 Dub Halifax tabákový.png-de19fe64bcf24fd7b456bff945d86519.etc2.ctex"]
 
 [params]
 

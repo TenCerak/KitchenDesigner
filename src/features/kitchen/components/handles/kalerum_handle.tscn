@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ctxsrrt8f4pux"]
 
-[ext_resource type="PackedScene" uid="uid://cpnsyanxa46oo" path="res://assets/materials/kitchen/handles/KALERUM úchytka - barva nerezavějící oceli (60553644).glb" id="1_yx86n"]
+[ext_resource type="PackedScene" uid="uid://cpnsyanxa46oo" path="res://assets/kitchen/handles/kalerum/KALERUM úchytka - barva nerezavějící oceli (60553644).glb" id="1_yx86n"]
 
 [node name="KalerumHandle" type="Node3D" unique_id=1750497861]
 

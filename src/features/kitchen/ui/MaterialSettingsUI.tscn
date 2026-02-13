@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://elgy86uh540v"]
 
 [ext_resource type="Script" uid="uid://cl4c82yqfvbmk" path="res://src/features/kitchen/ui/MaterialSettingsUi.cs" id="1_m6fsu"]
-[ext_resource type="Material" uid="uid://bgtl1ntahy4di" path="res://assets/materials/kitchen/F095_ST87_Mramor_Siena_sedy.tres" id="2_ld5pw"]
-[ext_resource type="Material" uid="uid://djlru0p6iv3nm" path="res://assets/materials/kitchen/H1181_ST37_Dub_Halifax_tabakovy.tres" id="3_1m7rg"]
+[ext_resource type="Material" uid="uid://bgtl1ntahy4di" path="res://assets/kitchen/F095_ST87_Mramor_Siena_sedy.tres" id="2_ld5pw"]
+[ext_resource type="Material" uid="uid://djlru0p6iv3nm" path="res://assets/kitchen/H1181_ST37_Dub_Halifax_tabakovy.tres" id="3_1m7rg"]
 [ext_resource type="ButtonGroup" uid="uid://dx0d2d0lym02g" path="res://src/features/kitchen/ui/material_zone_button_group.tres" id="4_1m7rg"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ld5pw"]

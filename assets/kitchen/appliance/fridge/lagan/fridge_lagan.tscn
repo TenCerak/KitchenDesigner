@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://b6t5y6m2fwyfc"]
+
+[ext_resource type="PackedScene" uid="uid://dyawsq62ftnv3" path="res://assets/kitchen/appliance/fridge/lagan/LAGAN lednice s mrazicí přihrádkou - samostatně stojícíbílá (30578801).glb" id="1_veut2"]
+
+[node name="fridge_lagan" type="Node3D" unique_id=971110545]
+
+[node name="LAGAN lednice s mrazicí přihrádkou - samostatně stojícíbílá (30578801)" parent="." unique_id=377116479 instance=ExtResource("1_veut2")]

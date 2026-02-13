@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0or78w3b0xev"
-path.s3tc="res://.godot/imported/cross-grid.png-237cde4444962027562b1bc372b3824f.s3tc.ctex"
-path.etc2="res://.godot/imported/cross-grid.png-237cde4444962027562b1bc372b3824f.etc2.ctex"
+uid="uid://oajwb85nufv1"
+path.s3tc="res://.godot/imported/F095_ST87_Mramor_Siena_sedy.png-57603a259535b358b803a0aaaf896f63.s3tc.ctex"
+path.etc2="res://.godot/imported/F095_ST87_Mramor_Siena_sedy.png-57603a259535b358b803a0aaaf896f63.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/materials/global_mesh/cross-grid.png"
-dest_files=["res://.godot/imported/cross-grid.png-237cde4444962027562b1bc372b3824f.s3tc.ctex", "res://.godot/imported/cross-grid.png-237cde4444962027562b1bc372b3824f.etc2.ctex"]
+source_file="res://assets/kitchen/F095_ST87_Mramor_Siena_sedy.png"
+dest_files=["res://.godot/imported/F095_ST87_Mramor_Siena_sedy.png-57603a259535b358b803a0aaaf896f63.s3tc.ctex", "res://.godot/imported/F095_ST87_Mramor_Siena_sedy.png-57603a259535b358b803a0aaaf896f63.etc2.ctex"]
 
 [params]
 
@@ -38,5 +38,5 @@ process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
-process/size_limit=0
+process/size_limit=4096
 detect_3d/compress_to=0

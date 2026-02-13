@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cue7l2mcrn2ey"
-path.s3tc="res://.godot/imported/KLINGSTORP úchytka - krémovápochromované (90553685)_Basecolor_0.jpg-6eb8dd7f2d4518c23a7c07f2f7be9c6b.s3tc.ctex"
-path.etc2="res://.godot/imported/KLINGSTORP úchytka - krémovápochromované (90553685)_Basecolor_0.jpg-6eb8dd7f2d4518c23a7c07f2f7be9c6b.etc2.ctex"
+path.s3tc="res://.godot/imported/KLINGSTORP úchytka - krémovápochromované (90553685)_Basecolor_0.jpg-d2d14123a7e62462a9efeb1fc0604831.s3tc.ctex"
+path.etc2="res://.godot/imported/KLINGSTORP úchytka - krémovápochromované (90553685)_Basecolor_0.jpg-d2d14123a7e62462a9efeb1fc0604831.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -15,8 +15,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://assets/materials/kitchen/handles/KLINGSTORP úchytka - krémovápochromované (90553685)_Basecolor_0.jpg"
-dest_files=["res://.godot/imported/KLINGSTORP úchytka - krémovápochromované (90553685)_Basecolor_0.jpg-6eb8dd7f2d4518c23a7c07f2f7be9c6b.s3tc.ctex", "res://.godot/imported/KLINGSTORP úchytka - krémovápochromované (90553685)_Basecolor_0.jpg-6eb8dd7f2d4518c23a7c07f2f7be9c6b.etc2.ctex"]
+source_file="res://assets/kitchen/handles/klingstorp/KLINGSTORP úchytka - krémovápochromované (90553685)_Basecolor_0.jpg"
+dest_files=["res://.godot/imported/KLINGSTORP úchytka - krémovápochromované (90553685)_Basecolor_0.jpg-d2d14123a7e62462a9efeb1fc0604831.s3tc.ctex", "res://.godot/imported/KLINGSTORP úchytka - krémovápochromované (90553685)_Basecolor_0.jpg-d2d14123a7e62462a9efeb1fc0604831.etc2.ctex"]
 
 [params]
 

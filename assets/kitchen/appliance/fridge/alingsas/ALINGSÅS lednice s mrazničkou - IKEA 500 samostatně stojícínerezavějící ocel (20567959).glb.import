@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cpnsyanxa46oo"
-path="res://.godot/imported/KALERUM úchytka - barva nerezavějící oceli (60553644).glb-79fe20fddb8a739a625c0592d0392689.scn"
+uid="uid://0fyj6xwxmtgr"
+path="res://.godot/imported/ALINGSÅS lednice s mrazničkou - IKEA 500 samostatně stojícínerezavějící ocel (20567959).glb-0ebd345a350ef8501fbeb05689c359ae.scn"
 
 [deps]
 
-source_file="res://assets/materials/kitchen/handles/KALERUM úchytka - barva nerezavějící oceli (60553644).glb"
-dest_files=["res://.godot/imported/KALERUM úchytka - barva nerezavějící oceli (60553644).glb-79fe20fddb8a739a625c0592d0392689.scn"]
+source_file="res://assets/kitchen/appliance/fridge/alingsas/ALINGSÅS lednice s mrazničkou - IKEA 500 samostatně stojícínerezavějící ocel (20567959).glb"
+dest_files=["res://.godot/imported/ALINGSÅS lednice s mrazničkou - IKEA 500 samostatně stojícínerezavějící ocel (20567959).glb-0ebd345a350ef8501fbeb05689c359ae.scn"]
 
 [params]
 

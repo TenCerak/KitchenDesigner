@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bvor4o2ltdt8a"]
+
+[ext_resource type="PackedScene" uid="uid://0fyj6xwxmtgr" path="res://assets/kitchen/appliance/fridge/alingsas/ALINGSÅS lednice s mrazničkou - IKEA 500 samostatně stojícínerezavějící ocel (20567959).glb" id="1_buqsf"]
+
+[node name="fridge_alingsas" type="Node3D" unique_id=1394003117]
+
+[node name="fridge" parent="." unique_id=841537633 instance=ExtResource("1_buqsf")]

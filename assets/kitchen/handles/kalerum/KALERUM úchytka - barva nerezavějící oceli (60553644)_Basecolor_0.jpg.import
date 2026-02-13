@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b0d2isgorjlv"
-path.s3tc="res://.godot/imported/KALERUM úchytka - barva nerezavějící oceli (60553644)_Basecolor_0.jpg-1d77a10cdde187fcef408390d3d78352.s3tc.ctex"
-path.etc2="res://.godot/imported/KALERUM úchytka - barva nerezavějící oceli (60553644)_Basecolor_0.jpg-1d77a10cdde187fcef408390d3d78352.etc2.ctex"
+path.s3tc="res://.godot/imported/KALERUM úchytka - barva nerezavějící oceli (60553644)_Basecolor_0.jpg-81cf0b4d89b1b2742febedeac1a7b233.s3tc.ctex"
+path.etc2="res://.godot/imported/KALERUM úchytka - barva nerezavějící oceli (60553644)_Basecolor_0.jpg-81cf0b4d89b1b2742febedeac1a7b233.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -15,8 +15,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://assets/materials/kitchen/handles/KALERUM úchytka - barva nerezavějící oceli (60553644)_Basecolor_0.jpg"
-dest_files=["res://.godot/imported/KALERUM úchytka - barva nerezavějící oceli (60553644)_Basecolor_0.jpg-1d77a10cdde187fcef408390d3d78352.s3tc.ctex", "res://.godot/imported/KALERUM úchytka - barva nerezavějící oceli (60553644)_Basecolor_0.jpg-1d77a10cdde187fcef408390d3d78352.etc2.ctex"]
+source_file="res://assets/kitchen/handles/kalerum/KALERUM úchytka - barva nerezavějící oceli (60553644)_Basecolor_0.jpg"
+dest_files=["res://.godot/imported/KALERUM úchytka - barva nerezavějící oceli (60553644)_Basecolor_0.jpg-81cf0b4d89b1b2742febedeac1a7b233.s3tc.ctex", "res://.godot/imported/KALERUM úchytka - barva nerezavějící oceli (60553644)_Basecolor_0.jpg-81cf0b4d89b1b2742febedeac1a7b233.etc2.ctex"]
 
 [params]
 

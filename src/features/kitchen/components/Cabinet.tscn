@@ -3,10 +3,10 @@
 [ext_resource type="Script" uid="uid://dukga5rj0neqn" path="res://src/features/kitchen/components/StandardCabinet.cs" id="1_sqihg"]
 [ext_resource type="Script" uid="uid://dxlklc7mnthdo" path="res://src/features/kitchen/data/CabinetData.cs" id="2_mbcon"]
 [ext_resource type="PackedScene" uid="uid://dequbvjdolyxb" path="res://src/features/kitchen/components/shelf.tscn" id="3_mbcon"]
-[ext_resource type="Material" uid="uid://djlru0p6iv3nm" path="res://assets/materials/kitchen/H1181_ST37_Dub_Halifax_tabakovy.tres" id="4_vawod"]
+[ext_resource type="Material" uid="uid://djlru0p6iv3nm" path="res://assets/kitchen/H1181_ST37_Dub_Halifax_tabakovy.tres" id="4_vawod"]
 [ext_resource type="PackedScene" uid="uid://d1udh4whwmg3m" path="res://src/features/kitchen/components/CabinetDoor.tscn" id="5_akrie"]
 [ext_resource type="PackedScene" uid="uid://7fwdioqk25um" path="res://src/features/kitchen/components/snap_point.tscn" id="5_lpbsj"]
-[ext_resource type="Material" uid="uid://bgtl1ntahy4di" path="res://assets/materials/kitchen/F095_ST87_Mramor_Siena_sedy.tres" id="6_57iyu"]
+[ext_resource type="Material" uid="uid://bgtl1ntahy4di" path="res://assets/kitchen/F095_ST87_Mramor_Siena_sedy.tres" id="6_57iyu"]
 [ext_resource type="PackedScene" uid="uid://bc3qu5dth1i72" path="res://src/features/kitchen/components/CabinetDrawer.tscn" id="6_sqihg"]
 
 [sub_resource type="Resource" id="Resource_2gjl1"]

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cmjk7s5qosdpb"]
 
-[ext_resource type="PackedScene" uid="uid://my20ps6etx1x" path="res://assets/materials/kitchen/handles/KLINGSTORP úchytka - krémovápochromované (90553685).glb" id="1_11y1b"]
+[ext_resource type="PackedScene" uid="uid://my20ps6etx1x" path="res://assets/kitchen/handles/klingstorp/KLINGSTORP úchytka - krémovápochromované (90553685).glb" id="1_11y1b"]
 
 [node name="KLINGSTORP" type="Node3D" unique_id=1946501362]
 

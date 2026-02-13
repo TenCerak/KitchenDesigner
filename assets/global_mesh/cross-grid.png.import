@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4ahvsl68ihps"
-path.s3tc="res://.godot/imported/H1181 ST37 Dub Halifax tabákový.png-0982ab0794b3850a1c753bb3772d1c70.s3tc.ctex"
-path.etc2="res://.godot/imported/H1181 ST37 Dub Halifax tabákový.png-0982ab0794b3850a1c753bb3772d1c70.etc2.ctex"
+uid="uid://d0or78w3b0xev"
+path.s3tc="res://.godot/imported/cross-grid.png-98c2540dd171b3400f4129e3477d77ae.s3tc.ctex"
+path.etc2="res://.godot/imported/cross-grid.png-98c2540dd171b3400f4129e3477d77ae.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/materials/kitchen/H1181 ST37 Dub Halifax tabákový.png"
-dest_files=["res://.godot/imported/H1181 ST37 Dub Halifax tabákový.png-0982ab0794b3850a1c753bb3772d1c70.s3tc.ctex", "res://.godot/imported/H1181 ST37 Dub Halifax tabákový.png-0982ab0794b3850a1c753bb3772d1c70.etc2.ctex"]
+source_file="res://assets/global_mesh/cross-grid.png"
+dest_files=["res://.godot/imported/cross-grid.png-98c2540dd171b3400f4129e3477d77ae.s3tc.ctex", "res://.godot/imported/cross-grid.png-98c2540dd171b3400f4129e3477d77ae.etc2.ctex"]
 
 [params]
 
@@ -38,5 +38,5 @@ process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
-process/size_limit=4096
+process/size_limit=0
 detect_3d/compress_to=0

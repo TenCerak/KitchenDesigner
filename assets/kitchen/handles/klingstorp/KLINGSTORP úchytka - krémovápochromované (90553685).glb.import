@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://my20ps6etx1x"
-path="res://.godot/imported/KLINGSTORP úchytka - krémovápochromované (90553685).glb-90546d1d9d84c49e3c47ef58de155b6d.scn"
+path="res://.godot/imported/KLINGSTORP úchytka - krémovápochromované (90553685).glb-eb12ffeb03bd56c1bd6b9a221591ad24.scn"
 
 [deps]
 
-source_file="res://assets/materials/kitchen/handles/KLINGSTORP úchytka - krémovápochromované (90553685).glb"
-dest_files=["res://.godot/imported/KLINGSTORP úchytka - krémovápochromované (90553685).glb-90546d1d9d84c49e3c47ef58de155b6d.scn"]
+source_file="res://assets/kitchen/handles/klingstorp/KLINGSTORP úchytka - krémovápochromované (90553685).glb"
+dest_files=["res://.godot/imported/KLINGSTORP úchytka - krémovápochromované (90553685).glb-eb12ffeb03bd56c1bd6b9a221591ad24.scn"]
 
 [params]
 

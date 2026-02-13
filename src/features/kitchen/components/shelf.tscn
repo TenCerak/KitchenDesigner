@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://dequbvjdolyxb"]
+[gd_scene format=3 uid="uid://dequbvjdolyxb"]
 
-[ext_resource type="Material" uid="uid://djlru0p6iv3nm" path="res://assets/materials/kitchen/H1181_ST37_Dub_Halifax_tabakovy.tres" id="1_i33fc"]
+[ext_resource type="Material" uid="uid://djlru0p6iv3nm" path="res://assets/kitchen/H1181_ST37_Dub_Halifax_tabakovy.tres" id="1_i33fc"]
 [ext_resource type="Script" uid="uid://ctpc0a1sth30q" path="res://src/features/kitchen/components/ShelfController.cs" id="1_rwlcw"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_rwlcw"]
