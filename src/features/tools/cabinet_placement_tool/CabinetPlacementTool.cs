@@ -206,7 +206,7 @@ namespace KitchenDesigner.Features.Kitchen.Tools
                 {
                     if (area is not SnapPoint targetPoint) continue;
                     if (targetPoint.IsGhost) continue;
-                    if (targetPoint.ParentCabinet == ghostPoint.ParentCabinet) continue;
+                    if (targetPoint.ParentObject == ghostPoint.ParentObject) continue;
                     if (IsSnapCompatible(ghostPoint.Type, targetPoint.Type) == false) continue;
 
                     float d = ghostPoint.GlobalPosition.DistanceSquaredTo(targetPoint.GlobalPosition);
@@ -284,7 +284,6 @@ namespace KitchenDesigner.Features.Kitchen.Tools
             if (ghostType == SnapType.Right && targetType == SnapType.Left) return true;
             if (ghostType == SnapType.Bottom && targetType == SnapType.Top) return true;
             if (ghostType == SnapType.Top && targetType == SnapType.Bottom) return true;
-            if ((ghostType == SnapType.Left || ghostType == SnapType.Right) && targetType == SnapType.CornerFront) return true;
 
             return false;
         }

@@ -9,7 +9,7 @@ using System.Text;
 
 namespace KitchenDesigner.Features.Kitchen.Components
 {
-    public abstract partial class CabinetBase : Node3D, IInteractable, IKitchenComponent, IMaterialTarget
+    public abstract partial class CabinetBase : Node3D, IInteractable, IKitchenComponent, IMaterialTarget, ISnappable
     {
         [ExportGroup("Data")]
         [Export] public CabinetData Data;
@@ -139,7 +139,7 @@ namespace KitchenDesigner.Features.Kitchen.Components
             instance.Position = localPos;
             instance.RotationDegrees = rotation;
             instance.Type = type;
-             instance.ParentCabinet = this;
+             instance.ParentObject = this;
 
             ActiveSnapPoints.Add(instance);
             return instance;

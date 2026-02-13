@@ -1,4 +1,5 @@
 using Godot;
+using KitchenDesigner.Features.Kitchen.Interfaces;
 
 namespace KitchenDesigner.Features.Kitchen.Components
 {
@@ -10,18 +11,13 @@ namespace KitchenDesigner.Features.Kitchen.Components
         Front,
         Top,
         Bottom,
-        CornerFront
     }
 
     public partial class SnapPoint : Area3D
     {
         [Export] public SnapType Type;
-        public CabinetBase ParentCabinet { get; set; }
+        public ISnappable ParentObject { get; set; }
         public bool IsGhost { get; set; } = false;
         private CollisionShape3D _colShape;
-        public override void _Ready()
-        {
-            base._Ready();
-        }
     }
 }
