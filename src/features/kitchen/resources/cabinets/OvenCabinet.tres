@@ -1,0 +1,17 @@
+[gd_resource type="Resource" format=3 uid="uid://c8obc7gsgyfat"]
+
+[ext_resource type="Script" uid="uid://dxlklc7mnthdo" path="res://src/features/kitchen/data/CabinetData.cs" id="1_ctv7s"]
+[ext_resource type="PackedScene" uid="uid://dlagtcxe0brl1" path="res://src/features/kitchen/components/cabinet_oven.tscn" id="2_whs5m"]
+[ext_resource type="Script" uid="uid://dnbhptx5uhuxm" path="res://src/features/kitchen/resources/CabinetDefinition.cs" id="3_qe6rw"]
+
+[sub_resource type="Resource" id="Resource_eigpr"]
+script = ExtResource("1_ctv7s")
+ShelfCount = 0
+metadata/_custom_type_script = "uid://dxlklc7mnthdo"
+
+[resource]
+resource_name = "Skříňka pro troubu"
+script = ExtResource("3_qe6rw")
+DefaultData = SubResource("Resource_eigpr")
+Name = "Skříňka pro troubu"
+Prefab = ExtResource("2_whs5m")

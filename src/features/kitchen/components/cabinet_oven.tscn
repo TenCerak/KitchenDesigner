@@ -1,0 +1,143 @@
+[gd_scene format=3 uid="uid://dlagtcxe0brl1"]
+
+[ext_resource type="Script" uid="uid://dxlklc7mnthdo" path="res://src/features/kitchen/data/CabinetData.cs" id="2_2y70u"]
+[ext_resource type="Script" uid="uid://cfb0au828oc4i" path="res://src/features/kitchen/components/ApplianceSlot.cs" id="2_86vwb"]
+[ext_resource type="Material" uid="uid://bgtl1ntahy4di" path="res://assets/kitchen/F095_ST87_Mramor_Siena_sedy.tres" id="2_k6fon"]
+[ext_resource type="Script" uid="uid://jp8oho2vum88" path="res://src/features/kitchen/components/CabinetOven.cs" id="2_lxfc0"]
+[ext_resource type="Material" uid="uid://djlru0p6iv3nm" path="res://assets/kitchen/H1181_ST37_Dub_Halifax_tabakovy.tres" id="3_lxfc0"]
+[ext_resource type="PackedScene" uid="uid://d1udh4whwmg3m" path="res://src/features/kitchen/components/CabinetDoor.tscn" id="4_2y70u"]
+[ext_resource type="PackedScene" uid="uid://7fwdioqk25um" path="res://src/features/kitchen/components/snap_point.tscn" id="6_lxfc0"]
+
+[sub_resource type="Resource" id="Resource_8ch2b"]
+script = ExtResource("2_2y70u")
+ShelfCount = 0
+metadata/_custom_type_script = "uid://dxlklc7mnthdo"
+
+[sub_resource type="BoxMesh" id="BoxMesh_8ch2b"]
+material = ExtResource("2_k6fon")
+size = Vector3(0.6, 0.04, 0.64)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8o7ls"]
+material = ExtResource("3_lxfc0")
+size = Vector3(0.6, 0.018, 0.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ync2x"]
+material = ExtResource("3_lxfc0")
+size = Vector3(0.018, 0.74, 0.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wgd08"]
+material = ExtResource("3_lxfc0")
+size = Vector3(0.018, 0.74, 0.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_eopxv"]
+material = ExtResource("3_lxfc0")
+size = Vector3(0.6, 0.018, 0.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_boixw"]
+material = ExtResource("3_lxfc0")
+size = Vector3(0.6, 0.74, 0.018)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vawod"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lpbsj"]
+shading_mode = 0
+albedo_color = Color(0.7676564, 0.4009214, 0.10006667, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_57iyu"]
+material = SubResource("StandardMaterial3D_lpbsj")
+
+[node name="Cabinet_Oven" type="Node3D" unique_id=1811511594 node_paths=PackedStringArray("LeftPanel", "RightPanel", "TopPanel", "BottomPanel", "BackPanel", "WorktopMesh", "OvenSlot", "StaticBody", "ColLeft", "ColRight", "ColBottom", "ColTop", "ColBack", "SnapPointsContainer", "DoorsContainer", "VisualsRoot", "OrientationArrow")]
+script = ExtResource("2_lxfc0")
+LeftPanel = NodePath("Visuals/LeftPanel")
+RightPanel = NodePath("Visuals/RightPanel")
+TopPanel = NodePath("Visuals/TopPanel")
+BottomPanel = NodePath("Visuals/BottomPanel")
+BackPanel = NodePath("Visuals/BackPanel")
+WorktopMesh = NodePath("Visuals/Worktop")
+OvenSlot = NodePath("Visuals/OvenSlot")
+StaticBody = NodePath("StaticBody3D")
+ColLeft = NodePath("StaticBody3D/Col_Left")
+ColRight = NodePath("StaticBody3D/Col_Right")
+ColBottom = NodePath("StaticBody3D/Col_Bottom")
+ColTop = NodePath("StaticBody3D/Col_Top")
+ColBack = NodePath("StaticBody3D/Col_Back")
+Data = SubResource("Resource_8ch2b")
+SnapPointsContainer = NodePath("SnapPoints")
+SnapPointScene = ExtResource("6_lxfc0")
+DoorsContainer = NodePath("DoorsContainer")
+DoorPrefab = ExtResource("4_2y70u")
+VisualsRoot = NodePath("Visuals")
+OrientationArrow = NodePath("OrientationArrow")
+CabinetMaterial = ExtResource("3_lxfc0")
+
+[node name="Visuals" type="Node3D" parent="." unique_id=263903778]
+
+[node name="Worktop" type="MeshInstance3D" parent="Visuals" unique_id=820866812]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.769, 0.019539222)
+mesh = SubResource("BoxMesh_8ch2b")
+surface_material_override/0 = ExtResource("2_k6fon")
+
+[node name="TopPanel" type="MeshInstance3D" parent="Visuals" unique_id=1381453698]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.74, 0)
+mesh = SubResource("BoxMesh_8o7ls")
+skeleton = NodePath("../LeftPanel")
+
+[node name="LeftPanel" type="MeshInstance3D" parent="Visuals" unique_id=1385337420]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.291, 0.375, 0)
+mesh = SubResource("BoxMesh_ync2x")
+
+[node name="RightPanel" type="MeshInstance3D" parent="Visuals" unique_id=1012699114]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.291, 0.375, 0)
+mesh = SubResource("BoxMesh_wgd08")
+skeleton = NodePath("../LeftPanel")
+
+[node name="BottomPanel" type="MeshInstance3D" parent="Visuals" unique_id=1494368998]
+mesh = SubResource("BoxMesh_eopxv")
+skeleton = NodePath("../LeftPanel")
+
+[node name="BackPanel" type="MeshInstance3D" parent="Visuals" unique_id=1918285086]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.365, -0.29168522)
+mesh = SubResource("BoxMesh_boixw")
+skeleton = NodePath("../LeftPanel")
+
+[node name="ShelvesContainer" type="Node3D" parent="Visuals" unique_id=94092235]
+visible = false
+
+[node name="OvenSlot" type="Marker3D" parent="Visuals" unique_id=454894267 node_paths=PackedStringArray("SnapPoint")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0.3)
+script = ExtResource("2_86vwb")
+SnapPoint = NodePath("SnapPoint")
+
+[node name="SnapPoint" parent="Visuals/OvenSlot" unique_id=1157341234 instance=ExtResource("6_lxfc0")]
+Type = 6
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1930627413]
+visible = false
+collision_layer = 2049
+
+[node name="Col_Top" type="CollisionShape3D" parent="StaticBody3D" unique_id=1175683926]
+shape = SubResource("BoxShape3D_vawod")
+
+[node name="Col_Left" type="CollisionShape3D" parent="StaticBody3D" unique_id=1294239064]
+shape = SubResource("BoxShape3D_vawod")
+
+[node name="Col_Right" type="CollisionShape3D" parent="StaticBody3D" unique_id=1581843379]
+shape = SubResource("BoxShape3D_vawod")
+
+[node name="Col_Bottom" type="CollisionShape3D" parent="StaticBody3D" unique_id=388375718]
+shape = SubResource("BoxShape3D_vawod")
+
+[node name="Col_Back" type="CollisionShape3D" parent="StaticBody3D" unique_id=1329750843]
+shape = SubResource("BoxShape3D_vawod")
+
+[node name="DoorsContainer" type="Node3D" parent="." unique_id=823867595]
+
+[node name="SnapPoints" type="Node3D" parent="." unique_id=1781990198]
+
+[node name="OrientationArrow" type="Node3D" parent="." unique_id=1658542590]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0.6)
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="OrientationArrow" unique_id=1488029660]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.05, 0, 0, 0)
+mesh = SubResource("PrismMesh_57iyu")

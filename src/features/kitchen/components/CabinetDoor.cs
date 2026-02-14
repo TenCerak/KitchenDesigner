@@ -4,6 +4,12 @@ using System.Threading.Tasks;
 
 namespace KitchenDesigner.Features.Kitchen.Components
 {
+    public enum HandlePosition
+    {
+        Top,
+        Middle,
+        Bottom
+    }
     public partial class CabinetDoor : Node3D, IInteractable, IHandleContainer
     {
         [Export] public MeshInstance3D PanelMesh;
@@ -20,12 +26,19 @@ namespace KitchenDesigner.Features.Kitchen.Components
         private Tween _tween;
 
 
+
+
         public void Setup(float width, float height, float thickness, bool isGlass, bool isRightDoor)
         {
-            Setup(width, height, thickness, isGlass, isRightDoor, 90);
+            Setup(width, height, thickness, isGlass, isRightDoor, 90, HandlePosition.Top);
         }
 
         public void Setup(float width, float height, float thickness, bool isGlass, bool isRightDoor, float maxOpenAgle)
+        {
+            Setup(width, height, thickness, isGlass, isRightDoor, maxOpenAgle, HandlePosition.Top);
+        }
+
+        public void Setup(float width, float height, float thickness, bool isGlass, bool isRightDoor, float maxOpenAgle, HandlePosition handlePosition)
         {
             BoxMesh newMesh = new BoxMesh();
             newMesh.Size = new Vector3(width, height, thickness);
@@ -50,6 +63,20 @@ namespace KitchenDesigner.Features.Kitchen.Components
                 float handleX = width - 0.05f;
                 float handleY = height - 0.10f;
                 float handleZ = thickness;
+
+                switch (handlePosition)
+                {
+                    case HandlePosition.Top:
+                        break;
+                    case HandlePosition.Middle:
+                            handleY = height / 2.0f;
+                        break;
+                    case HandlePosition.Bottom:
+                            handleY = 0.10f;
+                        break;
+                    default:
+                        break;
+                }
 
                 if (isRightDoor)
                 {

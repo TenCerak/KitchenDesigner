@@ -12,6 +12,6 @@ metadata/_custom_type_script = "uid://dxlklc7mnthdo"
 
 [resource]
 script = ExtResource("1_pi40b")
+DefaultData = SubResource("Resource_rqpoh")
 Name = "Klasická skříňka"
 Prefab = ExtResource("2_orkag")
-DefaultData = SubResource("Resource_rqpoh")

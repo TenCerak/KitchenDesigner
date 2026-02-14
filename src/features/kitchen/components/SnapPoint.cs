@@ -11,6 +11,7 @@ namespace KitchenDesigner.Features.Kitchen.Components
         Front,
         Top,
         Bottom,
+        ApplianceMount
     }
 
     public partial class SnapPoint : Area3D

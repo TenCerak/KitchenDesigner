@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://x30fasujinxy"]
+
+[ext_resource type="PackedScene" uid="uid://cqdenq86v1svr" path="res://assets/kitchen/appliance/oven/matalskare/MATÄLSKARE Horkovzdušná trouba - barva nerezavějící oceli (40368765).glb" id="1_ik7lg"]
+[ext_resource type="Script" uid="uid://cumx5d4kq1bxt" path="res://src/features/kitchen/components/ApplianceBase.cs" id="1_mxksi"]
+[ext_resource type="PackedScene" uid="uid://7fwdioqk25um" path="res://src/features/kitchen/components/snap_point.tscn" id="3_o3wcw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mxksi"]
+size = Vector3(0.6, 0.6, 0.55)
+
+[node name="OvenMetalskare" type="Node3D" unique_id=1648008421 node_paths=PackedStringArray("SnapPointsContainer")]
+script = ExtResource("1_mxksi")
+SnapPointsContainer = NodePath("SnapPoints")
+
+[node name="MATÄLSKARE Horkovzdušná trouba - barva nerezavějící oceli (40368765)" parent="." unique_id=1146810780 instance=ExtResource("1_ik7lg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, -0.24)
+
+[node name="SnapPoints" type="Node3D" parent="." unique_id=31272200]
+
+[node name="SnapPoint" parent="SnapPoints" unique_id=1157341234 instance=ExtResource("3_o3wcw")]
+Type = 6
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=273479803]
+collision_layer = 2049
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=2127094350]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.25656262)
+shape = SubResource("BoxShape3D_mxksi")

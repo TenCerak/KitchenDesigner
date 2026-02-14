@@ -15,17 +15,16 @@ public partial class ApplianceBase : Node3D, ISnappable, IKitchenComponent
 
     public Node3D RootNode => this;
 
-    public override void _Ready()
+    public override async void _Ready()
     {
         CollectSnapPoints();
     }
-
 
     private void CollectSnapPoints()
     {
         ActiveSnapPoints.Clear();
 
-        if (SnapPointsContainer == null) return;
+        if (SnapPointsContainer is null) return;
 
         foreach (Node child in SnapPointsContainer.GetChildren())
         {

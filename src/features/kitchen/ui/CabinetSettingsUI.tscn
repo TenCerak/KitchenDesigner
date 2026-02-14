@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://b2f7ky76g4d8e" path="res://src/features/kitchen/components/Cabinet.tscn" id="8_1ld6v"]
 [ext_resource type="Resource" uid="uid://ckfwgaj30sjae" path="res://src/features/kitchen/resources/appliance/fridge/fridge_lagan.tres" id="9_hfugd"]
 [ext_resource type="Resource" uid="uid://chsg8i644hsuj" path="res://src/features/kitchen/resources/appliance/fridge/fridge_alingsas.tres" id="10_f2v0h"]
+[ext_resource type="Resource" uid="uid://c8obc7gsgyfat" path="res://src/features/kitchen/resources/cabinets/OvenCabinet.tres" id="11_f2v0h"]
+[ext_resource type="Resource" uid="uid://b1x0gv7j1iuqt" path="res://src/features/kitchen/resources/appliance/oven/oven_metalskare.tres" id="12_cws86"]
 
 [sub_resource type="Resource" id="Resource_hfugd"]
 resource_local_to_scene = true
@@ -439,7 +441,7 @@ custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 script = ExtResource("2_t3ox8")
 Container = NodePath("ScrollContainer/GridContainer")
-AvailableItems = Array[Resource]([ExtResource("3_7u56l"), ExtResource("4_mioof"), SubResource("Resource_f2v0h"), SubResource("Resource_cws86"), SubResource("Resource_rwfh7"), SubResource("Resource_fmbjl"), ExtResource("9_hfugd"), ExtResource("10_f2v0h")])
+AvailableItems = Array[Resource]([ExtResource("3_7u56l"), ExtResource("4_mioof"), SubResource("Resource_f2v0h"), SubResource("Resource_cws86"), SubResource("Resource_rwfh7"), SubResource("Resource_fmbjl"), ExtResource("9_hfugd"), ExtResource("10_f2v0h"), ExtResource("11_f2v0h"), ExtResource("12_cws86")])
 
 [node name="Label" type="Label" parent="GridContainer/HBoxContainer/VBoxContainer2" unique_id=113338999]
 layout_mode = 2

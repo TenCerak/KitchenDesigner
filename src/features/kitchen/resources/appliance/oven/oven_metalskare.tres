@@ -1,0 +1,9 @@
+[gd_resource type="Resource" format=3 uid="uid://b1x0gv7j1iuqt"]
+
+[ext_resource type="PackedScene" uid="uid://x30fasujinxy" path="res://assets/kitchen/appliance/oven/matalskare/oven_metalskare.tscn" id="1_1v85l"]
+[ext_resource type="Script" uid="uid://bfoo8vjjbsaf0" path="res://src/features/kitchen/resources/KitchenComponentDefinition.cs" id="2_lhepx"]
+
+[resource]
+script = ExtResource("2_lhepx")
+Name = "trouba metalskare"
+Prefab = ExtResource("1_1v85l")
