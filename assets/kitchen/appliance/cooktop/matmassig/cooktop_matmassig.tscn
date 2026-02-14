@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dd3g0hu8k75ji"]
+
+[ext_resource type="Script" uid="uid://cumx5d4kq1bxt" path="res://src/features/kitchen/components/ApplianceBase.cs" id="1_r1hpk"]
+[ext_resource type="PackedScene" uid="uid://caswh5dm60i6e" path="res://assets/kitchen/appliance/cooktop/matmassig/MATMÄSSIG indukční varná deska - IKEA 300 černá (10467093).glb" id="2_y4rab"]
+[ext_resource type="PackedScene" uid="uid://7fwdioqk25um" path="res://src/features/kitchen/components/snap_point.tscn" id="3_4amvb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p65j5"]
+size = Vector3(0.56, 0.05, 0.52)
+
+[node name="CooktopMatmassig" type="Node3D" unique_id=332809373 node_paths=PackedStringArray("SnapPointsContainer")]
+script = ExtResource("1_r1hpk")
+SnapPointsContainer = NodePath("SnapPoints")
+
+[node name="MATMÄSSIG indukční varná deska - IKEA 300 černá (10467093)" parent="." unique_id=1843475814 instance=ExtResource("2_y4rab")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MATMÄSSIG indukční varná deska - IKEA 300 černá (10467093)" unique_id=453953839]
+collision_layer = 2049
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MATMÄSSIG indukční varná deska - IKEA 300 černá (10467093)/StaticBody3D" unique_id=1473626039]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.043220893, 0)
+shape = SubResource("BoxShape3D_p65j5")
+
+[node name="SnapPoints" type="Node3D" parent="." unique_id=1567128818]
+
+[node name="SnapPoint" parent="SnapPoints" unique_id=1157341234 instance=ExtResource("3_4amvb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05838667, 0)
+Type = 6

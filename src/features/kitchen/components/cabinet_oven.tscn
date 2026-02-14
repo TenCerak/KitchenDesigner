@@ -131,6 +131,7 @@ shape = SubResource("BoxShape3D_vawod")
 shape = SubResource("BoxShape3D_vawod")
 
 [node name="DoorsContainer" type="Node3D" parent="." unique_id=823867595]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0.3, 0, 0.3)
 
 [node name="SnapPoints" type="Node3D" parent="." unique_id=1781990198]
 

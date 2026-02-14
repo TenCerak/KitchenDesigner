@@ -216,6 +216,11 @@ namespace KitchenDesigner.Features.Kitchen.Components
             CreateSnapPoint(SnapType.Top, new Vector3(0, h, centerZ), Vector3.Zero);
 
             CreateSnapPoint(SnapType.Bottom, new Vector3(0, 0, centerZ), Vector3.Zero);
+
+            if (Data.HasWorktop)
+            {
+                CreateSnapPoint(SnapType.ApplianceMount, new(0, h + Data.WorktopThickness, Data.Depth/2f), Vector3.Zero);
+            }
         }
 
         protected override void UpdateMaterials()

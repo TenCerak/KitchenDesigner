@@ -12,6 +12,7 @@
 [ext_resource type="Resource" uid="uid://chsg8i644hsuj" path="res://src/features/kitchen/resources/appliance/fridge/fridge_alingsas.tres" id="10_f2v0h"]
 [ext_resource type="Resource" uid="uid://c8obc7gsgyfat" path="res://src/features/kitchen/resources/cabinets/OvenCabinet.tres" id="11_f2v0h"]
 [ext_resource type="Resource" uid="uid://b1x0gv7j1iuqt" path="res://src/features/kitchen/resources/appliance/oven/oven_metalskare.tres" id="12_cws86"]
+[ext_resource type="Resource" uid="uid://vrq2kwvpdsxc" path="res://src/features/kitchen/resources/appliance/cooktop/cooktop_matmassig.tres" id="13_0lqhh"]
 
 [sub_resource type="Resource" id="Resource_hfugd"]
 resource_local_to_scene = true
@@ -147,18 +148,20 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -125.5
-offset_top = -127.0
-offset_right = 125.5
-offset_bottom = 127.0
+offset_left = -543.0
+offset_top = -275.0
+offset_right = 543.0
+offset_bottom = 275.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="GridContainer" unique_id=741233122]
 layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GridContainer/HBoxContainer" unique_id=918596111]
 layout_mode = 2
+size_flags_horizontal = 0
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="GridContainer/HBoxContainer/VBoxContainer" unique_id=613065315]
 layout_mode = 2
@@ -437,11 +440,11 @@ size_flags_horizontal = 0
 text = "0cm"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="GridContainer/HBoxContainer" unique_id=2138686844 node_paths=PackedStringArray("Container")]
-custom_minimum_size = Vector2(400, 400)
+custom_minimum_size = Vector2(600, 600)
 layout_mode = 2
 script = ExtResource("2_t3ox8")
 Container = NodePath("ScrollContainer/GridContainer")
-AvailableItems = Array[Resource]([ExtResource("3_7u56l"), ExtResource("4_mioof"), SubResource("Resource_f2v0h"), SubResource("Resource_cws86"), SubResource("Resource_rwfh7"), SubResource("Resource_fmbjl"), ExtResource("9_hfugd"), ExtResource("10_f2v0h"), ExtResource("11_f2v0h"), ExtResource("12_cws86")])
+AvailableItems = Array[Resource]([ExtResource("3_7u56l"), ExtResource("4_mioof"), SubResource("Resource_f2v0h"), SubResource("Resource_cws86"), SubResource("Resource_rwfh7"), SubResource("Resource_fmbjl"), ExtResource("9_hfugd"), ExtResource("10_f2v0h"), ExtResource("11_f2v0h"), ExtResource("12_cws86"), ExtResource("13_0lqhh")])
 
 [node name="Label" type="Label" parent="GridContainer/HBoxContainer/VBoxContainer2" unique_id=113338999]
 layout_mode = 2
@@ -458,4 +461,4 @@ horizontal_scroll_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-columns = 2
+columns = 3
