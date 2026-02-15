@@ -1,0 +1,9 @@
+[gd_resource type="Resource" format=3 uid="uid://dad88o7pwgh3s"]
+
+[ext_resource type="PackedScene" uid="uid://ced5wiytde1fa" path="res://assets/kitchen/appliance/sink/fyndig/sink_fyndig.tscn" id="1_kctuv"]
+[ext_resource type="Script" uid="uid://bfoo8vjjbsaf0" path="res://src/features/kitchen/resources/KitchenComponentDefinition.cs" id="2_i73ue"]
+
+[resource]
+script = ExtResource("2_i73ue")
+Name = "Dřez"
+Prefab = ExtResource("1_kctuv")

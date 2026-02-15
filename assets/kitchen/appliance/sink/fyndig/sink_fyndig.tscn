@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://ced5wiytde1fa"]
+
+[ext_resource type="Script" uid="uid://cumx5d4kq1bxt" path="res://src/features/kitchen/components/ApplianceBase.cs" id="1_elwyc"]
+[ext_resource type="PackedScene" uid="uid://6ltwptqlcck0" path="res://assets/kitchen/appliance/sink/fyndig/FYNDIG Dřez s odkapávačem - nerezavějící ocel (50202133).glb" id="2_crv11"]
+[ext_resource type="PackedScene" uid="uid://7fwdioqk25um" path="res://src/features/kitchen/components/snap_point.tscn" id="3_ya1s4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sulhn"]
+size = Vector3(0.6954321, 0.02, 0.4967578)
+
+[node name="SinkFyndig" type="Node3D" unique_id=1813609 node_paths=PackedStringArray("SnapPointsContainer")]
+script = ExtResource("1_elwyc")
+SnapPointsContainer = NodePath("SnapPoints")
+
+[node name="FYNDIG Dřez s odkapávačem - nerezavějící ocel (50202133)" parent="." unique_id=273050703 instance=ExtResource("2_crv11")]
+
+[node name="SnapPoints" type="Node3D" parent="." unique_id=641123852]
+
+[node name="SnapPoint" parent="SnapPoints" unique_id=1157341234 instance=ExtResource("3_ya1s4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04190296, 0.15164906, 0)
+Type = 6
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1545051423]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1903020182]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.002015382, 0.15041584, -0.0006445348)
+shape = SubResource("BoxShape3D_sulhn")
