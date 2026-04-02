@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ci7o7dqyivfpw" path="res://src/ui/ArUi.cs" id="1_of56m"]
 
-[node name="ArUi" type="Control" unique_id=562170346 node_paths=PackedStringArray("SceneCaptureRequestButton", "DisplaySceneAnchorsButton", "DisplaySpatialAnchorsButton")]
+[node name="ArUi" type="Control" unique_id=562170346 node_paths=PackedStringArray("SceneCaptureRequestButton", "DisplaySceneAnchorsButton", "DisplaySpatialAnchorsButton", "ExportSceneButton")]
 layout_mode = 3
 anchor_right = 1.1110001
 anchor_bottom = 1.1110001
@@ -14,6 +14,7 @@ script = ExtResource("1_of56m")
 SceneCaptureRequestButton = NodePath("HBoxContainer/Button")
 DisplaySceneAnchorsButton = NodePath("HBoxContainer/SceneAnchors")
 DisplaySpatialAnchorsButton = NodePath("HBoxContainer/SpatialAnchors")
+ExportSceneButton = NodePath("HBoxContainer/ExportButton")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=943088708]
 layout_mode = 1
@@ -28,6 +29,10 @@ offset_right = 4.0
 offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="ExportButton" type="Button" parent="HBoxContainer" unique_id=1069577507]
+layout_mode = 2
+text = "Export 3D Model"
 
 [node name="Button" type="Button" parent="HBoxContainer" unique_id=1362065088]
 custom_minimum_size = Vector2(100, 100)
