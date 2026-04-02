@@ -1,7 +1,10 @@
 using Godot;
 using KitchenDesigner;
 using KitchenDesigner.Common.Interfaces;
+using KitchenDesigner.Features.Kitchen.Interfaces;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public partial class ArUi : Control, IMenuPage
 {
@@ -9,6 +12,7 @@ public partial class ArUi : Control, IMenuPage
     [Export] public Button SceneCaptureRequestButton { get; set; }
     [Export] public Button DisplaySceneAnchorsButton { get; set; }
     [Export] public Button DisplaySpatialAnchorsButton { get; set; }
+    [Export] public Button ExportSceneButton { get; set; }
 
     public string TabName => "AR Menu";
 
@@ -41,7 +45,16 @@ public partial class ArUi : Control, IMenuPage
                 DesignerEvents.Instance.EmitSignal(DesignerEvents.SignalName.ShowSpatialAnchors, t);
             };
         }
+        if (ExportSceneButton is not null)
+        {
+            ExportSceneButton.Pressed += () =>
+            {                
+                KitchenExporter.ExportScene(global.currentScene);
+            };
+        }
     }
+
+
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
